@@ -21,12 +21,12 @@ My research mainly explores the intersection of privacy, blockchain, and IoT:
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="40" alt="Java" title="Java" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" width="40" alt="Kotlin" title="Kotlin" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" width="40" alt="Swift" title="Swift" />
-
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" alt="React Native" title="React Native" />
   <!-- Web & Mobile -->
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" alt="HTML5" title="HTML5" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" alt="CSS3" title="CSS3" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" alt="React" title="React" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" alt="React Native" title="React Native" />
+  
 
   <!-- Databases -->
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="40" alt="PostgreSQL" title="PostgreSQL" />
@@ -41,6 +41,11 @@ My research mainly explores the intersection of privacy, blockchain, and IoT:
   <!-- Cloud Providers -->
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="40" alt="AWS" title="AWS" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="40" alt="Azure" title="Azure" />
+  <!-- LINE API -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/LINE_logo.svg" width="40" alt="LINE API" title="LINE API" />
+
+  <!-- SwitchBot -->
+  <img src="https://switch-bot.com/images/switchbot_logo.svg" width="40" alt="SwitchBot" title="SwitchBot" />
 </p>
 
 ---
