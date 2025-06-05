@@ -41,11 +41,7 @@ My research mainly explores the intersection of privacy, blockchain, and IoT:
   <!-- Cloud Providers -->
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="40" alt="AWS" title="AWS" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="40" alt="Azure" title="Azure" />
-  <!-- LINE API -->
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/LINE_logo.svg" width="40" alt="LINE API" title="LINE API" />
-
-  <!-- SwitchBot -->
-  <img src="https://switch-bot.com/images/switchbot_logo.svg" width="40" alt="SwitchBot" title="SwitchBot" />
+  
 </p>
 
 ---
