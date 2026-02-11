@@ -35,13 +35,12 @@ I leverage a diverse set of tools to build end-to-end secure systems, from low-l
 🔐 Security & Blockchain (Core Research)
 
 <div align="left">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Rust-000000%3Fstyle%3Dfor-the-badge%26logo%3Drust%26logoColor%3Dwhite" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Go-00ADD8%3Fstyle%3Dfor-the-badge%26logo%3Dgo%26logoColor%3Dwhite" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Python-3776AB%3Fstyle%3Dfor-the-badge%26logo%3Dpython%26logoColor%3Dwhite" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/C%2B%2B-00599C%3Fstyle%3Dfor-the-badge%26logo%3Dc%252B%252B%26logoColor%3Dwhite" />
-<!-- Custom Badge for ZKP Tools -->
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Circom-FF4500%3Fstyle%3Dfor-the-badge%26logo%3Dcircuit%26logoColor%3Dwhite" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Solidity-363636%3Fstyle%3Dfor-the-badge%26logo%3Dsolidity%26logoColor%3Dwhite" />
+<img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white"/>
+<img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white"/>
+<img src="https://img.shields.io/badge/Circom-FF4500?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white"/>
 </div>
 
 🌐 Web & Mobile Development
