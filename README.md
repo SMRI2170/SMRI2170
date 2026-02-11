@@ -1,62 +1,85 @@
-#  SMRI2170
+Hi there, I'm SMRI2170! 👋
 
-##  Research Focus
-I'm an undergraduate student in the **Security and Network Course** at **Ritsumeikan University, College of Information Science and Engineering**.  
-My research mainly explores the intersection of privacy, blockchain, and IoT:
+<div align="center">
 
-- 🚁 **Zero-Knowledge Proof (ZKP) × IoT × Drone**  
-  Developing a system to **prove that a drone was *not* above a person at a certain time and location**  
-  — without revealing private information.
+Security & Network Researcher | Blockchain Developer | IoT Enthusiast
 
-- 🔐 Optimizing ZKP protocols using **LiteZKP**, **Circom**, and **snarkjs**
-- 📡 Integration with **ESP32**, **Jetson**, and **blockchain smart contracts**
+Student at Ritsumeikan University, College of Information Science and Engineering.
 
----
+Focusing on the intersection of Privacy, Blockchain, and Embedded Systems.
 
-##  Languages and Tools
-<p align="left">
-  <!-- Programming Languages -->
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="40" alt="Python" title="Python" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" alt="JavaScript" title="JavaScript" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="40" alt="Java" title="Java" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" width="40" alt="Kotlin" title="Kotlin" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" width="40" alt="Swift" title="Swift" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" width="40" alt="Go" title="Go" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" width="40" alt="Rust" title="Rust" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" alt="React Native" title="React Native" />
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="40" alt="C++" title="C++" />
+Email Me • LinkedIn • Portfolio
 
+</div>
 
-  <!-- Web & Mobile -->
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" alt="HTML5" title="HTML5" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" alt="CSS3" title="CSS3" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" alt="React" title="React" />
-  
+🚀 Current Research & Focus
 
-  <!-- Databases -->
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="40" alt="PostgreSQL" title="PostgreSQL" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="40" alt="MySQL" title="MySQL" />
+My primary research addresses privacy challenges in the drone economy using cryptographic primitives. I am building systems that bridge the physical world (IoT) and digital trust (Blockchain).
 
-  <!-- DevOps & Cloud -->
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="40" alt="Node.js" title="Node.js" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="40" alt="Docker" title="Docker" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40" alt="Git" title="Git" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="40" alt="GitHub" title="GitHub" />
+🚁 Project: ZKP-based Drone Surveillance Privacy
 
-  <!-- Cloud Providers -->
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="40" alt="AWS" title="AWS" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="40" alt="Azure" title="Azure" />
-  
-</p>
+"Proving a drone was not above a person at a specific time/location without revealing its actual flight path."
 
----
+Core Tech: Zero-Knowledge Proofs (zk-SNARKs), Smart Contracts, IoT Telemetry.
 
-## 📈 GitHub Stats
-<p align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=SMRI2170&show_icons=true&theme=github_dark" height="160" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SMRI2170&layout=compact&theme=github_dark" height="160" />
-</p>
+Tools: LiteZKP, Circom, snarkjs.
 
----
+Hardware: Integration with ESP32 (autopilot telemetry) and NVIDIA Jetson (edge computing).
 
-## 🔗 Links
+Goal: Balancing public safety with individual privacy rights in the era of autonomous drones.
+
+🛠 Tech Stack
+
+I leverage a diverse set of tools to build end-to-end secure systems, from low-level embedded code to modern web interfaces.
+
+🔐 Security & Blockchain (Core Research)
+
+<div align="left">
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Rust-000000%3Fstyle%3Dfor-the-badge%26logo%3Drust%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Go-00ADD8%3Fstyle%3Dfor-the-badge%26logo%3Dgo%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Python-3776AB%3Fstyle%3Dfor-the-badge%26logo%3Dpython%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/C%2B%2B-00599C%3Fstyle%3Dfor-the-badge%26logo%3Dc%252B%252B%26logoColor%3Dwhite" />
+<!-- Custom Badge for ZKP Tools -->
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Circom-FF4500%3Fstyle%3Dfor-the-badge%26logo%3Dcircuit%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Solidity-363636%3Fstyle%3Dfor-the-badge%26logo%3Dsolidity%26logoColor%3Dwhite" />
+</div>
+
+🌐 Web & Mobile Development
+
+<div align="left">
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/TypeScript-007ACC%3Fstyle%3Dfor-the-badge%26logo%3Dtypescript%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/React-20232A%3Fstyle%3Dfor-the-badge%26logo%3Dreact%26logoColor%3D61DAFB" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Node.js-339933%3Fstyle%3Dfor-the-badge%26logo%3Dnodedotjs%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Kotlin-0095D5%3Fstyle%3Dfor-the-badge%26logo%3Dkotlin%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Swift-F05138%3Fstyle%3Dfor-the-badge%26logo%3Dswift%26logoColor%3Dwhite" />
+</div>
+
+☁️ Infrastructure & Databases
+
+<div align="left">
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Docker-2496ED%3Fstyle%3Dfor-the-badge%26logo%3Ddocker%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/AWS-232F3E%3Fstyle%3Dfor-the-badge%26logo%3Damazon-aws%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/PostgreSQL-316192%3Fstyle%3Dfor-the-badge%26logo%3Dpostgresql%26logoColor%3Dwhite" />
+<img src="https://www.google.com/search?q=https://img.shields.io/badge/Git-F05032%3Fstyle%3Dfor-the-badge%26logo%3Dgit%26logoColor%3Dwhite" />
+</div>
+
+📈 GitHub Statistics
+
+<div align="center">
+<img src="https://www.google.com/search?q=https://github-readme-stats.vercel.app/api%3Fusername%3DSMRI2170%26show_icons%3Dtrue%26theme%3Dtransparent%26hide_border%3Dtrue%26title_color%3D007ACC%26text_color%3D999" height="150" />
+<img src="https://www.google.com/search?q=https://github-readme-stats.vercel.app/api/top-langs/%3Fusername%3DSMRI2170%26layout%3Dcompact%26theme%3Dtransparent%26hide_border%3Dtrue%26title_color%3D007ACC%26text_color%3D999" height="150" />
+</div>
+
+📫 Let's Connect
+
+I am always open to discussing Zero-Knowledge Proofs, IoT Security, and Blockchain Engineering.
+
+🐦 Twitter/X: @YourHandle
+
+💼 LinkedIn: Your Profile
+
+📝 Qiita / Zenn: Your Blog
+
+<!--
+Credits: Icons by Devicon & Shields.io
+-->
