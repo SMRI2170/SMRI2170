@@ -76,8 +76,6 @@ I leverage a diverse set of tools to build end-to-end secure systems, from low-l
 
 I am always open to discussing Zero-Knowledge Proofs, IoT Security, and Blockchain Engineering.
 
-🐦 Twitter/X: @YourHandle
-
 💼 LinkedIn: Your Profile
 
 📝 Qiita / Zenn: Your Blog
