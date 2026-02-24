@@ -1,1 +1,2 @@
-[READMEを見る](https://github.com/ryosuke-404/repo-name/blob/main/README.md)
+**メイン**: [プロフィールを見る](https://github.com/ryosuke-404)  
+  → メインプロフィールページです。
