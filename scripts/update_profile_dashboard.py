@@ -266,7 +266,8 @@ def theme(dark: bool) -> dict[str, str]:
     }
 
 
-PALETTE = ["#8B5CF6", "#3B82F6", "#06B6D4", "#10B981", "#F59E0B", "#6B7280"]\n# PROFILE_MOTION_V1: generated README SVGs include lightweight SMIL motion.
+PALETTE = ["#8B5CF6", "#3B82F6", "#06B6D4", "#10B981", "#F59E0B", "#6B7280"]
+# PROFILE_MOTION_V1: generated README SVGs include lightweight SMIL motion.
 
 
 def stats_svg(metrics: list[tuple[str, int | str]], dark: bool) -> str:
