@@ -1,0 +1,16 @@
+<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="a" x1="42" y1="20" x2="678" y2="400"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs>
+<rect width="720" height="420" rx="28" fill="#0D1117"/><rect x="1" y="1" width="718" height="418" rx="27" fill="none" stroke="#30363D" stroke-width="2"/>
+<circle cx="42" cy="42" r="6" fill="url(#a)"/><text x="62" y="50" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="17" font-weight="700" letter-spacing="2">DEVELOPER DASHBOARD</text>
+<text x="54" y="78" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13">activity · streaks · languages</text>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#F0F6FC" font-weight="800" font-size="34"><text x="54" y="118">65</text><text x="218" y="118">15</text><text x="382" y="118">83</text><text x="546" y="118">38</text></g>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#8B949E" font-size="12" font-weight="700"><text x="54" y="141">COMMITS 30D</text><text x="218" y="141">PULL REQUESTS</text><text x="382" y="141">ISSUES</text><text x="546" y="141">REPOSITORIES</text></g>
+<line x1="54" y1="159" x2="666" y2="159" stroke="#30363D"/>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#F0F6FC" font-size="24" font-weight="800"><text x="54" y="196">6d</text><text x="218" y="196">6d</text><text x="382" y="196">72</text><text x="546" y="196">894</text></g>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#8B949E" font-size="11" font-weight="700"><text x="54" y="217">CURRENT</text><text x="218" y="217">LONGEST</text><text x="382" y="217">ACTIVE DAYS</text><text x="546" y="217">TOTAL</text></g>
+<text x="54" y="244" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12" font-weight="700" letter-spacing="1">MOST USED LANGUAGES</text>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="15" font-weight="700" fill="#F0F6FC"><text x="54" y="266">TypeScript</text><text x="54" y="291">Dart</text><text x="54" y="316">Kotlin</text><text x="54" y="341">Python</text><text x="54" y="366">C</text></g>
+<g fill="#21262D"><rect x="170" y="254" width="270" height="10" rx="5"/><rect x="170" y="279" width="270" height="10" rx="5"/><rect x="170" y="304" width="270" height="10" rx="5"/><rect x="170" y="329" width="270" height="10" rx="5"/><rect x="170" y="354" width="270" height="10" rx="5"/></g>
+<rect x="170" y="254" width="69" height="10" rx="5" fill="#8B5CF6"/><rect x="170" y="279" width="39" height="10" rx="5" fill="#3B82F6"/><rect x="170" y="304" width="31" height="10" rx="5" fill="#06B6D4"/><rect x="170" y="329" width="30" height="10" rx="5" fill="#10B981"/><rect x="170" y="354" width="30" height="10" rx="5" fill="#F59E0B"/>
+<g fill="#8B949E" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" text-anchor="end"><text x="476" y="266">25.7%</text><text x="476" y="291">14.5%</text><text x="476" y="316">11.6%</text><text x="476" y="341">11.1%</text><text x="476" y="366">11.0%</text></g>
+<rect x="54" y="392" width="612" height="4" rx="2" fill="url(#a)"/></svg>
