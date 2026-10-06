@@ -31,7 +31,6 @@ A Flutter garden simulation for growing and collecting unusual plants.
 
 `Flutter` · `Dart` · `Mobile`
 
-
 ---
 
 ## Shipped
@@ -82,7 +81,7 @@ Turn swim training into a map-based journey with goals, logs and custom workouts
 
 `Flutter` · `OpenStreetMap` · `Fitness`
 
-[Website](https://smri2170.github.io/Official-Website-of-Swim-Across/) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.swimming_trip)
+[Website](https://smri2170.github.io/Official-Website-of-Swim-Across/) · [App Store](https://apps.apple.com/jp/app/swim-across/id6752210415) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.swimming_trip)
 
 </td>
 <td width="50%" valign="top">
@@ -138,3 +137,11 @@ Exploring zero-knowledge proofs for drone proximity checks, combining Circom / G
 
 **[Range & Positioning System](https://github.com/SMRI2170/Range-and-Positioning-System)**  
 A computer-vision experiment combining YOLOv8 and MiDaS to estimate a person's relative depth and camera-space position from images.
+
+---
+
+<div align="center">
+
+<sub><b>build / ship / repeat</b></sub>
+
+</div>
