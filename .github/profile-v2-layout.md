@@ -29,20 +29,16 @@ The profile remains a product portfolio, but GitHub-native activity becomes visi
 
 ## Dashboard layout
 
-### Desktop
+Use two full-width cards stacked vertically:
 
-Use two equal cards in one row:
+1. GitHub Stats
+2. Most Used Languages
 
-- left: GitHub Stats
-- right: Most Used Languages
+Each generated SVG uses the same 720 × 360 viewBox.
 
-Each generated SVG uses the same 720 × 360 viewBox so both cards align with the existing Shipped project artwork.
+GitHub Profile README does not provide reliable responsive CSS for switching a desktop two-column layout into a mobile one-column layout. A permanent full-width stack keeps both cards readable on desktop and mobile instead of shrinking text inside a fixed two-column table.
 
-### Mobile
-
-Do not rely on fixed pixel widths.
-
-README should use percentage-based widths and a structure that can remain readable when GitHub narrows the content area. Generated cards must keep text large enough to remain legible when scaled.
+Do not rely on fixed pixel display widths. Cards use `width="100%"` in README and retain enough source resolution to scale cleanly.
 
 ## Visual language
 
@@ -113,6 +109,7 @@ Rules:
 - avoid tiny labels below 16px in generated SVGs
 - avoid more than six rows in any card
 - keep primary card title at least 24px
+- prefer readable full-width cards over dense two-column tables when GitHub cannot reflow them responsively
 
 ## Implementation sequence
 
