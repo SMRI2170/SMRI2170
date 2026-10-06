@@ -42,30 +42,52 @@
 
 ## Tech Stack
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/tech-stack-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/tech-stack-light.svg">
-  <img alt="SMRI curated tech stack" src="./assets/profile/tech-stack-light.svg" width="100%">
-</picture>
+<div align="center">
+
+<sub><b>MOBILE / APP</b></sub><br><br>
+<img src="./assets/profile/tech/kotlin.svg" width="54" alt="Kotlin" title="Kotlin">
+<img src="./assets/profile/tech/android-studio.svg" width="54" alt="Android Studio" title="Android Studio">
+<img src="./assets/profile/tech/flutter.svg" width="54" alt="Flutter" title="Flutter">
+<img src="./assets/profile/tech/dart.svg" width="54" alt="Dart" title="Dart">
+<img src="./assets/profile/tech/gradle.svg" width="54" alt="Gradle" title="Gradle">
+
+<br><br>
+<sub><b>WEB / UI</b></sub><br><br>
+<img src="./assets/profile/tech/typescript.svg" width="54" alt="TypeScript" title="TypeScript">
+<img src="./assets/profile/tech/react.svg" width="54" alt="React" title="React">
+<img src="./assets/profile/tech/nextjs.svg" width="54" alt="Next.js" title="Next.js">
+<img src="./assets/profile/tech/vite.svg" width="54" alt="Vite" title="Vite">
+<img src="./assets/profile/tech/threejs.svg" width="54" alt="Three.js" title="Three.js">
+
+<br><br>
+<sub><b>DATA / CLOUD</b></sub><br><br>
+<img src="./assets/profile/tech/supabase.svg" width="54" alt="Supabase" title="Supabase">
+<img src="./assets/profile/tech/postgresql.svg" width="54" alt="PostgreSQL" title="PostgreSQL">
+<img src="./assets/profile/tech/firebase.svg" width="54" alt="Firebase" title="Firebase">
+<img src="./assets/profile/tech/cloudflare.svg" width="54" alt="Cloudflare" title="Cloudflare">
+<img src="./assets/profile/tech/docker.svg" width="54" alt="Docker" title="Docker">
+
+<br><br>
+<sub><b>SYSTEMS / AUTOMATION</b></sub><br><br>
+<img src="./assets/profile/tech/rust.svg" width="54" alt="Rust" title="Rust">
+<img src="./assets/profile/tech/python.svg" width="54" alt="Python" title="Python">
+<img src="./assets/profile/tech/opencv.svg" width="54" alt="OpenCV" title="OpenCV">
+<img src="./assets/profile/tech/github-actions.svg" width="54" alt="GitHub Actions" title="GitHub Actions">
+<img src="./assets/profile/tech/git.svg" width="54" alt="Git" title="Git">
+
+</div>
 
 ---
 
 ## Now Building
 
-### Soine `BUILDING`
-A Kotlin Multiplatform sleep companion where going to bed becomes time spent with a small creature.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/now-building-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/now-building-light.svg">
+  <img alt="Now Building — Soine, SIGNAL and Soil Garden" src="./assets/profile/now-building-light.svg" width="100%">
+</picture>
 
-`Kotlin Multiplatform` · `Compose Multiplatform` · `Local-first`
-
-### [SIGNAL](https://github.com/SMRI2170/signal) `BUILDING`
-A fact-based relationship analysis product that turns observable events into consistent AI-assisted snapshots.
-
-`Next.js` · `Kotlin Multiplatform` · `Supabase` · `AI`
-
-### Soil Garden `RELEASE PREP`
-A Flutter garden simulation for growing and collecting unusual plants.
-
-`Flutter` · `Dart` · `Mobile`
+<div align="center"><sub><a href="https://github.com/SMRI2170/signal">SIGNAL repository ↗</a></sub></div>
 
 ---
 
@@ -73,67 +95,35 @@ A Flutter garden simulation for growing and collecting unusual plants.
 
 <table>
 <tr>
-<td width="50%" valign="top">
-
+<td width="50%" valign="top" align="center">
 <a href="https://smri2170.github.io/Official-Website-of-Emotion-Diary/">
   <img src="./assets/profile/projects/emotion-diary.svg" width="100%" alt="Emotion Diary">
 </a>
-
-### Emotion Diary
-
-Track daily emotions and turn them into patterns you can actually look back on.
-
-`Flutter` · `Charts` · `Local-first`
-
-[Website](https://smri2170.github.io/Official-Website-of-Emotion-Diary/) · [App Store](https://apps.apple.com/jp/app/emotion-diary-see-the-waves/id6757458952) · [Google Play](https://play.google.com/store/apps/details?id=jp.smri.emo0708)
-
+<br>
+<sub><a href="https://apps.apple.com/jp/app/emotion-diary-see-the-waves/id6757458952">App Store</a> · <a href="https://play.google.com/store/apps/details?id=jp.smri.emo0708">Google Play</a></sub>
 </td>
-<td width="50%" valign="top">
-
+<td width="50%" valign="top" align="center">
 <a href="https://smri2170.github.io/Official-Website-of-oshi-diary/">
   <img src="./assets/profile/projects/fave-diary.svg" width="100%" alt="Fave Diary">
 </a>
-
-### Fave Diary
-
-A private fan space for memories, schedules, merchandise and spending.
-
-`Flutter` · `Hive` · `Offline-first`
-
-[Website](https://smri2170.github.io/Official-Website-of-oshi-diary/) · [App Store](https://apps.apple.com/jp/app/%E6%8E%A8%E3%81%97%E6%B4%BB%E6%97%A5%E8%A8%98/id6751962585) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.oshikatu)
-
+<br>
+<sub><a href="https://apps.apple.com/jp/app/%E6%8E%A8%E3%81%97%E6%B4%BB%E6%97%A5%E8%A8%98/id6751962585">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.ryosuke.oshikatu">Google Play</a></sub>
 </td>
 </tr>
 <tr>
-<td width="50%" valign="top">
-
+<td width="50%" valign="top" align="center">
 <a href="https://smri2170.github.io/Official-Website-of-Swim-Across/">
   <img src="./assets/profile/projects/swim-across.svg" width="100%" alt="Swim Across">
 </a>
-
-### Swim Across
-
-Turn swim training into a map-based journey with goals, logs and custom workouts.
-
-`Flutter` · `OpenStreetMap` · `Fitness`
-
-[Website](https://smri2170.github.io/Official-Website-of-Swim-Across/) · [App Store](https://apps.apple.com/jp/app/swim-across/id6752210415) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.swimming_trip)
-
+<br>
+<sub><a href="https://apps.apple.com/jp/app/swim-across/id6752210415">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.ryosuke.swimming_trip">Google Play</a></sub>
 </td>
-<td width="50%" valign="top">
-
+<td width="50%" valign="top" align="center">
 <a href="https://smri2170.github.io/Official-Website-of-Agrimanager/">
   <img src="./assets/profile/projects/agrisk-ai.svg" width="100%" alt="Agrisk-AI">
 </a>
-
-### Agrisk-AI
-
-Weather-aware agricultural risk alerts designed to make daily field decisions easier.
-
-`Flutter` · `AI` · `Weather`
-
-[Website](https://smri2170.github.io/Official-Website-of-Agrimanager/) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.agriculture0716)
-
+<br>
+<sub><a href="https://play.google.com/store/apps/details?id=com.ryosuke.agriculture0716">Google Play</a></sub>
 </td>
 </tr>
 </table>
@@ -141,8 +131,6 @@ Weather-aware agricultural risk alerts designed to make daily field decisions ea
 ---
 
 ## Public Build Log
-
-<sub>Latest public work from the last 7 days · private repositories and this profile repository are excluded.</sub>
 
 <!-- activity:start -->
 - [`resume-research-progress`](https://github.com/SMRI2170/resume-research-progress) · `Oct 6` — `Publish company research progress dashboard`
@@ -153,13 +141,15 @@ Weather-aware agricultural risk alerts designed to make daily field decisions ea
 
 ## Lab / R&D
 
-<sub>Outside product development, I explore privacy-preserving systems and computer vision.</sub>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/lab-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/lab-light.svg">
+  <img alt="Lab and R&D — zk-UAV proximity proof and range positioning" src="./assets/profile/lab-light.svg" width="100%">
+</picture>
 
-**[zk-UAV Proximity Proof](https://github.com/SMRI2170/zerosky-opendroneid)**  
-Exploring zero-knowledge proofs for drone proximity checks, combining Circom / Groth16, BLE Remote ID and a mobile prototype.
-
-**[Range & Positioning System](https://github.com/SMRI2170/Range-and-Positioning-System)**  
-A computer-vision experiment combining YOLOv8 and MiDaS to estimate a person's relative depth and camera-space position from images.
+<div align="center">
+<sub><a href="https://github.com/SMRI2170/zerosky-opendroneid">zk-UAV ↗</a> · <a href="https://github.com/SMRI2170/Range-and-Positioning-System">Range & Positioning ↗</a></sub>
+</div>
 
 ---
 
