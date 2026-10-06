@@ -51,6 +51,22 @@
 
 ---
 
+## Tech Stack
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=kotlin,androidstudio,flutter,dart,ts,react,nextjs,supabase,postgres,rust,py,threejs,git,github,githubactions&theme=dark&perline=8">
+  <source media="(prefers-color-scheme: light)" srcset="https://skillicons.dev/icons?i=kotlin,androidstudio,flutter,dart,ts,react,nextjs,supabase,postgres,rust,py,threejs,git,github,githubactions&theme=light&perline=8">
+  <img alt="Tech Stack: Kotlin, Android Studio, Flutter, Dart, TypeScript, React, Next.js, Supabase, PostgreSQL, Rust, Python, Three.js, Git and GitHub Actions" src="https://skillicons.dev/icons?i=kotlin,androidstudio,flutter,dart,ts,react,nextjs,supabase,postgres,rust,py,threejs,git,github,githubactions&theme=light&perline=8">
+</picture>
+
+<sub>Kotlin / KMP · Flutter · TypeScript · React · Next.js · Supabase · PostgreSQL · Rust · Python · Three.js · GitHub Actions</sub>
+
+</div>
+
+---
+
 ## Now Building
 
 ### Soine `BUILDING`
@@ -149,19 +165,6 @@ Weather-aware agricultural risk alerts designed to make daily field decisions ea
 - [`resume-research-progress`](https://github.com/SMRI2170/resume-research-progress) · `Oct 6` — `Publish company research progress dashboard`
 - [`signal`](https://github.com/SMRI2170/signal) · `Oct 3` — `fix(native): fail closed on missing judge API`
 <!-- activity:end -->
-
----
-
-## Toolbox
-
-<sub>Tools I use to build and ship products. Every stack below connects to a real project.</sub>
-
-- **Mobile** — `Flutter` · `Dart` · `Kotlin Multiplatform` · `Compose Multiplatform` · [Emotion Diary](https://github.com/SMRI2170/Official-Website-of-Emotion-Diary) / [SIGNAL](https://github.com/SMRI2170/signal)
-- **Web** — `TypeScript` · `React` · `Next.js` · [SIGNAL](https://github.com/SMRI2170/signal)
-- **Backend** — `Supabase` · `PostgreSQL` · `Auth / RLS` · [SIGNAL](https://github.com/SMRI2170/signal)
-- **Creative coding** — `Three.js` · `PWA` · [Space Cleanup Station](https://github.com/SMRI2170/space-cleanup-station)
-- **Research tooling** — `Circom` · `Groth16` · `Rust` · `OpenDroneID` · [zk-UAV Proximity Proof](https://github.com/SMRI2170/zerosky-opendroneid)
-- **Shipping workflow** — `GitHub Actions` · `CI/CD` · `Issue-driven development` · [this profile](https://github.com/SMRI2170/SMRI2170) / [Space Cleanup Station](https://github.com/SMRI2170/space-cleanup-station)
 
 ---
 
