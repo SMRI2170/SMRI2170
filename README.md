@@ -110,6 +110,6 @@ Weather-aware agricultural risk alerts designed to make daily field decisions ea
 <sub>Latest public work from the last 7 days · private repositories and this profile repository are excluded.</sub>
 
 <!-- activity:start -->
-- [`signal`](https://github.com/SMRI2170/signal) · `Oct 3` — `fix(native): fail closed on missing judge API`
 - [`resume-research-progress`](https://github.com/SMRI2170/resume-research-progress) · `Oct 6` — `Publish company research progress dashboard`
+- [`signal`](https://github.com/SMRI2170/signal) · `Oct 3` — `fix(native): fail closed on missing judge API`
 <!-- activity:end -->
