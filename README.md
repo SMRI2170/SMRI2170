@@ -180,6 +180,16 @@ A computer-vision experiment combining YOLOv8 and MiDaS to estimate a person's r
 
 ---
 
+## Contribution Snake
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/contribution-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/contribution-snake.svg">
+  <img alt="SMRI contribution snake" src="./assets/profile/generated/contribution-snake.svg" width="100%">
+</picture>
+
+---
+
 <div align="center">
 
 <sub><b>build / ship / repeat</b></sub>
