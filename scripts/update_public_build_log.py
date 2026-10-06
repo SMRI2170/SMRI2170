@@ -14,7 +14,7 @@ README_PATH = Path("README.md")
 START_MARKER = "<!-- activity:start -->"
 END_MARKER = "<!-- activity:end -->"
 WINDOW_DAYS = 7
-MAX_REPOSITORIES = 6
+MAX_REPOSITORIES = 3
 
 
 def api_get(path: str, token: str):

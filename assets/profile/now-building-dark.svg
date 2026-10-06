@@ -1,46 +1,5 @@
-<svg width="720" height="520" viewBox="0 0 720 520" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="accent" x1="30" y1="20" x2="690" y2="500" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#3B82F6"/>
-    </linearGradient>
-  </defs>
-  <rect width="720" height="520" rx="28" fill="#0D1117"/>
-  <rect x="1" y="1" width="718" height="518" rx="27" fill="none" stroke="#30363D" stroke-width="2"/>
-  <circle cx="42" cy="44" r="6" fill="url(#accent)"/>
-  <text x="62" y="52" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">NOW BUILDING</text>
-
-  <g transform="translate(34 88)">
-    <rect width="652" height="116" rx="22" fill="#161B22" stroke="#30363D"/>
-    <circle cx="62" cy="58" r="34" fill="#312E81"/>
-    <path d="M55 33c-14 7-18 27-6 40 10 11 27 11 38 2-20 3-34-18-22-36-3-4-6-6-10-6z" fill="#C4B5FD"/>
-    <circle cx="76" cy="62" r="4" fill="#0D1117"/><circle cx="86" cy="62" r="4" fill="#0D1117"/>
-    <text x="118" y="42" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="25" font-weight="800">Soine</text>
-    <text x="118" y="69" fill="#C9D1D9" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="16">sleep companion · small creature · bedtime ritual</text>
-    <text x="118" y="94" fill="#8B5CF6" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">KMP · Compose · local-first</text>
-    <rect x="546" y="25" width="78" height="28" rx="14" fill="#312E81"/><text x="585" y="44" text-anchor="middle" fill="#C4B5FD" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">BUILDING</text>
-  </g>
-
-  <g transform="translate(34 218)">
-    <rect width="652" height="116" rx="22" fill="#161B22" stroke="#30363D"/>
-    <circle cx="62" cy="58" r="34" fill="#172554"/>
-    <circle cx="49" cy="50" r="7" fill="#60A5FA"/><circle cx="77" cy="42" r="7" fill="#8B5CF6"/><circle cx="78" cy="72" r="7" fill="#22D3EE"/>
-    <path d="M55 49L70 44M53 55L71 68M77 49L78 65" stroke="#93C5FD" stroke-width="4" stroke-linecap="round"/>
-    <text x="118" y="42" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="25" font-weight="800">SIGNAL</text>
-    <text x="118" y="69" fill="#C9D1D9" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="16">facts → relationships → AI-assisted snapshots</text>
-    <text x="118" y="94" fill="#3B82F6" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">Next.js · KMP · Supabase · AI</text>
-    <rect x="546" y="25" width="78" height="28" rx="14" fill="#172554"/><text x="585" y="44" text-anchor="middle" fill="#93C5FD" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">BUILDING</text>
-  </g>
-
-  <g transform="translate(34 348)">
-    <rect width="652" height="116" rx="22" fill="#161B22" stroke="#30363D"/>
-    <circle cx="62" cy="58" r="34" fill="#052E16"/>
-    <path d="M61 79V50" stroke="#4ADE80" stroke-width="5" stroke-linecap="round"/>
-    <path d="M61 57c-17 0-24-10-25-21 16 0 25 7 25 21zM63 48c4-16 15-21 27-18-2 15-12 23-27 18z" fill="#22C55E"/>
-    <text x="118" y="42" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="25" font-weight="800">Soil Garden</text>
-    <text x="118" y="69" fill="#C9D1D9" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="16">grow · collect · discover unusual plants</text>
-    <text x="118" y="94" fill="#22C55E" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">Flutter · Dart · mobile</text>
-    <rect x="518" y="25" width="106" height="28" rx="14" fill="#052E16"/><text x="571" y="44" text-anchor="middle" fill="#86EFAC" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">RELEASE PREP</text>
-  </g>
-
-  <rect x="34" y="486" width="652" height="4" rx="2" fill="url(#accent)"/>
-</svg>
+<svg width="720" height="220" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="a" x1="30" y1="20" x2="690" y2="200"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs><rect width="720" height="220" rx="26" fill="#0D1117"/><rect x="1" y="1" width="718" height="218" rx="25" fill="none" stroke="#30363D" stroke-width="2"/><circle cx="38" cy="36" r="5" fill="url(#a)"/><text x="54" y="42" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14" font-weight="700" letter-spacing="1.5">NOW BUILDING</text>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><g transform="translate(24 68)"><rect width="210" height="118" rx="20" fill="#161B22" stroke="#30363D"/><circle cx="40" cy="42" r="24" fill="#312E81"/><path d="M34 25c-11 6-13 22-4 31 7 8 20 8 28 1-15 2-25-13-16-27-2-3-5-5-8-5z" fill="#C4B5FD"/><text x="76" y="40" fill="#F0F6FC" font-size="21" font-weight="800">Soine</text><text x="76" y="62" fill="#8B949E" font-size="13">sleep companion</text><text x="24" y="94" fill="#8B5CF6" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">KMP · Compose</text></g>
+<g transform="translate(255 68)"><rect width="210" height="118" rx="20" fill="#161B22" stroke="#30363D"/><circle cx="40" cy="42" r="24" fill="#172554"/><circle cx="32" cy="37" r="5" fill="#60A5FA"/><circle cx="50" cy="31" r="5" fill="#8B5CF6"/><circle cx="50" cy="52" r="5" fill="#22D3EE"/><path d="M36 36l10-4M35 41l11 9M50 36v11" stroke="#93C5FD" stroke-width="3"/><text x="76" y="40" fill="#F0F6FC" font-size="21" font-weight="800">SIGNAL</text><text x="76" y="62" fill="#8B949E" font-size="13">fact snapshots</text><text x="24" y="94" fill="#3B82F6" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">Next · KMP · AI</text></g>
+<g transform="translate(486 68)"><rect width="210" height="118" rx="20" fill="#161B22" stroke="#30363D"/><circle cx="40" cy="42" r="24" fill="#052E16"/><path d="M40 59V37M40 43c-11 0-17-7-17-15 10 0 17 5 17 15zM42 36c3-10 10-14 18-12-1 10-8 15-18 12z" stroke="#4ADE80" fill="#22C55E" stroke-width="2"/><text x="76" y="40" fill="#F0F6FC" font-size="20" font-weight="800">Soil Garden</text><text x="76" y="62" fill="#8B949E" font-size="13">grow &amp; collect</text><text x="24" y="94" fill="#22C55E" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">Flutter · Dart</text></g></g>
+<rect x="24" y="202" width="672" height="3" rx="1.5" fill="url(#a)"/></svg>

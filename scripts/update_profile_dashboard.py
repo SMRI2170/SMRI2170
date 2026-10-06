@@ -447,6 +447,130 @@ def contribution_svg(contributions: dict, dark: bool) -> str:
 </svg>'''
 
 
+def dashboard_svg(
+    metrics: list[tuple[str, int | str]],
+    languages: list[tuple[str, int]],
+    contributions: dict,
+    dark: bool,
+) -> str:
+    t = theme(dark)
+    metric_map = {label: value for label, value in metrics}
+    current_streak, longest_streak, active_days = streak_stats(contributions["days"])
+
+    metric_items = [
+        ("COMMITS 30D", metric_map.get("Commits 30d", 0)),
+        ("PULL REQUESTS", metric_map.get("Pull Requests", 0)),
+        ("ISSUES", metric_map.get("Issues", 0)),
+        ("REPOSITORIES", metric_map.get("Repositories", 0)),
+    ]
+    metric_x = [54, 218, 382, 546]
+    metric_blocks = []
+    for (label, value), x in zip(metric_items, metric_x):
+        metric_blocks.append(
+            f'<text x="{x}" y="118" fill="{t["text"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="34" font-weight="800">{html.escape(str(value))}</text>'
+        )
+        metric_blocks.append(
+            f'<text x="{x}" y="141" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12" font-weight="700" letter-spacing="1">{label}</text>'
+        )
+
+    streak_items = [
+        ("CURRENT", f"{current_streak}d"),
+        ("LONGEST", f"{longest_streak}d"),
+        ("ACTIVE DAYS", active_days),
+        ("TOTAL", contributions["total"]),
+    ]
+    streak_x = [54, 218, 382, 546]
+    streak_blocks = []
+    for (label, value), x in zip(streak_items, streak_x):
+        streak_blocks.append(
+            f'<text x="{x}" y="196" fill="{t["text"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="24" font-weight="800">{html.escape(str(value))}</text>'
+        )
+        streak_blocks.append(
+            f'<text x="{x}" y="217" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="11" font-weight="700" letter-spacing="1">{label}</text>'
+        )
+
+    if not languages:
+        languages = [("No data", 1)]
+    total = sum(size for _, size in languages)
+    rows = []
+    y = 266
+    for idx, (name, size) in enumerate(languages[:6]):
+        pct = (size / total) * 100 if total else 0
+        bar_width = max(2, int(270 * pct / 100))
+        color = PALETTE[idx % len(PALETTE)]
+        rows.append(
+            f'<text x="54" y="{y}" fill="{t["text"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="15" font-weight="700">{html.escape(name)}</text>'
+        )
+        rows.append(
+            f'<rect x="170" y="{y - 12}" width="270" height="10" rx="5" fill="{t["track"]}"/>'
+        )
+        rows.append(
+            f'<rect x="170" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="{color}"/>'
+        )
+        rows.append(
+            f'<text x="476" y="{y}" text-anchor="end" fill="{t["muted"]}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">{pct:.1f}%</text>'
+        )
+        y += 25
+
+    return f'''<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="42" y1="20" x2="678" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="{t["accent1"]}"/>
+      <stop offset="1" stop-color="{t["accent2"]}"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="420" rx="28" fill="{t["bg"]}"/>
+  <rect x="1" y="1" width="718" height="418" rx="27" fill="none" stroke="{t["border"]}" stroke-width="2"/>
+  <circle cx="42" cy="42" r="6" fill="url(#accent)"/>
+  <text x="62" y="50" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="700" letter-spacing="2">DEVELOPER DASHBOARD</text>
+  <text x="54" y="78" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">activity · streaks · languages</text>
+  {''.join(metric_blocks)}
+  <line x1="54" y1="159" x2="666" y2="159" stroke="{t["border"]}"/>
+  {''.join(streak_blocks)}
+  <text x="54" y="244" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12" font-weight="700" letter-spacing="1">MOST USED LANGUAGES</text>
+  {''.join(rows)}
+  <rect x="54" y="392" width="612" height="4" rx="2" fill="url(#accent)"/>
+</svg>'''
+
+
+def contribution_strip_svg(contributions: dict, dark: bool) -> str:
+    t = theme(dark)
+    weeks = contributions["weeks"][-53:]
+    level_colors = {
+        "NONE": t["track"],
+        "FIRST_QUARTILE": t["level1"],
+        "SECOND_QUARTILE": t["level2"],
+        "THIRD_QUARTILE": t["level3"],
+        "FOURTH_QUARTILE": t["level4"],
+    }
+
+    cells = []
+    for week_index, week in enumerate(weeks):
+        x = 42 + week_index * 12
+        for day in week.get("contributionDays", []):
+            weekday = int(day["weekday"])
+            y = 54 + weekday * 12
+            color = level_colors.get(day.get("contributionLevel", "NONE"), t["track"])
+            cells.append(
+                f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}"/>'
+            )
+
+    return f'''<svg width="720" height="155" viewBox="0 0 720 155" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="42" y1="18" x2="678" y2="138" gradientUnits="userSpaceOnUse">
+      <stop stop-color="{t["accent1"]}"/>
+      <stop offset="1" stop-color="{t["accent2"]}"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="155" rx="24" fill="{t["bg"]}"/>
+  <rect x="1" y="1" width="718" height="153" rx="23" fill="none" stroke="{t["border"]}" stroke-width="2"/>
+  <circle cx="42" cy="29" r="5" fill="url(#accent)"/>
+  <text x="58" y="35" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="14" font-weight="700" letter-spacing="1.5">CONTRIBUTION FLOW</text>
+  {''.join(cells)}
+  <rect x="42" y="139" width="636" height="3" rx="1.5" fill="url(#accent)"/>
+</svg>'''
+
+
 def write_if_changed(path: Path, content: str) -> bool:
     if path.exists() and path.read_text(encoding="utf-8") == content:
         return False
@@ -475,6 +599,10 @@ def main() -> int:
         OUT_DIR / "languages-light.svg": languages_svg(languages, False),
         OUT_DIR / "contribution-dark.svg": contribution_svg(contributions, True),
         OUT_DIR / "contribution-light.svg": contribution_svg(contributions, False),
+        OUT_DIR / "dashboard-dark.svg": dashboard_svg(metrics, languages, contributions, True),
+        OUT_DIR / "dashboard-light.svg": dashboard_svg(metrics, languages, contributions, False),
+        OUT_DIR / "contribution-strip-dark.svg": contribution_strip_svg(contributions, True),
+        OUT_DIR / "contribution-strip-light.svg": contribution_strip_svg(contributions, False),
     }
 
     changed = False
