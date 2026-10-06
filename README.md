@@ -108,8 +108,8 @@
 ## Public Build Log
 
 <!-- activity:start -->
+- [`signal`](https://github.com/SMRI2170/signal) · `Oct 6` — `ci(native): give the emulator job 25 min to boot + 60 min total (#60)`
 - [`resume-research-progress`](https://github.com/SMRI2170/resume-research-progress) · `Oct 6` — `Publish company research progress dashboard`
-- [`signal`](https://github.com/SMRI2170/signal) · `Oct 3` — `fix(native): fail closed on missing judge API`
 <!-- activity:end -->
 
 ---
