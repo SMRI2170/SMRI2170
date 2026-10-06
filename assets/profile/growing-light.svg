@@ -27,7 +27,7 @@
     <g transform="translate(488 74)">
       <rect width="208" height="126" rx="22" fill="#E9EEE4" stroke="#C3CDBE"/>
       <text x="24" y="34" fill="#263329" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20" font-weight="800">Soil Garden</text>
-      <text x="24" y="57" fill="#687667" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">grow & collect</text>
+      <text x="24" y="57" fill="#687667" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">grow &amp; collect</text>
       <text x="24" y="90" fill="#356348" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700">PROTOTYPING</text>
       <rect x="24" y="103" width="160" height="5" rx="2.5" fill="#C3CDBE"/>
       <rect x="24" y="103" width="82" height="5" rx="2.5" fill="#356348"/>
