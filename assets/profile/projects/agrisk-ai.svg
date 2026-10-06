@@ -10,12 +10,12 @@
   <text x="54" y="68" fill="#15803D" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">AI / WEATHER</text>
   <text x="54" y="122" fill="#14532D" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="42" font-weight="800">Agrisk-AI</text>
   <text x="54" y="158" fill="#4D7C0F" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20">weather-aware agricultural risk alerts</text>
-  <path d="M172 304 C170 247 191 208 237 182 C238 238 213 281 172 304 Z" fill="#22C55E"/>
+  <path id="agrisk-motion" d="M172 304 C170 247 191 208 237 182 C238 238 213 281 172 304 Z" fill="#22C55E"><animateTransform attributeName="transform" type="rotate" values="-2 172 304;2 172 304;-2 172 304" dur="4.8s" repeatCount="indefinite"/></path>
   <path d="M173 302 C202 267 236 237 287 218" fill="none" stroke="#166534" stroke-width="8" stroke-linecap="round"/>
   <circle cx="503" cy="230" r="66" fill="#FFFFFF" opacity=".72"/>
-  <circle cx="485" cy="218" r="28" fill="#FACC15"/>
-  <path d="M462 252 C468 226 492 216 514 224 C526 202 558 201 570 225 C592 226 607 244 603 264 L468 264 C463 260 461 257 462 252 Z" fill="#BFDBFE"/>
-  <g fill="#16A34A" opacity=".9">
+  <circle cx="485" cy="218" r="28" fill="#FACC15"><animate attributeName="r" values="26;31;26" dur="3.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".78;1;.78" dur="3.2s" repeatCount="indefinite"/></circle>
+  <path d="M462 252 C468 226 492 216 514 224 C526 202 558 201 570 225 C592 226 607 244 603 264 L468 264 C463 260 461 257 462 252 Z" fill="#BFDBFE"><animateTransform attributeName="transform" type="translate" values="-4 0;4 0;-4 0" dur="5.6s" repeatCount="indefinite"/></path>
+  <g fill="#16A34A" opacity=".9"><animate attributeName="opacity" values=".45;1;.45" dur="2.8s" repeatCount="indefinite"/>
     <rect x="396" y="188" width="18" height="18" rx="4"/>
     <rect x="396" y="216" width="18" height="18" rx="4"/>
     <rect x="396" y="244" width="18" height="18" rx="4"/>
