@@ -131,7 +131,6 @@
 ---
 
 ## Public Build Log
-## Public Build Log
 
 <!-- activity:start -->
 - [`resume-research-progress`](https://github.com/SMRI2170/resume-research-progress) · `Oct 6` — `Publish company research progress dashboard`
@@ -154,7 +153,6 @@
 
 ---
 
-## Contribution Snake
 ## Contribution Snake
 
 <picture>
