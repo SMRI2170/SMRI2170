@@ -14,6 +14,33 @@
 
 ---
 
+## GitHub Dashboard
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/stats-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/stats-light.svg">
+  <img alt="SMRI GitHub Stats" src="./assets/profile/generated/stats-light.svg" width="100%">
+</picture>
+
+</td>
+<td width="50%" valign="top">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/languages-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/languages-light.svg">
+  <img alt="SMRI Most Used Languages" src="./assets/profile/generated/languages-light.svg" width="100%">
+</picture>
+
+</td>
+</tr>
+</table>
+
+---
+
 ## Now Building
 
 ### Soine `BUILDING`
