@@ -1,7 +1,15 @@
 <svg width="720" height="360" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="48" y1="24" x2="672" y2="336" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
   <rect width="720" height="360" rx="28" fill="#0D1117"/>
   <rect x="1" y="1" width="718" height="358" rx="27" fill="none" stroke="#30363D" stroke-width="2"/>
-  <text x="52" y="58" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">GITHUB STATS</text>
-  <text x="52" y="185" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="30" font-weight="800">Generating live stats…</text>
-  <text x="52" y="225" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18">GitHub Actions will replace this card automatically.</text>
+  <circle cx="54" cy="48" r="6" fill="url(#accent)"/>
+  <text x="74" y="56" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="700" letter-spacing="2">GITHUB STATS</text>
+  <text x="56" y="132" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="38" font-weight="800">38</text><text x="56" y="162" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="600">Repositories</text><text x="276" y="132" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="38" font-weight="800">1</text><text x="276" y="162" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="600">Stars</text><text x="496" y="132" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="38" font-weight="800">4</text><text x="496" y="162" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="600">Active 30d</text><text x="166" y="244" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="38" font-weight="800">14</text><text x="166" y="274" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="600">Pull Requests</text><text x="386" y="244" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="38" font-weight="800">83</text><text x="386" y="274" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="600">Issues</text>
+  <rect x="48" y="308" width="624" height="4" rx="2" fill="url(#accent)"/>
+  <text x="48" y="335" fill="#8B949E" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">public · owned · non-fork · non-archived</text>
 </svg>
