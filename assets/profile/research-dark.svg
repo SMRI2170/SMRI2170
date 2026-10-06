@@ -1,0 +1,19 @@
+<svg width="1200" height="310" viewBox="0 0 1200 310" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="310" fill="#0A0F0B"/>
+    <text x="68" y="48" fill="#718174" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" letter-spacing="2.2">04 / FIELD NOTES</text>
+    <text x="1132" y="48" text-anchor="end" fill="#929A91" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13">Research and experiments</text>
+    <line x1="68" y1="68" x2="1132" y2="68" stroke="#283229"/>
+    <text x="68" y="126" fill="#E9E6DA" font-family="Georgia,'Times New Roman',serif" font-size="34" font-weight="700">zk-UAV</text>
+    <text x="68" y="158" fill="#929A91" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14">Privacy-preserving UAV proximity verification.</text>
+    <text x="68" y="190" fill="#718174" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="10.5">ZKP · NOVA · RUST · DISTRIBUTED PROOFS</text>
+    <line x1="600" y1="96" x2="600" y2="232" stroke="#283229"/>
+    <text x="636" y="126" fill="#E9E6DA" font-family="Georgia,'Times New Roman',serif" font-size="34" font-weight="700">Range / Position</text>
+    <text x="636" y="158" fill="#929A91" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14">Vision, depth estimation, and positioning systems.</text>
+    <text x="636" y="190" fill="#718174" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="10.5">YOLO · MIDAS · COMPUTER VISION</text>
+    <line x1="68" y1="232" x2="1132" y2="232" stroke="#283229"/>
+    <g fill="none" stroke="#202A22" stroke-width="1">
+    <path d="M0 260 C145 224 265 280 430 252 C595 223 718 272 880 248 C1010 229 1110 253 1200 238"/>
+    <path d="M0 274 C150 242 281 294 438 265 C603 239 730 288 889 262 C1018 243 1118 268 1200 252"/>
+    <path d="M0 288 C160 260 296 306 452 279 C615 254 742 300 900 275 C1030 257 1124 280 1200 266"/>
+  </g>
+  </svg>
