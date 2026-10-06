@@ -1,0 +1,23 @@
+<svg width="720" height="360" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="40" x2="650" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CCFBF1"/>
+      <stop offset="1" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <linearGradient id="line" x1="130" y1="240" x2="590" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14B8A6"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="360" rx="28" fill="url(#bg)"/>
+  <circle cx="590" cy="85" r="92" fill="#FFFFFF" opacity=".42"/>
+  <circle cx="130" cy="300" r="78" fill="#FFFFFF" opacity=".30"/>
+  <text x="54" y="68" fill="#0F766E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">MOBILE APP</text>
+  <text x="54" y="122" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="42" font-weight="800">Emotion Diary</text>
+  <text x="54" y="158" fill="#475569" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20">track feelings · see patterns · reflect</text>
+  <path d="M88 263 C142 230 190 282 247 228 C308 169 357 222 413 184 C471 145 514 176 584 112" fill="none" stroke="url(#line)" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="88" cy="263" r="10" fill="#14B8A6"/>
+  <circle cx="247" cy="228" r="10" fill="#22C55E"/>
+  <circle cx="413" cy="184" r="10" fill="#6366F1"/>
+  <circle cx="584" cy="112" r="10" fill="#3B82F6"/>
+</svg>
