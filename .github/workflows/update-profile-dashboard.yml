@@ -1,4 +1,4 @@
-name: Update profile dashboard
+name: Update profile growth
 
 on:
   workflow_dispatch:
@@ -26,23 +26,23 @@ jobs:
       - name: Check out profile repository
         uses: actions/checkout@v4
 
-      - name: Generate dashboard assets
+      - name: Grow profile activity
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_OWNER: ${{ github.repository_owner }}
         run: python3 scripts/update_profile_dashboard.py
 
-      - name: Commit changed assets only
+      - name: Commit generated growth
         shell: bash
         run: |
           if git diff --quiet -- assets/profile/generated/; then
-            echo "Dashboard assets unchanged."
+            echo "Growth assets unchanged."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/profile/generated/
-          git commit -m "chore: refresh profile dashboard"
+          git commit -m "chore: refresh profile growth"
           git pull --rebase origin main
           git push

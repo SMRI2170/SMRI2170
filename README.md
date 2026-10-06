@@ -1,26 +1,26 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/hero-light.svg">
-  <img alt="SMRI / LAB — pixel game developer profile" src="./assets/profile/hero-dark.svg" width="100%">
+  <img alt="SMRI / LAB — digital garden" src="./assets/profile/hero-light.svg" width="100%">
 </picture>
 
-## PLAYER STATUS
+## Growing
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/dashboard-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/dashboard-light.svg">
-  <img alt="SMRI player status" src="./assets/profile/generated/dashboard-dark.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/growing-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/growing-light.svg">
+  <img alt="Growing — Soine, SIGNAL and Soil Garden" src="./assets/profile/growing-light.svg" width="100%">
 </picture>
 
-## ACTIVE QUESTS
+## Growth
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/now-building-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/now-building-light.svg">
-  <img alt="Active quests — Soine, SIGNAL and Soil Garden" src="./assets/profile/now-building-dark.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/growth-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/growth-light.svg">
+  <img alt="GitHub growth and activity" src="./assets/profile/generated/growth-light.svg" width="100%">
 </picture>
 
-## CLEARED
+## Projects
 
 <table>
 <tr>
@@ -57,12 +57,12 @@
 </tr>
 </table>
 
-## SECRET LAB
+## Field Notes
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/lab-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/lab-light.svg">
-  <img alt="Secret Lab — zk-UAV and Range Positioning" src="./assets/profile/lab-dark.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/field-notes-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/field-notes-light.svg">
+  <img alt="Field Notes — zk-UAV and Range Positioning" src="./assets/profile/field-notes-light.svg" width="100%">
 </picture>
 
 <div align="center">

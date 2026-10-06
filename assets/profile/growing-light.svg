@@ -1,0 +1,43 @@
+<svg width="720" height="230" viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="230" rx="26" fill="#F3F1E7"/>
+  <rect x="1" y="1" width="718" height="228" rx="25" fill="none" stroke="#C3CDBE" stroke-width="2"/>
+  <g transform="translate(22 10) rotate(-12) scale(0.12)" opacity="0.9" fill="none" stroke="#597D5A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M63.81 192.19c-47.89-79.81 16-159.62 151.64-151.64C223.43 176.23 143.62 240.08 63.81 192.19Z"/><path d="M160 96 L40 216"/></g>
+  <text x="64" y="45" fill="#263329" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="800">Growing</text>
+  <text x="136" y="45" fill="#687667" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="13">what I’m building now</text>
+
+  
+    <g transform="translate(24 74)">
+      <rect width="208" height="126" rx="22" fill="#E9EEE4" stroke="#C3CDBE"/>
+      <text x="24" y="34" fill="#263329" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20" font-weight="800">Soine</text>
+      <text x="24" y="57" fill="#687667" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">sleep companion</text>
+      <text x="24" y="90" fill="#789A76" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700">BUILDING</text>
+      <rect x="24" y="103" width="160" height="5" rx="2.5" fill="#C3CDBE"/>
+      <rect x="24" y="103" width="116" height="5" rx="2.5" fill="#789A76"/>
+    </g>
+  
+    <g transform="translate(256 74)">
+      <rect width="208" height="126" rx="22" fill="#E9EEE4" stroke="#C3CDBE"/>
+      <text x="24" y="34" fill="#263329" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20" font-weight="800">SIGNAL</text>
+      <text x="24" y="57" fill="#687667" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">fact snapshots</text>
+      <text x="24" y="90" fill="#5A969C" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700">ITERATING</text>
+      <rect x="24" y="103" width="160" height="5" rx="2.5" fill="#C3CDBE"/>
+      <rect x="24" y="103" width="102" height="5" rx="2.5" fill="#5A969C"/>
+    </g>
+  
+    <g transform="translate(488 74)">
+      <rect width="208" height="126" rx="22" fill="#E9EEE4" stroke="#C3CDBE"/>
+      <text x="24" y="34" fill="#263329" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20" font-weight="800">Soil Garden</text>
+      <text x="24" y="57" fill="#687667" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">grow & collect</text>
+      <text x="24" y="90" fill="#356348" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" font-weight="700">PROTOTYPING</text>
+      <rect x="24" y="103" width="160" height="5" rx="2.5" fill="#C3CDBE"/>
+      <rect x="24" y="103" width="82" height="5" rx="2.5" fill="#356348"/>
+    </g>
+
+  <g transform="translate(35 190)">
+    <path d="M0 18 C120 4 215 26 338 12 C448 0 548 20 640 9" fill="none" stroke="#C3CDBE" stroke-width="2"/>
+    <circle r="4" fill="#597D5A">
+      <animateMotion path="M0 18 C120 4 215 26 338 12 C448 0 548 20 640 9" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.92;1" dur="7s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
