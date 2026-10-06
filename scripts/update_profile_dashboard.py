@@ -60,6 +60,27 @@ def search_count(query: str, token: str) -> int:
     return int(result.get("total_count", 0))
 
 
+def count_recent_commits(owner: str, repos: list[dict], token: str, cutoff: datetime) -> int:
+    since = cutoff.isoformat().replace("+00:00", "Z")
+    total = 0
+
+    for repo in repos:
+        if not include_for_languages(repo):
+            continue
+
+        for page in range(1, 4):
+            commits = api_get(
+                f"/repos/{quote(owner)}/{quote(repo['name'])}/commits"
+                f"?author={quote(owner)}&since={quote(since)}&per_page=100&page={page}",
+                token,
+            )
+            total += len(commits)
+            if len(commits) < 100:
+                break
+
+    return total
+
+
 def collect_stats(owner: str, repos: list[dict], token: str) -> list[tuple[str, int | str]]:
     now = datetime.now(timezone.utc)
     active_cutoff = now - timedelta(days=30)
@@ -69,14 +90,14 @@ def collect_stats(owner: str, repos: list[dict], token: str) -> list[tuple[str, 
         for repo in repos
         if repo.get("pushed_at") and parse_time(repo["pushed_at"]) >= active_cutoff
     )
-    stars = sum(int(repo.get("stargazers_count", 0)) for repo in repos)
+    commits_30d = count_recent_commits(owner, repos, token, active_cutoff)
 
     prs = search_count(f"author:{owner} type:pr", token)
     issues = search_count(f"author:{owner} type:issue", token)
 
     return [
         ("Repositories", len(repos)),
-        ("Stars", stars),
+        ("Commits 30d", commits_30d),
         ("Active 30d", active),
         ("Pull Requests", prs),
         ("Issues", issues),
