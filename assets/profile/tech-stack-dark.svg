@@ -1,0 +1,110 @@
+<svg width="1440" height="360" viewBox="0 0 1440 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="40" y1="30" x2="1400" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="360" rx="28" fill="#0D1117"/>
+  <rect x="1" y="1" width="1438" height="358" rx="27" fill="none" stroke="#30363D" stroke-width="2"/>
+  <circle cx="54" cy="48" r="6" fill="url(#accent)"/>
+  <text x="74" y="56" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">TECH STACK</text>
+  <text x="54" y="82" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14">tools I actually use to build, ship and experiment</text>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <g transform="translate(50 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#7C3AED"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">KT</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Kotlin</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Mobile / KMP</text>
+    </g>
+    <g transform="translate(222 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#6366F1"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">AS</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="16" font-weight="700">Android</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Studio / Compose</text>
+    </g>
+    <g transform="translate(394 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#4F46E5"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">FL</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Flutter</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Cross-platform</text>
+    </g>
+    <g transform="translate(566 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#3B82F6"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">DT</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Dart</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">App logic</text>
+    </g>
+    <g transform="translate(738 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#2563EB"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">TS</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">TypeScript</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Web / APIs</text>
+    </g>
+    <g transform="translate(910 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#0EA5E9"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">RE</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">React</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">UI</text>
+    </g>
+    <g transform="translate(1082 105)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#8B5CF6"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">NX</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Next.js</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Web products</text>
+    </g>
+    <g transform="translate(1254 105)">
+      <rect width="136" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="30" cy="30" r="18" fill="#6366F1"/><text x="30" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">SB</text>
+      <text x="56" y="35" fill="#F0F6FC" font-size="15" font-weight="700">Supabase</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Backend</text>
+    </g>
+
+    <g transform="translate(136 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#7C3AED"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">PG</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">PostgreSQL</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Data</text>
+    </g>
+    <g transform="translate(308 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#6366F1"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">RS</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Rust</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Systems / ZKP</text>
+    </g>
+    <g transform="translate(480 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#4F46E5"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">PY</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Python</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Automation / CV</text>
+    </g>
+    <g transform="translate(652 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#3B82F6"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">3D</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Three.js</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Creative coding</text>
+    </g>
+    <g transform="translate(824 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#2563EB"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">GT</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">Git</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Versioning</text>
+    </g>
+    <g transform="translate(996 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#8B5CF6"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">GH</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="17" font-weight="700">GitHub</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">Issues / PRs</text>
+    </g>
+    <g transform="translate(1168 207)">
+      <rect width="158" height="86" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="34" cy="30" r="18" fill="#6366F1"/><text x="34" y="36" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">GA</text>
+      <text x="62" y="35" fill="#F0F6FC" font-size="16" font-weight="700">Actions</text>
+      <text x="18" y="68" fill="#8B949E" font-size="13">CI / Automation</text>
+    </g>
+  </g>
+
+  <rect x="54" y="318" width="1332" height="4" rx="2" fill="url(#accent)"/>
+  <text x="54" y="342" fill="#8B949E" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">curated · project-backed · no badge wall</text>
+</svg>
