@@ -268,6 +268,7 @@ def theme(dark: bool) -> dict[str, str]:
 
 PALETTE = ["#8B5CF6", "#3B82F6", "#06B6D4", "#10B981", "#F59E0B", "#6B7280"]
 # PROFILE_MOTION_V1: generated README SVGs include lightweight SMIL motion.
+# PROFILE_DEPTH_V2: dashboard panels and contribution cells use pseudo-3D geometry.
 
 
 def stats_svg(metrics: list[tuple[str, int | str]], dark: bool) -> str:
@@ -455,6 +456,9 @@ def dashboard_svg(
     dark: bool,
 ) -> str:
     t = theme(dark)
+    depth_shadow = "#05070B" if dark else "#CBD5E1"
+    depth_surface = "#111827" if dark else "#F1F5F9"
+    depth_side = "#0B1220" if dark else "#E2E8F0"
     metric_map = {label: value for label, value in metrics}
     current_streak, longest_streak, active_days = streak_stats(contributions["days"])
 
@@ -530,9 +534,27 @@ def dashboard_svg(
   <circle cx="42" cy="42" r="6" fill="url(#accent)"><animate attributeName="r" values="5;8;5" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;1;.45" dur="2.5s" repeatCount="indefinite"/></circle>
   <text x="62" y="50" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="700" letter-spacing="2">DEVELOPER DASHBOARD</text>
   <text x="54" y="78" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">activity · streaks · languages</text>
+  <g opacity=".96">
+    <rect x="41" y="91" width="640" height="66" rx="16" fill="{depth_shadow}" opacity="{'.72' if dark else '.5'}"/>
+    <path d="M34 84 H674 L681 91 V150 L674 143 H34 Z" fill="{depth_surface}" stroke="{t["border"]}"/>
+    <path d="M674 84 L681 91 V150 L674 143 Z" fill="{depth_side}"/>
+    <path d="M34 143 H674 L681 150 H41 Z" fill="{depth_shadow}" opacity=".72"/>
+  </g>
   {''.join(metric_blocks)}
   <line x1="54" y1="159" x2="666" y2="159" stroke="{t["border"]}"/>
+  <g opacity=".95">
+    <rect x="41" y="174" width="640" height="58" rx="15" fill="{depth_shadow}" opacity="{'.68' if dark else '.46'}"/>
+    <path d="M34 168 H674 L681 175 V225 L674 218 H34 Z" fill="{depth_surface}" stroke="{t["border"]}"/>
+    <path d="M674 168 L681 175 V225 L674 218 Z" fill="{depth_side}"/>
+    <path d="M34 218 H674 L681 225 H41 Z" fill="{depth_shadow}" opacity=".68"/>
+  </g>
   {''.join(streak_blocks)}
+  <g opacity=".94">
+    <rect x="41" y="251" width="640" height="136" rx="17" fill="{depth_shadow}" opacity="{'.62' if dark else '.42'}"/>
+    <path d="M34 244 H674 L681 251 V380 L674 373 H34 Z" fill="{depth_surface}" stroke="{t["border"]}"/>
+    <path d="M674 244 L681 251 V380 L674 373 Z" fill="{depth_side}"/>
+    <path d="M34 373 H674 L681 380 H41 Z" fill="{depth_shadow}" opacity=".64"/>
+  </g>
   <text x="54" y="244" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12" font-weight="700" letter-spacing="1">MOST USED LANGUAGES</text>
   {''.join(rows)}
   <rect x="54" y="392" width="612" height="4" rx="2" fill="url(#accent)"><animate attributeName="width" values="180;612;510;612" dur="7.4s" repeatCount="indefinite"/></rect>
@@ -561,15 +583,21 @@ def contribution_strip_svg(contributions: dict, dark: bool) -> str:
             color = level_colors.get(level, t["track"])
             if level == "NONE":
                 cells.append(
-                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}"/>'
+                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}" opacity=".72"/>'
                 )
             else:
                 delay = ((week_index * 0.07) + (weekday * 0.05)) % 3.0
                 cells.append(
-                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}">'
-                    f'<animate attributeName="opacity" values=".42;1;.58;1;.42" '
+                    f'<g>'
+                    f'<path d="M{x + 8} {y} L{x + 11} {y + 3} V{y + 11} L{x + 8} {y + 8} Z" '
+                    f'fill="{t["accent2"]}" opacity=".46"/>'
+                    f'<path d="M{x} {y + 8} L{x + 3} {y + 11} H{x + 11} L{x + 8} {y + 8} Z" '
+                    f'fill="{t["accent1"]}" opacity=".34"/>'
+                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="1.5" fill="{color}">'
+                    f'<animate attributeName="opacity" values=".48;1;.68;1;.48" '
                     f'dur="3.4s" begin="{delay:.2f}s" repeatCount="indefinite"/>'
                     f'</rect>'
+                    f'</g>'
                 )
 
     return f'''<svg width="720" height="155" viewBox="0 0 720 155" xmlns="http://www.w3.org/2000/svg">
