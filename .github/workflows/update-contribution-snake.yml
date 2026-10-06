@@ -1,0 +1,48 @@
+name: Update contribution snake
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-contribution-snake.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: contribution-snake
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out profile repository
+        uses: actions/checkout@v4
+
+      - name: Generate SMRI contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            assets/profile/generated/contribution-snake.svg?color_snake=#7C3AED&color_dots=#EBEDF0,#DDD6FE,#A78BFA,#7C3AED,#4F46E5
+            assets/profile/generated/contribution-snake-dark.svg?color_snake=#3B82F6&color_dots=#161B22,#312E81,#4338CA,#6366F1,#8B5CF6
+
+      - name: Commit only when snake changed
+        shell: bash
+        run: |
+          if git diff --quiet -- assets/profile/generated/contribution-snake.svg assets/profile/generated/contribution-snake-dark.svg; then
+            echo "Contribution snake unchanged."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/profile/generated/contribution-snake.svg assets/profile/generated/contribution-snake-dark.svg
+          git commit -m "chore: refresh contribution snake"
+          git push
