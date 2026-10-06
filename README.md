@@ -16,28 +16,17 @@
 
 ## GitHub Dashboard
 
-<table>
-<tr>
-<td width="50%" valign="top">
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/stats-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/stats-light.svg">
   <img alt="SMRI GitHub Stats" src="./assets/profile/generated/stats-light.svg" width="100%">
 </picture>
 
-</td>
-<td width="50%" valign="top">
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/languages-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/languages-light.svg">
   <img alt="SMRI Most Used Languages" src="./assets/profile/generated/languages-light.svg" width="100%">
 </picture>
-
-</td>
-</tr>
-</table>
 
 ---
 
@@ -53,17 +42,11 @@
 
 ## Tech Stack
 
-<div align="center">
-
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=kotlin,androidstudio,flutter,dart,ts,react,nextjs,supabase,postgres,rust,py,threejs,git,github,githubactions&theme=dark&perline=8">
-  <source media="(prefers-color-scheme: light)" srcset="https://skillicons.dev/icons?i=kotlin,androidstudio,flutter,dart,ts,react,nextjs,supabase,postgres,rust,py,threejs,git,github,githubactions&theme=light&perline=8">
-  <img alt="Tech Stack: Kotlin, Android Studio, Flutter, Dart, TypeScript, React, Next.js, Supabase, PostgreSQL, Rust, Python, Three.js, Git and GitHub Actions" src="https://skillicons.dev/icons?i=kotlin,androidstudio,flutter,dart,ts,react,nextjs,supabase,postgres,rust,py,threejs,git,github,githubactions&theme=light&perline=8">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/tech-stack-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/tech-stack-light.svg">
+  <img alt="SMRI curated tech stack" src="./assets/profile/tech-stack-light.svg" width="100%">
 </picture>
-
-<sub>Kotlin / KMP · Flutter · TypeScript · React · Next.js · Supabase · PostgreSQL · Rust · Python · Three.js · GitHub Actions</sub>
-
-</div>
 
 ---
 

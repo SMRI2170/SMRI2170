@@ -1,0 +1,94 @@
+<svg width="720" height="560" viewBox="0 0 720 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="34" y1="24" x2="686" y2="536" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="560" rx="28" fill="#0D1117"/>
+  <rect x="1" y="1" width="718" height="558" rx="27" fill="none" stroke="#30363D" stroke-width="2"/>
+  <circle cx="42" cy="44" r="6" fill="url(#accent)"/>
+  <text x="62" y="52" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">TECH STACK</text>
+  <text x="42" y="78" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14">project-backed tools I use to build and ship</text>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <g transform="translate(38 104)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#7C3AED"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">KT</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Kotlin</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">KMP · Compose</text>
+    </g>
+    <g transform="translate(258 104)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#6366F1"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">FL</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Flutter</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Cross-platform</text>
+    </g>
+    <g transform="translate(478 104)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#4F46E5"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">DT</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Dart</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Mobile apps</text>
+    </g>
+
+    <g transform="translate(38 208)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#3B82F6"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">TS</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">TypeScript</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Web · APIs</text>
+    </g>
+    <g transform="translate(258 208)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#2563EB"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">RE</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">React</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Product UI</text>
+    </g>
+    <g transform="translate(478 208)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#8B5CF6"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">NX</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Next.js</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Web products</text>
+    </g>
+
+    <g transform="translate(38 312)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#7C3AED"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">SB</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Supabase</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Auth · Backend</text>
+    </g>
+    <g transform="translate(258 312)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#6366F1"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">PG</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">PostgreSQL</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Data · RLS</text>
+    </g>
+    <g transform="translate(478 312)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#4F46E5"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">RS</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Rust</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Systems · ZKP</text>
+    </g>
+
+    <g transform="translate(38 416)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#3B82F6"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">PY</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Python</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Automation · CV</text>
+    </g>
+    <g transform="translate(258 416)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#2563EB"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="800">3D</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="20" font-weight="750">Three.js</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">Creative coding</text>
+    </g>
+    <g transform="translate(478 416)">
+      <rect width="204" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
+      <circle cx="38" cy="33" r="19" fill="#8B5CF6"/><text x="38" y="39" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">GA</text>
+      <text x="70" y="38" fill="#F0F6FC" font-size="19" font-weight="750">Actions</text>
+      <text x="20" y="69" fill="#8B949E" font-size="14">CI · Automation</text>
+    </g>
+  </g>
+
+  <rect x="42" y="520" width="636" height="4" rx="2" fill="url(#accent)"/>
+  <text x="42" y="546" fill="#8B949E" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">12 core technologies · local SVG · dark / light</text>
+</svg>
