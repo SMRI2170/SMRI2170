@@ -30,3 +30,75 @@ A fact-based relationship analysis product that turns observable events into con
 A Flutter garden simulation for growing and collecting unusual plants.
 
 `Flutter` · `Dart` · `Mobile`
+
+
+---
+
+## Shipped
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://smri2170.github.io/Official-Website-of-Emotion-Diary/">
+  <img src="./assets/profile/projects/emotion-diary.svg" width="100%" alt="Emotion Diary">
+</a>
+
+### Emotion Diary
+
+Track daily emotions and turn them into patterns you can actually look back on.
+
+`Flutter` · `Charts` · `Local-first`
+
+[Website](https://smri2170.github.io/Official-Website-of-Emotion-Diary/) · [App Store](https://apps.apple.com/jp/app/emotion-diary-see-the-waves/id6757458952) · [Google Play](https://play.google.com/store/apps/details?id=jp.smri.emo0708)
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://smri2170.github.io/Official-Website-of-oshi-diary/">
+  <img src="./assets/profile/projects/fave-diary.svg" width="100%" alt="Fave Diary">
+</a>
+
+### Fave Diary
+
+A private fan space for memories, schedules, merchandise and spending.
+
+`Flutter` · `Hive` · `Offline-first`
+
+[Website](https://smri2170.github.io/Official-Website-of-oshi-diary/) · [App Store](https://apps.apple.com/jp/app/%E6%8E%A8%E3%81%97%E6%B4%BB%E6%97%A5%E8%A8%98/id6751962585) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.oshikatu)
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://smri2170.github.io/Official-Website-of-Swim-Across/">
+  <img src="./assets/profile/projects/swim-across.svg" width="100%" alt="Swim Across">
+</a>
+
+### Swim Across
+
+Turn swim training into a map-based journey with goals, logs and custom workouts.
+
+`Flutter` · `OpenStreetMap` · `Fitness`
+
+[Website](https://smri2170.github.io/Official-Website-of-Swim-Across/) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.swimming_trip)
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://smri2170.github.io/Official-Website-of-Agrimanager/">
+  <img src="./assets/profile/projects/agrisk-ai.svg" width="100%" alt="Agrisk-AI">
+</a>
+
+### Agrisk-AI
+
+Weather-aware agricultural risk alerts designed to make daily field decisions easier.
+
+`Flutter` · `AI` · `Weather`
+
+[Website](https://smri2170.github.io/Official-Website-of-Agrimanager/) · [Google Play](https://play.google.com/store/apps/details?id=com.ryosuke.agriculture0716)
+
+</td>
+</tr>
+</table>
