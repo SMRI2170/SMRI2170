@@ -113,3 +113,28 @@ Weather-aware agricultural risk alerts designed to make daily field decisions ea
 - [`resume-research-progress`](https://github.com/SMRI2170/resume-research-progress) · `Oct 6` — `Publish company research progress dashboard`
 - [`signal`](https://github.com/SMRI2170/signal) · `Oct 3` — `fix(native): fail closed on missing judge API`
 <!-- activity:end -->
+
+---
+
+## Toolbox
+
+<sub>Tools I use to build and ship products. Every stack below connects to a real project.</sub>
+
+- **Mobile** — `Flutter` · `Dart` · `Kotlin Multiplatform` · `Compose Multiplatform` · [Emotion Diary](https://github.com/SMRI2170/Official-Website-of-Emotion-Diary) / [SIGNAL](https://github.com/SMRI2170/signal)
+- **Web** — `TypeScript` · `React` · `Next.js` · [SIGNAL](https://github.com/SMRI2170/signal)
+- **Backend** — `Supabase` · `PostgreSQL` · `Auth / RLS` · [SIGNAL](https://github.com/SMRI2170/signal)
+- **Creative coding** — `Three.js` · `PWA` · [Space Cleanup Station](https://github.com/SMRI2170/space-cleanup-station)
+- **Research tooling** — `Circom` · `Groth16` · `Rust` · `OpenDroneID` · [zk-UAV Proximity Proof](https://github.com/SMRI2170/zerosky-opendroneid)
+- **Shipping workflow** — `GitHub Actions` · `CI/CD` · `Issue-driven development` · [this profile](https://github.com/SMRI2170/SMRI2170) / [Space Cleanup Station](https://github.com/SMRI2170/space-cleanup-station)
+
+---
+
+## Lab / R&D
+
+<sub>Outside product development, I explore privacy-preserving systems and computer vision.</sub>
+
+**[zk-UAV Proximity Proof](https://github.com/SMRI2170/zerosky-opendroneid)**  
+Exploring zero-knowledge proofs for drone proximity checks, combining Circom / Groth16, BLE Remote ID and a mobile prototype.
+
+**[Range & Positioning System](https://github.com/SMRI2170/Range-and-Positioning-System)**  
+A computer-vision experiment combining YOLOv8 and MiDaS to estimate a person's relative depth and camera-space position from images.
