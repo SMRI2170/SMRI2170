@@ -19,5 +19,5 @@
   <circle cx="88" cy="263" r="10" fill="#14B8A6"/>
   <circle cx="247" cy="228" r="10" fill="#22C55E"/>
   <circle cx="413" cy="184" r="10" fill="#6366F1"/>
-  <circle cx="584" cy="112" r="10" fill="#3B82F6"/>
-</svg>
+  <circle cx="584" cy="112" r="10" fill="#3B82F6"><animate attributeName="r" values="9;14;9" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;1;.7" dur="2.6s" repeatCount="indefinite"/></circle>
+<circle id="emotion-motion-dot" r="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="3"><animateMotion path="M88 263 C142 230 190 282 247 228 C308 169 357 222 413 184 C471 145 514 176 584 112" dur="5.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.06;.94;1" dur="5.8s" repeatCount="indefinite"/></circle></svg>
