@@ -10,13 +10,13 @@
   <text x="54" y="68" fill="#BE185D" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">MOBILE APP</text>
   <text x="54" y="122" fill="#111827" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="42" font-weight="800">Fave Diary</text>
   <text x="54" y="158" fill="#6B7280" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20">private fan space · memories · collections</text>
-  <rect x="70" y="206" width="160" height="106" rx="20" fill="#FFFFFF" opacity=".88"/>
-  <rect x="252" y="206" width="160" height="106" rx="20" fill="#FFFFFF" opacity=".72"/>
-  <rect x="434" y="206" width="160" height="106" rx="20" fill="#FFFFFF" opacity=".56"/>
-  <path d="M150 226 L159 247 L182 249 L164 264 L169 287 L150 275 L131 287 L136 264 L118 249 L141 247 Z" fill="#EC4899"/>
+  <rect x="70" y="206" width="160" height="106" rx="20" fill="#FFFFFF" opacity=".88"><animate attributeName="y" values="206;201;206" dur="5.2s" repeatCount="indefinite"/></rect>
+  <rect x="252" y="206" width="160" height="106" rx="20" fill="#FFFFFF" opacity=".72"><animate attributeName="y" values="206;202;206" dur="5.7s" begin=".6s" repeatCount="indefinite"/></rect>
+  <rect x="434" y="206" width="160" height="106" rx="20" fill="#FFFFFF" opacity=".56"><animate attributeName="y" values="206;200;206" dur="6s" begin="1.1s" repeatCount="indefinite"/></rect>
+  <path id="fave-motion" d="M150 226 L159 247 L182 249 L164 264 L169 287 L150 275 L131 287 L136 264 L118 249 L141 247 Z" fill="#EC4899"><animateTransform attributeName="transform" type="rotate" values="-5 150 257;5 150 257;-5 150 257" dur="4.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;1;.8" dur="2.4s" repeatCount="indefinite"/></path>
   <rect x="280" y="232" width="104" height="12" rx="6" fill="#8B5CF6" opacity=".55"/>
   <rect x="280" y="257" width="76" height="10" rx="5" fill="#A78BFA" opacity=".55"/>
   <rect x="280" y="278" width="90" height="10" rx="5" fill="#C4B5FD" opacity=".65"/>
-  <circle cx="514" cy="257" r="28" fill="#60A5FA" opacity=".72"/>
+  <circle cx="514" cy="257" r="28" fill="#60A5FA" opacity=".72"><animate attributeName="r" values="25;31;25" dur="3.4s" repeatCount="indefinite"/></circle>
   <circle cx="552" cy="270" r="18" fill="#A78BFA" opacity=".76"/>
 </svg>
