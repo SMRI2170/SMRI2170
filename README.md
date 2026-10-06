@@ -41,6 +41,16 @@
 
 ---
 
+## Contribution Activity
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/contribution-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/contribution-light.svg">
+  <img alt="SMRI Contribution Pulse and streaks" src="./assets/profile/generated/contribution-light.svg" width="100%">
+</picture>
+
+---
+
 ## Now Building
 
 ### Soine `BUILDING`
