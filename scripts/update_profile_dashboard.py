@@ -456,164 +456,104 @@ def dashboard_svg(
     dark: bool,
 ) -> str:
     t = theme(dark)
-    depth_shadow = "#05070B" if dark else "#CBD5E1"
-    depth_surface = "#111827" if dark else "#F1F5F9"
-    depth_side = "#0B1220" if dark else "#E2E8F0"
+    bg = "#090C16" if dark else "#F6F4EA"
+    panel = "#10162A" if dark else "#FFFDF4"
+    text = "#F4F7FF" if dark else "#171A24"
+    muted = "#8F9BB3" if dark else "#596273"
+    line = "#2D385A" if dark else "#C8C2AF"
+    purple = "#9B6CFF"
+    cyan = "#4DD7FF"
+    yellow = "#FFD166"
+    green = "#6EE7A8"
+    font = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
+
     metric_map = {label: value for label, value in metrics}
     current_streak, longest_streak, active_days = streak_stats(contributions["days"])
-
     metric_items = [
-        ("COMMITS 30D", metric_map.get("Commits 30d", 0)),
-        ("PULL REQUESTS", metric_map.get("Pull Requests", 0)),
+        ("COMMITS", metric_map.get("Commits 30d", 0)),
+        ("PULL REQS", metric_map.get("Pull Requests", 0)),
         ("ISSUES", metric_map.get("Issues", 0)),
-        ("REPOSITORIES", metric_map.get("Repositories", 0)),
+        ("REPOS", metric_map.get("Repositories", 0)),
     ]
-    metric_x = [54, 218, 382, 546]
+    metric_x = [54, 220, 386, 552]
     metric_blocks = []
-    for (label, value), x in zip(metric_items, metric_x):
+    for idx, ((label, value), x) in enumerate(zip(metric_items, metric_x)):
+        color = [purple, cyan, green, yellow][idx]
         metric_blocks.append(
-            f'<text x="{x}" y="118" fill="{t["text"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="34" font-weight="800">{html.escape(str(value))}</text>'
+            f'<text x="{x}" y="142" fill="{color}" font-family="{font}" font-size="30" font-weight="900">{html.escape(str(value))}</text>'
         )
         metric_blocks.append(
-            f'<text x="{x}" y="141" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12" font-weight="700" letter-spacing="1">{label}</text>'
-        )
-
-    streak_items = [
-        ("CURRENT", f"{current_streak}d"),
-        ("LONGEST", f"{longest_streak}d"),
-        ("ACTIVE DAYS", active_days),
-        ("TOTAL", contributions["total"]),
-    ]
-    streak_x = [54, 218, 382, 546]
-    streak_blocks = []
-    for (label, value), x in zip(streak_items, streak_x):
-        streak_blocks.append(
-            f'<text x="{x}" y="196" fill="{t["text"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="24" font-weight="800">{html.escape(str(value))}</text>'
-        )
-        streak_blocks.append(
-            f'<text x="{x}" y="217" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="11" font-weight="700" letter-spacing="1">{label}</text>'
+            f'<text x="{x}" y="163" fill="{muted}" font-family="{font}" font-size="11" font-weight="700">{label}</text>'
         )
 
     if not languages:
-        languages = [("No data", 1)]
+        languages = [("NO DATA", 1)]
     total = sum(size for _, size in languages)
-    rows = []
-    y = 266
-    for idx, (name, size) in enumerate(languages[:6]):
+    skill_rows = []
+    skill_y = [254, 288, 322, 356]
+    for idx, ((name, size), y) in enumerate(zip(languages[:4], skill_y)):
         pct = (size / total) * 100 if total else 0
-        bar_width = max(2, int(270 * pct / 100))
-        color = PALETTE[idx % len(PALETTE)]
-        rows.append(
-            f'<text x="54" y="{y}" fill="{t["text"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="15" font-weight="700">{html.escape(name)}</text>'
+        filled = max(1, min(10, round(pct / 10)))
+        color = [purple, cyan, green, yellow][idx]
+        skill_rows.append(
+            f'<text x="54" y="{y + 10}" fill="{text}" font-family="{font}" font-size="13" font-weight="700">{html.escape(name.upper())}</text>'
         )
-        rows.append(
-            f'<rect x="170" y="{y - 12}" width="270" height="10" rx="5" fill="{t["track"]}"/>'
-        )
-        rows.append(
-            f'<rect x="170" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="{color}">'
-            f'<animate attributeName="width" values="2;{bar_width};{max(2, int(bar_width * 0.88))};{bar_width}" '
-            f'dur="{5.6 + idx * 0.35:.2f}s" begin="{idx * 0.18:.2f}s" repeatCount="indefinite"/>'
-            f'<animate attributeName="opacity" values=".72;1;.82;1" dur="{3.8 + idx * 0.22:.2f}s" '
-            f'begin="{idx * 0.12:.2f}s" repeatCount="indefinite"/>'
-            f'</rect>'
-        )
-        rows.append(
-            f'<text x="476" y="{y}" text-anchor="end" fill="{t["muted"]}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">{pct:.1f}%</text>'
-        )
-        y += 25
-
-    return f'''<svg width="720" height="420" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="accent" x1="42" y1="20" x2="678" y2="400" gradientUnits="userSpaceOnUse">
-      <stop stop-color="{t["accent1"]}"/>
-      <stop offset="1" stop-color="{t["accent2"]}"/>
-    </linearGradient>
-  </defs>
-  <rect width="720" height="420" rx="28" fill="{t["bg"]}"/>
-  <rect x="1" y="1" width="718" height="418" rx="27" fill="none" stroke="{t["border"]}" stroke-width="2"/>
-  <circle cx="42" cy="42" r="6" fill="url(#accent)"><animate attributeName="r" values="5;8;5" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;1;.45" dur="2.5s" repeatCount="indefinite"/></circle>
-  <text x="62" y="50" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="700" letter-spacing="2">DEVELOPER DASHBOARD</text>
-  <text x="54" y="78" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">activity · streaks · languages</text>
-  <g opacity=".96">
-    <rect x="41" y="91" width="640" height="66" rx="16" fill="{depth_shadow}" opacity="{'.72' if dark else '.5'}"/>
-    <path d="M34 84 H674 L681 91 V150 L674 143 H34 Z" fill="{depth_surface}" stroke="{t["border"]}"/>
-    <path d="M674 84 L681 91 V150 L674 143 Z" fill="{depth_side}"/>
-    <path d="M34 143 H674 L681 150 H41 Z" fill="{depth_shadow}" opacity=".72"/>
-  </g>
-  {''.join(metric_blocks)}
-  <line x1="54" y1="159" x2="666" y2="159" stroke="{t["border"]}"/>
-  <g opacity=".95">
-    <rect x="41" y="174" width="640" height="58" rx="15" fill="{depth_shadow}" opacity="{'.68' if dark else '.46'}"/>
-    <path d="M34 168 H674 L681 175 V225 L674 218 H34 Z" fill="{depth_surface}" stroke="{t["border"]}"/>
-    <path d="M674 168 L681 175 V225 L674 218 Z" fill="{depth_side}"/>
-    <path d="M34 218 H674 L681 225 H41 Z" fill="{depth_shadow}" opacity=".68"/>
-  </g>
-  {''.join(streak_blocks)}
-  <g opacity=".94">
-    <rect x="41" y="251" width="640" height="136" rx="17" fill="{depth_shadow}" opacity="{'.62' if dark else '.42'}"/>
-    <path d="M34 244 H674 L681 251 V380 L674 373 H34 Z" fill="{depth_surface}" stroke="{t["border"]}"/>
-    <path d="M674 244 L681 251 V380 L674 373 Z" fill="{depth_side}"/>
-    <path d="M34 373 H674 L681 380 H41 Z" fill="{depth_shadow}" opacity=".64"/>
-  </g>
-  <text x="54" y="244" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12" font-weight="700" letter-spacing="1">MOST USED LANGUAGES</text>
-  {''.join(rows)}
-  <rect x="54" y="392" width="612" height="4" rx="2" fill="url(#accent)"><animate attributeName="width" values="180;612;510;612" dur="7.4s" repeatCount="indefinite"/></rect>
-  <circle r="4" fill="url(#accent)"><animateMotion path="M54 394 H666" dur="4.9s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="4.9s" repeatCount="indefinite"/></circle>
-</svg>'''
-
-
-def contribution_strip_svg(contributions: dict, dark: bool) -> str:
-    t = theme(dark)
-    weeks = contributions["weeks"][-53:]
-    level_colors = {
-        "NONE": t["track"],
-        "FIRST_QUARTILE": t["level1"],
-        "SECOND_QUARTILE": t["level2"],
-        "THIRD_QUARTILE": t["level3"],
-        "FOURTH_QUARTILE": t["level4"],
-    }
-
-    cells = []
-    for week_index, week in enumerate(weeks):
-        x = 42 + week_index * 12
-        for day in week.get("contributionDays", []):
-            weekday = int(day["weekday"])
-            y = 54 + weekday * 12
-            level = day.get("contributionLevel", "NONE")
-            color = level_colors.get(level, t["track"])
-            if level == "NONE":
-                cells.append(
-                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}" opacity=".72"/>'
+        for seg in range(10):
+            x = 190 + seg * 24
+            if seg < filled:
+                skill_rows.append(
+                    f'<rect x="{x}" y="{y}" width="16" height="12" fill="{color}">'
+                    f'<animate attributeName="opacity" values=".5;1;.5" dur="{2.0 + seg * 0.08:.2f}s" begin="{seg * 0.04:.2f}s" repeatCount="indefinite"/>'
+                    f'</rect>'
                 )
             else:
-                delay = ((week_index * 0.07) + (weekday * 0.05)) % 3.0
-                cells.append(
-                    f'<g>'
-                    f'<path d="M{x + 8} {y} L{x + 11} {y + 3} V{y + 11} L{x + 8} {y + 8} Z" '
-                    f'fill="{t["accent2"]}" opacity=".46"/>'
-                    f'<path d="M{x} {y + 8} L{x + 3} {y + 11} H{x + 11} L{x + 8} {y + 8} Z" '
-                    f'fill="{t["accent1"]}" opacity=".34"/>'
-                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="1.5" fill="{color}">'
-                    f'<animate attributeName="opacity" values=".48;1;.68;1;.48" '
-                    f'dur="3.4s" begin="{delay:.2f}s" repeatCount="indefinite"/>'
-                    f'</rect>'
-                    f'</g>'
-                )
+                skill_rows.append(f'<rect x="{x}" y="{y}" width="16" height="12" fill="{line}"/>')
+        skill_rows.append(
+            f'<text x="472" y="{y + 10}" fill="{muted}" font-family="{font}" font-size="11">{pct:.1f}%</text>'
+        )
 
-    return f'''<svg width="720" height="155" viewBox="0 0 720 155" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="accent" x1="42" y1="18" x2="678" y2="138" gradientUnits="userSpaceOnUse">
-      <stop stop-color="{t["accent1"]}"/>
-      <stop offset="1" stop-color="{t["accent2"]}"/>
-    </linearGradient>
-  </defs>
-  <rect width="720" height="155" rx="24" fill="{t["bg"]}"/>
-  <rect x="1" y="1" width="718" height="153" rx="23" fill="none" stroke="{t["border"]}" stroke-width="2"/>
-  <circle cx="42" cy="29" r="5" fill="url(#accent)"><animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;1;.45" dur="2.4s" repeatCount="indefinite"/></circle>
-  <text x="58" y="35" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="14" font-weight="700" letter-spacing="1.5">CONTRIBUTION FLOW</text>
-  {''.join(cells)}
-  <rect x="42" y="139" width="636" height="3" rx="1.5" fill="url(#accent)"><animate attributeName="width" values="150;636;520;636" dur="7.8s" repeatCount="indefinite"/></rect>
-  <circle r="3.5" fill="url(#accent)"><animateMotion path="M42 140.5 H678" dur="5.1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="5.1s" repeatCount="indefinite"/></circle>
+    return f'''<svg width="720" height="410" viewBox="0 0 720 410" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect width="720" height="410" fill="{bg}"/>
+  <rect x="18" y="18" width="684" height="374" fill="{panel}" stroke="{text}" stroke-width="4"/>
+  <rect x="28" y="28" width="664" height="354" fill="none" stroke="{line}" stroke-width="2"/>
+
+  <text x="48" y="58" fill="{yellow}" font-family="{font}" font-size="16" font-weight="900">PLAYER STATUS</text>
+  <text x="526" y="58" fill="{green}" font-family="{font}" font-size="11">ONLINE</text>
+  <rect x="650" y="46" width="10" height="10" fill="{green}">
+    <animate attributeName="opacity" values="1;.15;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+
+  <g transform="translate(52 76)">
+    <rect x="0" y="0" width="46" height="10" fill="{yellow}"/>
+    <rect x="-6" y="10" width="58" height="38" fill="{text}"/>
+    <rect x="4" y="20" width="8" height="8" fill="{bg}"/>
+    <rect x="34" y="20" width="8" height="8" fill="{bg}"/>
+    <rect x="8" y="48" width="38" height="34" fill="{purple}"/>
+  </g>
+  <text x="126" y="96" fill="{text}" font-family="{font}" font-size="20" font-weight="900">SMRI</text>
+  <text x="126" y="118" fill="{muted}" font-family="{font}" font-size="11">CLASS: BUILDER</text>
+  <text x="126" y="137" fill="{muted}" font-family="{font}" font-size="11">MODE : INDIE</text>
+
+  {''.join(metric_blocks)}
+
+  <rect x="48" y="188" width="624" height="2" fill="{line}"/>
+  <text x="50" y="215" fill="{cyan}" font-family="{font}" font-size="12">STREAK {current_streak}D</text>
+  <text x="188" y="215" fill="{purple}" font-family="{font}" font-size="12">BEST {longest_streak}D</text>
+  <text x="308" y="215" fill="{green}" font-family="{font}" font-size="12">ACTIVE {active_days}</text>
+  <text x="446" y="215" fill="{yellow}" font-family="{font}" font-size="12">XP {contributions["total"]}</text>
+
+  <text x="50" y="240" fill="{muted}" font-family="{font}" font-size="11" font-weight="700">SKILL SLOTS</text>
+  {''.join(skill_rows)}
+
+  <text x="538" y="265" fill="{muted}" font-family="{font}" font-size="10">AUTO SAVE</text>
+  <rect x="538" y="278" width="118" height="10" fill="{line}"/>
+  <rect x="538" y="278" width="76" height="10" fill="{purple}">
+    <animate attributeName="width" values="18;118;76;118" dur="5.2s" repeatCount="indefinite"/>
+  </rect>
+  <text x="538" y="320" fill="{text}" font-family="{font}" font-size="11">▶ CONTINUE</text>
+  <rect x="646" y="309" width="8" height="14" fill="{cyan}">
+    <animate attributeName="opacity" values="1;0;1" dur=".8s" repeatCount="indefinite"/>
+  </rect>
 </svg>'''
 
 
@@ -639,16 +579,8 @@ def main() -> int:
     contributions = collect_contributions(owner, token)
 
     generated = {
-        OUT_DIR / "stats-dark.svg": stats_svg(metrics, True),
-        OUT_DIR / "stats-light.svg": stats_svg(metrics, False),
-        OUT_DIR / "languages-dark.svg": languages_svg(languages, True),
-        OUT_DIR / "languages-light.svg": languages_svg(languages, False),
-        OUT_DIR / "contribution-dark.svg": contribution_svg(contributions, True),
-        OUT_DIR / "contribution-light.svg": contribution_svg(contributions, False),
         OUT_DIR / "dashboard-dark.svg": dashboard_svg(metrics, languages, contributions, True),
         OUT_DIR / "dashboard-light.svg": dashboard_svg(metrics, languages, contributions, False),
-        OUT_DIR / "contribution-strip-dark.svg": contribution_strip_svg(contributions, True),
-        OUT_DIR / "contribution-strip-light.svg": contribution_strip_svg(contributions, False),
     }
 
     changed = False

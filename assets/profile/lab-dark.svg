@@ -1,9 +1,22 @@
-<svg width="720" height="180" viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="a"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient></defs><rect width="720" height="180" rx="24" fill="#0D1117"/><rect x="1" y="1" width="718" height="178" rx="23" fill="none" stroke="#30363D" stroke-width="2"/><circle cx="38" cy="34" r="5" fill="url(#a)"><animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;1;.5" dur="2.4s" repeatCount="indefinite"/></circle><text x="54" y="40" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="14" font-weight="700" letter-spacing="1.5">LAB / R&amp;D</text><g transform="translate(24 62)"><animateTransform attributeName="transform" type="translate" values="24 62;24 59;24 62" dur="5.7s" repeatCount="indefinite"/><rect x="7" y="7" width="324" height="88" rx="18" fill="#05070B" opacity=".82"/>
-     <path class="lab-depth-face" d="M324 16 L331 23 V73 L324 88 Z" fill="#0B1220" opacity=".95"/>
-     <path d="M18 88 H306 L313 95 H25 Z" fill="#090D14" opacity=".92"/>
-     <rect width="324" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
-     <path d="M18 1 H304" stroke="url(#a)" stroke-width="2" opacity=".5"/><circle cx="42" cy="44" r="22" fill="#312E81"/><path d="M29 44h26M34 37l8 7-8 7M50 37l-8 7 8 7" stroke="#C4B5FD" stroke-width="3" fill="none"><animate attributeName="opacity" values=".45;1;.45" dur="2.2s" repeatCount="indefinite"/></path><text x="78" y="37" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="800">zk-UAV</text><text x="78" y="59" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">ZKP · Groth16 · Rust</text></g><g transform="translate(372 62)"><animateTransform attributeName="transform" type="translate" values="372 62;372 58;372 62" dur="6.1s" begin=".8s" repeatCount="indefinite"/><rect x="7" y="7" width="324" height="88" rx="18" fill="#05070B" opacity=".82"/>
-     <path class="lab-depth-face" d="M324 16 L331 23 V73 L324 88 Z" fill="#0B1220" opacity=".95"/>
-     <path d="M18 88 H306 L313 95 H25 Z" fill="#090D14" opacity=".92"/>
-     <rect width="324" height="88" rx="18" fill="#161B22" stroke="#30363D"/>
-     <path d="M18 1 H304" stroke="url(#a)" stroke-width="2" opacity=".5"/><circle cx="42" cy="44" r="22" fill="#172554"/><rect x="29" y="33" width="26" height="20" rx="4" fill="none" stroke="#60A5FA" stroke-width="3"/><circle cx="42" cy="43" r="5" fill="#3B82F6"><animate attributeName="r" values="4;9;4" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.35;1" dur="2.5s" repeatCount="indefinite"/></circle><text x="78" y="37" fill="#F0F6FC" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="800">Range / Position</text><text x="78" y="59" fill="#8B949E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">YOLOv8 · MiDaS · CV</text></g><rect x="24" y="164" width="672" height="3" rx="1.5" fill="url(#a)"><animate attributeName="width" values="220;672;560;672" dur="7.6s" repeatCount="indefinite"/></rect><circle id="lab-motion-dot" r="4" fill="url(#a)"><animateMotion path="M24 165.5 H696" dur="4.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="4.8s" repeatCount="indefinite"/></circle></svg>
+<svg width="720" height="190" viewBox="0 0 720 190" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect width="720" height="190" fill="#090C16"/>
+  <rect x="18" y="18" width="684" height="154" fill="#10162A" stroke="#F4F7FF" stroke-width="4"/>
+  <text x="42" y="48" fill="#6EE7A8" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="16" font-weight="800">SECRET LAB // ACCESS GRANTED</text>
+  <rect x="630" y="35" width="10" height="10" fill="#6EE7A8"><animate attributeName="opacity" values="1;.15;1" dur="1s" repeatCount="indefinite"/></rect>
+  <rect x="42" y="64" width="304" height="82" fill="none" stroke="#2D385A" stroke-width="2"/>
+  <rect x="374" y="64" width="304" height="82" fill="none" stroke="#2D385A" stroke-width="2"/>
+  <g transform="translate(64 86)" fill="#9B6CFF">
+    <rect x="8" y="0" width="28" height="6"/><rect x="0" y="8" width="44" height="6"/><rect x="8" y="16" width="6" height="10"/><rect x="30" y="16" width="6" height="10"/>
+  </g>
+  <text x="124" y="96" fill="#F4F7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="17" font-weight="800">zk-UAV</text>
+  <text x="124" y="119" fill="#8F9BB3" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11">ZKP // NOVA // RUST</text>
+  <g transform="translate(396 84)" fill="#4DD7FF">
+    <rect x="0" y="4" width="36" height="28"/><rect x="6" y="10" width="24" height="16" fill="#10162A"/><rect x="14" y="14" width="8" height="8" fill="#4DD7FF"/>
+  </g>
+  <text x="456" y="96" fill="#F4F7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="17" font-weight="800">RANGE / POSITION</text>
+  <text x="456" y="119" fill="#8F9BB3" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11">YOLO // MIDAS // CV</text>
+  <rect x="44" y="156" width="632" height="2" fill="#2D385A"/>
+  <rect x="44" y="156" width="90" height="2" fill="#4DD7FF">
+    <animate attributeName="x" values="44;586;44" dur="4.5s" repeatCount="indefinite"/>
+  </rect>
+</svg>

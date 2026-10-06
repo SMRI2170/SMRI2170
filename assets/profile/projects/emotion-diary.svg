@@ -1,23 +1,15 @@
-<svg width="720" height="360" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="80" y1="40" x2="650" y2="330" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#CCFBF1"/>
-      <stop offset="1" stop-color="#DBEAFE"/>
-    </linearGradient>
-    <linearGradient id="line" x1="130" y1="240" x2="590" y2="120" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#14B8A6"/>
-      <stop offset="1" stop-color="#3B82F6"/>
-    </linearGradient>
-  </defs>
-  <rect width="720" height="360" rx="28" fill="url(#bg)"/>
-  <circle cx="590" cy="85" r="92" fill="#FFFFFF" opacity=".42"/>
-  <circle cx="130" cy="300" r="78" fill="#FFFFFF" opacity=".30"/>
-  <text x="54" y="68" fill="#0F766E" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">MOBILE APP</text>
-  <text x="54" y="122" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="42" font-weight="800">Emotion Diary</text>
-  <text x="54" y="158" fill="#475569" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20">track feelings · see patterns · reflect</text>
-  <path d="M88 263 C142 230 190 282 247 228 C308 169 357 222 413 184 C471 145 514 176 584 112" fill="none" stroke="url(#line)" stroke-width="12" stroke-linecap="round"/>
-  <circle cx="88" cy="263" r="10" fill="#14B8A6"/>
-  <circle cx="247" cy="228" r="10" fill="#22C55E"/>
-  <circle cx="413" cy="184" r="10" fill="#6366F1"/>
-  <circle cx="584" cy="112" r="10" fill="#3B82F6"><animate attributeName="r" values="9;14;9" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;1;.7" dur="2.6s" repeatCount="indefinite"/></circle>
-<circle id="emotion-motion-dot" r="7" fill="#FFFFFF" stroke="#3B82F6" stroke-width="3"><animateMotion path="M88 263 C142 230 190 282 247 228 C308 169 357 222 413 184 C471 145 514 176 584 112" dur="5.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.06;.94;1" dur="5.8s" repeatCount="indefinite"/></circle></svg>
+<svg width="720" height="320" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect width="720" height="320" fill="#090C16"/>
+  <rect x="18" y="18" width="684" height="284" fill="#10162A" stroke="#F4F7FF" stroke-width="4"/>
+  <rect x="28" y="28" width="664" height="264" fill="none" stroke="#2D385A" stroke-width="2"/>
+  <text x="50" y="58" fill="#4DD7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="15" font-weight="800">SAVE 01 // CLEARED</text>
+  <rect x="630" y="44" width="12" height="12" fill="#6EE7A8"><animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/></rect>
+  <g transform="translate(306 126)" fill="#4DD7FF"><rect x="0" y="0" width="20" height="20"/><rect x="36" y="0" width="20" height="20"/><rect x="-8" y="12" width="72" height="20"/><rect x="0" y="32" width="56" height="12"/><rect x="10" y="44" width="36" height="12"/><rect x="20" y="56" width="16" height="12"/></g>
+  <text x="360" y="230" text-anchor="middle" fill="#F4F7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="34" font-weight="900">EMOTION DIARY</text>
+  <text x="360" y="258" text-anchor="middle" fill="#8F9BB3" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13">TRACK // REFLECT // PATTERNS</text>
+  <text x="50" y="282" fill="#4DD7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12">PRESS A TO OPEN</text>
+  <rect x="510" y="279" width="150" height="3" fill="#2D385A"/>
+  <rect x="510" y="279" width="38" height="3" fill="#4DD7FF">
+    <animate attributeName="x" values="510;622;510" dur="3.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>

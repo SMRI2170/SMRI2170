@@ -1,21 +1,15 @@
-<svg width="720" height="360" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="70" y1="20" x2="650" y2="340" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#DBEAFE"/>
-      <stop offset=".6" stop-color="#CFFAFE"/>
-      <stop offset="1" stop-color="#ECFEFF"/>
-    </linearGradient>
-    <linearGradient id="route" x1="92" y1="260" x2="606" y2="130" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-  </defs>
-  <rect width="720" height="360" rx="28" fill="url(#bg)"/>
-  <text x="54" y="68" fill="#0369A1" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="700" letter-spacing="2">FITNESS APP</text>
-  <text x="54" y="122" fill="#0F172A" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="42" font-weight="800">Swim Across</text>
-  <text x="54" y="158" fill="#475569" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20">turn training distance into a journey</text>
-  <path d="M82 258 C150 220 204 300 278 245 C352 190 395 235 455 192 C510 153 556 167 620 116" fill="none" stroke="url(#route)" stroke-width="10" stroke-linecap="round" stroke-dasharray="14 14"><animate attributeName="stroke-dashoffset" values="0;-56" dur="2.8s" repeatCount="indefinite"/></path>
-  <circle cx="82" cy="258" r="14" fill="#2563EB"/>
-  <circle cx="620" cy="116" r="18" fill="#06B6D4"><animate attributeName="r" values="16;22;16" dur="2.7s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;1;.7" dur="2.7s" repeatCount="indefinite"/></circle>
-  <path d="M62 310 C100 290 132 330 170 310 C208 290 240 330 278 310 C316 290 348 330 386 310 C424 290 456 330 494 310 C532 290 564 330 602 310 C630 296 650 303 668 310" fill="none" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" opacity=".6"><animate attributeName="opacity" values=".35;.8;.35" dur="3.6s" repeatCount="indefinite"/></path>
-<circle id="swim-motion-dot" r="7" fill="#FFFFFF" stroke="#2563EB" stroke-width="3"><animateMotion path="M82 258 C150 220 204 300 278 245 C352 190 395 235 455 192 C510 153 556 167 620 116" dur="5.4s" repeatCount="indefinite"/></circle></svg>
+<svg width="720" height="320" viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect width="720" height="320" fill="#090C16"/>
+  <rect x="18" y="18" width="684" height="284" fill="#10162A" stroke="#F4F7FF" stroke-width="4"/>
+  <rect x="28" y="28" width="664" height="264" fill="none" stroke="#2D385A" stroke-width="2"/>
+  <text x="50" y="58" fill="#4DD7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="15" font-weight="800">SAVE 03 // CLEARED</text>
+  <rect x="630" y="44" width="12" height="12" fill="#60A5FA"><animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/></rect>
+  <g transform="translate(300 132)" fill="#4DD7FF"><rect x="0" y="20" width="72" height="8"/><rect x="12" y="8" width="16" height="12"/><rect x="28" y="0" width="12" height="12"/><rect x="42" y="8" width="18" height="8"/><rect x="8" y="36" width="18" height="6"/><rect x="34" y="36" width="18" height="6"/><rect x="60" y="36" width="18" height="6"/></g>
+  <text x="360" y="230" text-anchor="middle" fill="#F4F7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="34" font-weight="900">SWIM ACROSS</text>
+  <text x="360" y="258" text-anchor="middle" fill="#8F9BB3" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13">DISTANCE // JOURNEY</text>
+  <text x="50" y="282" fill="#4DD7FF" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12">PRESS A TO OPEN</text>
+  <rect x="510" y="279" width="150" height="3" fill="#2D385A"/>
+  <rect x="510" y="279" width="38" height="3" fill="#4DD7FF">
+    <animate attributeName="x" values="510;622;510" dur="3.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>

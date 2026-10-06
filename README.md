@@ -1,26 +1,26 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/hero-light.svg">
-  <img alt="SMRI / LAB — Indie Developer / App Builder" src="./assets/profile/hero-light.svg" width="100%">
+  <img alt="SMRI / LAB — pixel game developer profile" src="./assets/profile/hero-dark.svg" width="100%">
 </picture>
 
-## Dashboard
+## PLAYER STATUS
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/generated/dashboard-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/generated/dashboard-light.svg">
-  <img alt="SMRI developer dashboard" src="./assets/profile/generated/dashboard-light.svg" width="100%">
+  <img alt="SMRI player status" src="./assets/profile/generated/dashboard-dark.svg" width="100%">
 </picture>
 
-## Building
+## ACTIVE QUESTS
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/now-building-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/now-building-light.svg">
-  <img alt="Now Building — Soine, SIGNAL and Soil Garden" src="./assets/profile/now-building-light.svg" width="100%">
+  <img alt="Active quests — Soine, SIGNAL and Soil Garden" src="./assets/profile/now-building-dark.svg" width="100%">
 </picture>
 
-## Shipped
+## CLEARED
 
 <table>
 <tr>
@@ -57,12 +57,12 @@
 </tr>
 </table>
 
-## Lab
+## SECRET LAB
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/profile/lab-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/profile/lab-light.svg">
-  <img alt="Lab and R&D — zk-UAV proximity proof and range positioning" src="./assets/profile/lab-light.svg" width="100%">
+  <img alt="Secret Lab — zk-UAV and Range Positioning" src="./assets/profile/lab-dark.svg" width="100%">
 </picture>
 
 <div align="center">
