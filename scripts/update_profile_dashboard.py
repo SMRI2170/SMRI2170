@@ -11,6 +11,7 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 API_ROOT = "https://api.github.com"
+GRAPHQL_URL = "https://api.github.com/graphql"
 OUT_DIR = Path("assets/profile/generated")
 PROFILE_REPO = "SMRI2170"
 STATIC_PREFIXES = ("Official-Website-of-",)
@@ -29,6 +30,103 @@ def api_get(path: str, token: str):
     )
     with urlopen(req, timeout=25) as response:
         return json.load(response)
+
+
+def graphql(query: str, variables: dict, token: str):
+    payload = json.dumps({"query": query, "variables": variables}).encode("utf-8")
+    req = Request(
+        GRAPHQL_URL,
+        data=payload,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "User-Agent": "SMRI2170-profile-dashboard",
+        },
+        method="POST",
+    )
+    with urlopen(req, timeout=25) as response:
+        result = json.load(response)
+
+    if result.get("errors"):
+        raise RuntimeError(f"GitHub GraphQL error: {result['errors']}")
+    return result["data"]
+
+
+def collect_contributions(owner: str, token: str) -> dict:
+    query = """
+    query($login: String!) {
+      user(login: $login) {
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+            weeks {
+              firstDay
+              contributionDays {
+                date
+                contributionCount
+                contributionLevel
+                weekday
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+    data = graphql(query, {"login": owner}, token)
+    user = data.get("user")
+    if not user:
+        raise RuntimeError(f"GitHub user not found: {owner}")
+
+    calendar = user["contributionsCollection"]["contributionCalendar"]
+    weeks = calendar.get("weeks", [])
+    days = [
+        day
+        for week in weeks
+        for day in week.get("contributionDays", [])
+    ]
+    return {
+        "total": int(calendar.get("totalContributions", 0)),
+        "weeks": weeks,
+        "days": days,
+    }
+
+
+def streak_stats(days: list[dict]) -> tuple[int, int, int]:
+    counts = {
+        datetime.fromisoformat(day["date"]).date(): int(day["contributionCount"])
+        for day in days
+    }
+    if not counts:
+        return 0, 0, 0
+
+    ordered = sorted(counts)
+    active_days = sum(1 for value in counts.values() if value > 0)
+
+    longest = 0
+    run = 0
+    previous = None
+    for current in ordered:
+        if counts[current] > 0 and (previous is None or (current - previous).days == 1):
+            run += 1
+        elif counts[current] > 0:
+            run = 1
+        else:
+            run = 0
+        longest = max(longest, run)
+        previous = current
+
+    cursor = ordered[-1]
+    if counts.get(cursor, 0) == 0:
+        cursor -= timedelta(days=1)
+
+    current_streak = 0
+    while counts.get(cursor, 0) > 0:
+        current_streak += 1
+        cursor -= timedelta(days=1)
+
+    return current_streak, longest, active_days
 
 
 def parse_time(value: str) -> datetime:
@@ -148,6 +246,10 @@ def theme(dark: bool) -> dict[str, str]:
             "track": "#21262D",
             "accent1": "#8B5CF6",
             "accent2": "#3B82F6",
+            "level1": "#312E81",
+            "level2": "#4338CA",
+            "level3": "#6366F1",
+            "level4": "#8B5CF6",
         }
     return {
         "bg": "#FFFFFF",
@@ -157,6 +259,10 @@ def theme(dark: bool) -> dict[str, str]:
         "track": "#EAEEF2",
         "accent1": "#7C3AED",
         "accent2": "#2563EB",
+        "level1": "#DDD6FE",
+        "level2": "#A78BFA",
+        "level3": "#7C3AED",
+        "level4": "#4F46E5",
     }
 
 
@@ -242,6 +348,105 @@ def languages_svg(items: list[tuple[str, int]], dark: bool) -> str:
 </svg>'''
 
 
+def contribution_svg(contributions: dict, dark: bool) -> str:
+    t = theme(dark)
+    weeks = contributions["weeks"][-53:]
+    current_streak, longest_streak, active_days = streak_stats(contributions["days"])
+
+    level_colors = {
+        "NONE": t["track"],
+        "FIRST_QUARTILE": t["level1"],
+        "SECOND_QUARTILE": t["level2"],
+        "THIRD_QUARTILE": t["level3"],
+        "FOURTH_QUARTILE": t["level4"],
+    }
+
+    cells = []
+    month_labels = []
+    previous_month = None
+
+    for week_index, week in enumerate(weeks):
+        x = 54 + week_index * 17
+        first_day = datetime.fromisoformat(week["firstDay"]).date()
+        if first_day.month != previous_month and first_day.day <= 7:
+            month_labels.append(
+                f'<text x="{x}" y="88" fill="{t["muted"]}" '
+                f'font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" '
+                f'font-size="13">{first_day.strftime("%b")}</text>'
+            )
+            previous_month = first_day.month
+
+        for day in week.get("contributionDays", []):
+            weekday = int(day["weekday"])
+            y = 104 + weekday * 17
+            level = day.get("contributionLevel", "NONE")
+            count = int(day.get("contributionCount", 0))
+            color = level_colors.get(level, t["track"])
+            cells.append(
+                f'<rect x="{x}" y="{y}" width="12" height="12" rx="3" fill="{color}">'
+                f'<title>{html.escape(day["date"])} · {count} contributions</title></rect>'
+            )
+
+    stat_items = [
+        ("TOTAL", contributions["total"]),
+        ("CURRENT", f"{current_streak}d"),
+        ("LONGEST", f"{longest_streak}d"),
+        ("ACTIVE DAYS", active_days),
+    ]
+    stat_blocks = []
+    stat_x = [1015, 1150, 1285, 1015]
+    stat_y = [140, 140, 140, 245]
+    label_y = [166, 166, 166, 271]
+    for (label, value), x, y, ly in zip(stat_items, stat_x, stat_y, label_y):
+        stat_blocks.append(
+            f'<text x="{x}" y="{y}" fill="{t["text"]}" '
+            f'font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" '
+            f'font-size="34" font-weight="800">{html.escape(str(value))}</text>'
+        )
+        stat_blocks.append(
+            f'<text x="{x}" y="{ly}" fill="{t["muted"]}" '
+            f'font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" '
+            f'font-size="14" font-weight="700" letter-spacing="1">{label}</text>'
+        )
+
+    legend_x = 54
+    legend_y = 274
+    legend = [
+        f'<text x="{legend_x}" y="{legend_y + 11}" fill="{t["muted"]}" '
+        f'font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">less</text>'
+    ]
+    for idx, key in enumerate(["NONE", "FIRST_QUARTILE", "SECOND_QUARTILE", "THIRD_QUARTILE", "FOURTH_QUARTILE"]):
+        legend.append(
+            f'<rect x="{legend_x + 34 + idx * 18}" y="{legend_y}" width="12" height="12" rx="3" '
+            f'fill="{level_colors[key]}"/>'
+        )
+    legend.append(
+        f'<text x="{legend_x + 128}" y="{legend_y + 11}" fill="{t["muted"]}" '
+        f'font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">more</text>'
+    )
+
+    return f'''<svg width="1440" height="360" viewBox="0 0 1440 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accent" x1="54" y1="24" x2="1386" y2="336" gradientUnits="userSpaceOnUse">
+      <stop stop-color="{t["accent1"]}"/>
+      <stop offset="1" stop-color="{t["accent2"]}"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="360" rx="28" fill="{t["bg"]}"/>
+  <rect x="1" y="1" width="1438" height="358" rx="27" fill="none" stroke="{t["border"]}" stroke-width="2"/>
+  <circle cx="54" cy="48" r="6" fill="url(#accent)"/>
+  <text x="74" y="56" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="700" letter-spacing="2">CONTRIBUTION PULSE</text>
+  <text x="54" y="78" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">rolling GitHub contribution calendar</text>
+  {''.join(month_labels)}
+  {''.join(cells)}
+  {''.join(legend)}
+  <line x1="972" y1="92" x2="972" y2="282" stroke="{t["border"]}" stroke-width="1"/>
+  {''.join(stat_blocks)}
+  <rect x="54" y="312" width="1332" height="4" rx="2" fill="url(#accent)"/>
+  <text x="54" y="339" fill="{t["muted"]}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">real GitHub contributions · updated daily</text>
+</svg>'''
+
+
 def write_if_changed(path: Path, content: str) -> bool:
     if path.exists() and path.read_text(encoding="utf-8") == content:
         return False
@@ -261,12 +466,15 @@ def main() -> int:
     repos = list_public_repos(owner, token)
     metrics = collect_stats(owner, repos, token)
     languages = collect_languages(owner, repos, token)
+    contributions = collect_contributions(owner, token)
 
     generated = {
         OUT_DIR / "stats-dark.svg": stats_svg(metrics, True),
         OUT_DIR / "stats-light.svg": stats_svg(metrics, False),
         OUT_DIR / "languages-dark.svg": languages_svg(languages, True),
         OUT_DIR / "languages-light.svg": languages_svg(languages, False),
+        OUT_DIR / "contribution-dark.svg": contribution_svg(contributions, True),
+        OUT_DIR / "contribution-light.svg": contribution_svg(contributions, False),
     }
 
     changed = False
