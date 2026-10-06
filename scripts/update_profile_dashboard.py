@@ -266,7 +266,7 @@ def theme(dark: bool) -> dict[str, str]:
     }
 
 
-PALETTE = ["#8B5CF6", "#3B82F6", "#06B6D4", "#10B981", "#F59E0B", "#6B7280"]
+PALETTE = ["#8B5CF6", "#3B82F6", "#06B6D4", "#10B981", "#F59E0B", "#6B7280"]\n# PROFILE_MOTION_V1: generated README SVGs include lightweight SMIL motion.
 
 
 def stats_svg(metrics: list[tuple[str, int | str]], dark: bool) -> str:
@@ -505,7 +505,12 @@ def dashboard_svg(
             f'<rect x="170" y="{y - 12}" width="270" height="10" rx="5" fill="{t["track"]}"/>'
         )
         rows.append(
-            f'<rect x="170" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="{color}"/>'
+            f'<rect x="170" y="{y - 12}" width="{bar_width}" height="10" rx="5" fill="{color}">'
+            f'<animate attributeName="width" values="2;{bar_width};{max(2, int(bar_width * 0.88))};{bar_width}" '
+            f'dur="{5.6 + idx * 0.35:.2f}s" begin="{idx * 0.18:.2f}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values=".72;1;.82;1" dur="{3.8 + idx * 0.22:.2f}s" '
+            f'begin="{idx * 0.12:.2f}s" repeatCount="indefinite"/>'
+            f'</rect>'
         )
         rows.append(
             f'<text x="476" y="{y}" text-anchor="end" fill="{t["muted"]}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">{pct:.1f}%</text>'
@@ -521,7 +526,7 @@ def dashboard_svg(
   </defs>
   <rect width="720" height="420" rx="28" fill="{t["bg"]}"/>
   <rect x="1" y="1" width="718" height="418" rx="27" fill="none" stroke="{t["border"]}" stroke-width="2"/>
-  <circle cx="42" cy="42" r="6" fill="url(#accent)"/>
+  <circle cx="42" cy="42" r="6" fill="url(#accent)"><animate attributeName="r" values="5;8;5" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;1;.45" dur="2.5s" repeatCount="indefinite"/></circle>
   <text x="62" y="50" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="17" font-weight="700" letter-spacing="2">DEVELOPER DASHBOARD</text>
   <text x="54" y="78" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="13">activity · streaks · languages</text>
   {''.join(metric_blocks)}
@@ -529,7 +534,8 @@ def dashboard_svg(
   {''.join(streak_blocks)}
   <text x="54" y="244" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="12" font-weight="700" letter-spacing="1">MOST USED LANGUAGES</text>
   {''.join(rows)}
-  <rect x="54" y="392" width="612" height="4" rx="2" fill="url(#accent)"/>
+  <rect x="54" y="392" width="612" height="4" rx="2" fill="url(#accent)"><animate attributeName="width" values="180;612;510;612" dur="7.4s" repeatCount="indefinite"/></rect>
+  <circle r="4" fill="url(#accent)"><animateMotion path="M54 394 H666" dur="4.9s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="4.9s" repeatCount="indefinite"/></circle>
 </svg>'''
 
 
@@ -550,10 +556,20 @@ def contribution_strip_svg(contributions: dict, dark: bool) -> str:
         for day in week.get("contributionDays", []):
             weekday = int(day["weekday"])
             y = 54 + weekday * 12
-            color = level_colors.get(day.get("contributionLevel", "NONE"), t["track"])
-            cells.append(
-                f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}"/>'
-            )
+            level = day.get("contributionLevel", "NONE")
+            color = level_colors.get(level, t["track"])
+            if level == "NONE":
+                cells.append(
+                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}"/>'
+                )
+            else:
+                delay = ((week_index * 0.07) + (weekday * 0.05)) % 3.0
+                cells.append(
+                    f'<rect x="{x}" y="{y}" width="8" height="8" rx="2" fill="{color}">'
+                    f'<animate attributeName="opacity" values=".42;1;.58;1;.42" '
+                    f'dur="3.4s" begin="{delay:.2f}s" repeatCount="indefinite"/>'
+                    f'</rect>'
+                )
 
     return f'''<svg width="720" height="155" viewBox="0 0 720 155" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -564,10 +580,11 @@ def contribution_strip_svg(contributions: dict, dark: bool) -> str:
   </defs>
   <rect width="720" height="155" rx="24" fill="{t["bg"]}"/>
   <rect x="1" y="1" width="718" height="153" rx="23" fill="none" stroke="{t["border"]}" stroke-width="2"/>
-  <circle cx="42" cy="29" r="5" fill="url(#accent)"/>
+  <circle cx="42" cy="29" r="5" fill="url(#accent)"><animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;1;.45" dur="2.4s" repeatCount="indefinite"/></circle>
   <text x="58" y="35" fill="{t["muted"]}" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="14" font-weight="700" letter-spacing="1.5">CONTRIBUTION FLOW</text>
   {''.join(cells)}
-  <rect x="42" y="139" width="636" height="3" rx="1.5" fill="url(#accent)"/>
+  <rect x="42" y="139" width="636" height="3" rx="1.5" fill="url(#accent)"><animate attributeName="width" values="150;636;520;636" dur="7.8s" repeatCount="indefinite"/></rect>
+  <circle r="3.5" fill="url(#accent)"><animateMotion path="M42 140.5 H678" dur="5.1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="5.1s" repeatCount="indefinite"/></circle>
 </svg>'''
 
 
