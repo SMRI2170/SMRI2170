@@ -1,0 +1,14 @@
+{
+  "name": "smri2170-profile-3d",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "gifenc": "^1.0.3",
+    "playwright": "^1.55.0",
+    "pngjs": "^7.0.0",
+    "three": "^0.180.0"
+  }
+}
