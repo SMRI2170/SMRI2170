@@ -219,6 +219,8 @@ const mist = [];
 
 // recognizable low-poly trees: larger silhouettes, clear trunks, clustered foliage
 const trees = [];
+const foregroundRocks = [];
+const grassTufts = [];
 
 const trunkMaterial = new THREE.MeshStandardMaterial({
   color: 0x2a342b,
@@ -240,6 +242,24 @@ const foliageMaterial = new THREE.MeshStandardMaterial({
   flatShading: true,
   transparent: true,
   opacity: 0.9
+});
+
+const rockMaterial = new THREE.MeshStandardMaterial({
+  color: 0x4f6052,
+  emissive: 0x141d16,
+  emissiveIntensity: 0.12,
+  roughness: 1.0,
+  metalness: 0.0,
+  flatShading: true
+});
+
+const grassMaterial = new THREE.MeshStandardMaterial({
+  color: 0x76985f,
+  emissive: 0x21301e,
+  emissiveIntensity: 0.18,
+  roughness: 1.0,
+  metalness: 0.0,
+  side: THREE.DoubleSide
 });
 
 function cylinderBetween(a, b, radiusA, radiusB, material) {
@@ -376,10 +396,76 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
   trees.push(group);
 }
 
-// one large foreground tree + two supporting trees
-createTree({ x: -5.35, depth: 1.4, scale: 1.18, lean: -0.28, phase: 0.2 });
+function createRock({ x, depth, scale = 1, rotY = 0 }) {
+  const group = new THREE.Group();
+  const geometry = new THREE.IcosahedronGeometry(0.42 * scale, 1);
+  const rock = new THREE.Mesh(geometry, rockMaterial.clone());
+
+  rock.scale.set(
+    1.15 + random() * 0.38,
+    0.72 + random() * 0.20,
+    0.92 + random() * 0.28
+  );
+  rock.rotation.set(
+    (random() - 0.5) * 0.22,
+    rotY,
+    (random() - 0.5) * 0.18
+  );
+
+  group.add(rock);
+  group.userData = { baseX: x, baseDepth: depth, scale };
+  scene.add(group);
+  foregroundRocks.push(group);
+}
+
+function createGrassTuft({ x, depth, scale = 1, phase = 0 }) {
+  const group = new THREE.Group();
+  const blades = [];
+  const bladeCount = 6 + Math.floor(random() * 3);
+
+  for (let i = 0; i < bladeCount; i++) {
+    const h = (0.28 + random() * 0.18) * scale;
+    const w = (0.026 + random() * 0.014) * scale;
+    const geometry = new THREE.PlaneGeometry(w, h, 1, 3);
+    geometry.translate(0, h / 2, 0);
+
+    const blade = new THREE.Mesh(geometry, grassMaterial);
+    blade.position.set(
+      (random() - 0.5) * 0.11 * scale,
+      0,
+      (random() - 0.5) * 0.11 * scale
+    );
+    blade.rotation.y = random() * Math.PI;
+    blade.rotation.z = (random() - 0.5) * 0.20;
+    blade.userData.baseRotZ = blade.rotation.z;
+    blade.userData.phase = phase + i * 0.43;
+
+    group.add(blade);
+    blades.push(blade);
+  }
+
+  group.userData = { baseX: x, baseDepth: depth, scale, phase, blades };
+  scene.add(group);
+  grassTufts.push(group);
+}
+
+// stronger foreground silhouette + two supporting trees
+createTree({ x: -4.35, depth: -0.6, scale: 1.42, lean: -0.34, phase: 0.1 });
 createTree({ x: 5.2, depth: 4.0, scale: 0.96, lean: 0.24, phase: 1.5 });
 createTree({ x: -6.25, depth: 8.8, scale: 0.72, lean: -0.18, phase: 2.6 });
+
+// low-poly rocks around the foreground tree
+createRock({ x: -3.95, depth: 0.35, scale: 0.78, rotY: 0.4 });
+createRock({ x: -4.95, depth: 0.05, scale: 0.58, rotY: -0.35 });
+
+// sparse grass clusters; enough to read as vegetation without becoming noisy
+createGrassTuft({ x: -4.15, depth: 0.80, scale: 1.00, phase: 0.4 });
+createGrassTuft({ x: -4.80, depth: 0.90, scale: 0.92, phase: 1.1 });
+createGrassTuft({ x: -3.70, depth: 0.25, scale: 0.85, phase: 2.0 });
+createGrassTuft({ x: -5.25, depth: 0.55, scale: 0.82, phase: 2.8 });
+createGrassTuft({ x: -4.45, depth: -0.10, scale: 0.76, phase: 3.2 });
+createGrassTuft({ x: -3.55, depth: 1.10, scale: 0.72, phase: 4.0 });
+createGrassTuft({ x: -5.10, depth: 1.20, scale: 0.68, phase: 4.7 });
 
 // lighting
 scene.add(new THREE.HemisphereLight(0xb6cda6, 0x010302, 0.75));
@@ -513,6 +599,34 @@ function updateMoss(t) {
 }
 
 
+function updateForegroundProps(t) {
+  foregroundRocks.forEach((rockGroup) => {
+    const { baseX, baseDepth } = rockGroup.userData;
+    rockGroup.position.set(
+      baseX,
+      heightAt(baseX, baseDepth, t) + 0.03,
+      -4.2 - baseDepth
+    );
+  });
+
+  grassTufts.forEach((tuft) => {
+    const { baseX, baseDepth, scale, blades } = tuft.userData;
+    tuft.position.set(
+      baseX,
+      heightAt(baseX, baseDepth, t) + 0.015,
+      -4.2 - baseDepth
+    );
+
+    blades.forEach((blade, i) => {
+      const sway =
+        Math.sin(t * 1.35 + blade.userData.phase + i * 0.18) *
+        0.085 *
+        scale;
+      blade.rotation.z = blade.userData.baseRotZ + sway;
+    });
+  });
+}
+
 function ease01(x) {
   const v = THREE.MathUtils.clamp(x, 0, 1);
   return v * v * (3 - 2 * v);
@@ -627,6 +741,7 @@ function renderAt(progress) {
   updateStreams(t);
   updateParticles(t);
   updateMoss(t);
+  updateForegroundProps(t);
   updateTrees(t, progress);
 
   camera.position.set(
