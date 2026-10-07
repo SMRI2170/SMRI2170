@@ -4,7 +4,8 @@ import http from "node:http";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { PNG } from "pngjs";
-import gifenc from "gifenc";\nconst { GIFEncoder, quantize, applyPalette } = gifenc;
+import gifenc from "gifenc";
+const { GIFEncoder, quantize, applyPalette } = gifenc;
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const width = 900;
