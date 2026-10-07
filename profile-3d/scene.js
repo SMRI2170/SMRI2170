@@ -506,13 +506,17 @@ createTree({ x: 5.2, depth: 4.0, scale: 0.96, lean: 0.24, phase: 1.5 });
 createTree({ x: -6.25, depth: 8.8, scale: 0.72, lean: -0.18, phase: 2.6 });
 createTree({ x: 6.35, depth: 8.0, scale: 0.68, lean: 0.20, phase: 3.4 });
 createTree({ x: 7.05, depth: 12.0, scale: 0.48, lean: 0.12, phase: 4.1 });
+createTree({ x: -6.95, depth: 5.8, scale: 0.54, lean: -0.10, phase: 4.7 });
+createTree({ x: 4.45, depth: 6.1, scale: 0.50, lean: 0.08, phase: 5.2 });
+createTree({ x: 6.85, depth: 5.1, scale: 0.46, lean: 0.10, phase: 5.8 });
+createTree({ x: -5.75, depth: 11.4, scale: 0.42, lean: -0.08, phase: 6.2 });
 
 // rocks: fewer, separated, and spread across both banks
 createRock({ x: -5.35, depth: 0.15, scale: 0.70, rotY: 0.35 });
 createRock({ x: -3.55, depth: 1.15, scale: 0.56, rotY: -0.25 });
 createRock({ x: 4.55, depth: 1.05, scale: 0.48, rotY: 0.18 });
 
-// grass: distributed across foreground and midground instead of clustered at one root
+// grass: distributed across foreground, banks, and midground
 createGrassTuft({ x: -5.95, depth: 0.95, scale: 0.78, phase: 0.4 });
 createGrassTuft({ x: -4.95, depth: 1.65, scale: 0.82, phase: 1.1 });
 createGrassTuft({ x: -3.65, depth: 0.35, scale: 0.74, phase: 2.0 });
@@ -522,12 +526,29 @@ createGrassTuft({ x: 3.85, depth: 0.85, scale: 0.78, phase: 4.0 });
 createGrassTuft({ x: 4.85, depth: 1.75, scale: 0.72, phase: 4.7 });
 createGrassTuft({ x: 5.95, depth: 3.35, scale: 0.64, phase: 5.1 });
 createGrassTuft({ x: 5.65, depth: 5.45, scale: 0.56, phase: 5.8 });
+createGrassTuft({ x: -6.55, depth: 1.95, scale: 0.64, phase: 6.1 });
+createGrassTuft({ x: -4.25, depth: 3.15, scale: 0.58, phase: 6.5 });
+createGrassTuft({ x: -6.75, depth: 6.45, scale: 0.50, phase: 6.9 });
+createGrassTuft({ x: -4.85, depth: 7.25, scale: 0.48, phase: 7.2 });
+createGrassTuft({ x: 3.55, depth: 2.25, scale: 0.62, phase: 7.5 });
+createGrassTuft({ x: 4.25, depth: 4.55, scale: 0.58, phase: 7.9 });
+createGrassTuft({ x: 6.45, depth: 2.35, scale: 0.60, phase: 8.2 });
+createGrassTuft({ x: 6.85, depth: 4.65, scale: 0.52, phase: 8.5 });
+createGrassTuft({ x: 6.15, depth: 6.85, scale: 0.48, phase: 8.8 });
+createGrassTuft({ x: -5.95, depth: 9.15, scale: 0.44, phase: 9.1 });
+createGrassTuft({ x: 5.25, depth: 8.95, scale: 0.42, phase: 9.4 });
 
-// shrubs: separated from the foreground tree base and staggered in depth
+// shrubs: staggered across both banks at multiple depths
 createShrub({ x: -5.85, depth: 2.35, scale: 0.76, phase: 0.8 });
 createShrub({ x: 4.75, depth: 1.95, scale: 0.86, phase: 1.8 });
 createShrub({ x: 5.95, depth: 4.15, scale: 0.70, phase: 2.8 });
 createShrub({ x: -6.25, depth: 5.95, scale: 0.62, phase: 3.8 });
+createShrub({ x: -4.65, depth: 4.25, scale: 0.66, phase: 4.5 });
+createShrub({ x: 3.95, depth: 3.15, scale: 0.74, phase: 5.2 });
+createShrub({ x: 6.45, depth: 6.05, scale: 0.58, phase: 5.9 });
+createShrub({ x: -6.75, depth: 7.15, scale: 0.56, phase: 6.4 });
+createShrub({ x: 5.15, depth: 7.75, scale: 0.54, phase: 6.9 });
+createShrub({ x: -5.25, depth: 9.35, scale: 0.50, phase: 7.3 });
 
 // lighting
 scene.add(new THREE.HemisphereLight(0xb6cda6, 0x010302, 0.75));
@@ -755,7 +776,7 @@ function segmentedReveal(value, index, total) {
 function updateTrees(t, progress) {
   const activityBoost = Math.min(profileData.activity, 100) / 100;
   const prBoost = Math.min(profileData.pullRequests, 30) / 30;
-  const starts = [0.04, 0.16, 0.30, 0.38, 0.46];
+  const starts = [0.04, 0.14, 0.24, 0.32, 0.40, 0.48, 0.54, 0.60, 0.66];
 
   trees.forEach((tree, treeIndex) => {
     const {
