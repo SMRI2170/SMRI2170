@@ -1,4 +1,4 @@
-```md
+
 <picture>
   <source
     media="(prefers-color-scheme: dark)"
@@ -14,4 +14,3 @@
     alt=""
   >
 </picture>
-```
