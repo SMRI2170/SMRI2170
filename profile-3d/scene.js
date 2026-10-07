@@ -595,6 +595,30 @@ createGrassTuft({ x: 4.55, depth: -4.20, scale: 1.00, phase: 22.3 });
 createGrassTuft({ x: 5.75, depth: -4.50, scale: 1.06, phase: 22.6 });
 createGrassTuft({ x: 6.90, depth: -4.95, scale: 1.12, phase: 22.9 });
 
+// camera-edge grass: nearest layer, intentionally clipped by the lower frame
+createShrub({ x: -8.15, depth: -9.15, scale: 1.22, phase: 10.8 });
+createShrub({ x: 8.10, depth: -9.05, scale: 1.20, phase: 11.2 });
+
+createGrassTuft({ x: -9.15, depth: -10.70, scale: 1.72, phase: 23.2 });
+createGrassTuft({ x: -8.45, depth: -10.10, scale: 1.66, phase: 23.5 });
+createGrassTuft({ x: -7.70, depth: -9.55, scale: 1.60, phase: 23.8 });
+createGrassTuft({ x: -6.90, depth: -9.05, scale: 1.54, phase: 24.1 });
+createGrassTuft({ x: -6.05, depth: -8.65, scale: 1.48, phase: 24.4 });
+createGrassTuft({ x: -5.15, depth: -8.35, scale: 1.42, phase: 24.7 });
+createGrassTuft({ x: -4.25, depth: -8.80, scale: 1.38, phase: 25.0 });
+createGrassTuft({ x: -3.35, depth: -9.35, scale: 1.34, phase: 25.3 });
+createGrassTuft({ x: -2.70, depth: -10.00, scale: 1.30, phase: 25.6 });
+
+createGrassTuft({ x: 2.75, depth: -9.95, scale: 1.30, phase: 25.9 });
+createGrassTuft({ x: 3.40, depth: -9.30, scale: 1.34, phase: 26.2 });
+createGrassTuft({ x: 4.30, depth: -8.75, scale: 1.38, phase: 26.5 });
+createGrassTuft({ x: 5.20, depth: -8.30, scale: 1.42, phase: 26.8 });
+createGrassTuft({ x: 6.10, depth: -8.60, scale: 1.48, phase: 27.1 });
+createGrassTuft({ x: 6.95, depth: -9.00, scale: 1.54, phase: 27.4 });
+createGrassTuft({ x: 7.75, depth: -9.50, scale: 1.60, phase: 27.7 });
+createGrassTuft({ x: 8.50, depth: -10.05, scale: 1.66, phase: 28.0 });
+createGrassTuft({ x: 9.15, depth: -10.65, scale: 1.72, phase: 28.3 });
+
 createRock({ x: -6.35, depth: -4.80, scale: 0.62, rotY: 0.28 });
 createRock({ x: 6.45, depth: -4.70, scale: 0.58, rotY: -0.22 });
 
