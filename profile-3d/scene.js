@@ -260,6 +260,8 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
   const trunkHeight = 2.15 * scale;
   const trunkSegments = 6;
   const trunkPoints = [];
+  const trunkMeshes = [];
+  const branchMeshes = [];
 
   for (let i = 0; i <= trunkSegments; i++) {
     const p = i / trunkSegments;
@@ -274,15 +276,18 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
 
   for (let i = 0; i < trunkSegments; i++) {
     const taper = 1 - i / trunkSegments;
-    group.add(
-      cylinderBetween(
-        trunkPoints[i],
-        trunkPoints[i + 1],
-        (0.082 * taper + 0.022) * scale,
-        (0.066 * taper + 0.014) * scale,
-        trunkMaterial
-      )
+    const trunk = cylinderBetween(
+      trunkPoints[i],
+      trunkPoints[i + 1],
+      (0.082 * taper + 0.022) * scale,
+      (0.066 * taper + 0.014) * scale,
+      trunkMaterial
     );
+    trunk.userData.baseScale = trunk.scale.clone();
+    trunk.scale.y = 0.001;
+    trunk.visible = false;
+    group.add(trunk);
+    trunkMeshes.push(trunk);
   }
 
   const branchTips = [];
@@ -311,8 +316,17 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
       z
     );
 
-    group.add(cylinderBetween(anchor, joint, 0.032 * scale, 0.020 * scale, branchMaterial));
-    group.add(cylinderBetween(joint, tip, 0.020 * scale, 0.009 * scale, branchMaterial));
+    const branchA = cylinderBetween(anchor, joint, 0.032 * scale, 0.020 * scale, branchMaterial);
+    const branchB = cylinderBetween(joint, tip, 0.020 * scale, 0.009 * scale, branchMaterial);
+    branchA.userData.baseScale = branchA.scale.clone();
+    branchB.userData.baseScale = branchB.scale.clone();
+    branchA.scale.y = 0.001;
+    branchB.scale.y = 0.001;
+    branchA.visible = false;
+    branchB.visible = false;
+    group.add(branchA);
+    group.add(branchB);
+    branchMeshes.push(branchA, branchB);
     branchTips.push(tip);
   }
 
@@ -338,7 +352,11 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
     );
     clump.rotation.set(random(), random(), random());
     clump.userData.basePosition = clump.position.clone();
+    clump.userData.baseScale = clump.scale.clone();
     clump.userData.phase = random() * TAU;
+    clump.scale.setScalar(0.001);
+    clump.material.opacity = 0;
+    clump.visible = false;
     foliage.add(clump);
   }
 
@@ -349,7 +367,9 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
     scale,
     phase,
     foliage,
-    trunkHeight
+    trunkHeight,
+    trunkMeshes,
+    branchMeshes
   };
 
   scene.add(group);
@@ -493,12 +513,43 @@ function updateMoss(t) {
 }
 
 
-function updateTrees(t) {
+function ease01(x) {
+  const v = THREE.MathUtils.clamp(x, 0, 1);
+  return v * v * (3 - 2 * v);
+}
+
+function growthEnvelope(progress, start) {
+  const growEnd = start + 0.22;
+  const holdEnd = 0.82;
+  const fadeEnd = 0.98;
+
+  if (progress < start) return 0;
+  if (progress < growEnd) return ease01((progress - start) / (growEnd - start));
+  if (progress < holdEnd) return 1;
+  if (progress < fadeEnd) return 1 - ease01((progress - holdEnd) / (fadeEnd - holdEnd));
+  return 0;
+}
+
+function segmentedReveal(value, index, total) {
+  const local = value * total - index;
+  return ease01(local);
+}
+
+function updateTrees(t, progress) {
   const activityBoost = Math.min(profileData.activity, 100) / 100;
   const prBoost = Math.min(profileData.pullRequests, 30) / 30;
+  const starts = [0.04, 0.16, 0.30];
 
   trees.forEach((tree, treeIndex) => {
-    const { baseX, baseDepth, scale, phase, foliage } = tree.userData;
+    const {
+      baseX,
+      baseDepth,
+      scale,
+      phase,
+      foliage,
+      trunkMeshes,
+      branchMeshes
+    } = tree.userData;
 
     tree.position.set(
       baseX,
@@ -506,11 +557,37 @@ function updateTrees(t) {
       -4.2 - baseDepth
     );
 
-    // slow whole-tree sway: visible, but still calm
+    const start = starts[treeIndex] ?? 0.08;
+    const trunkGrow = growthEnvelope(progress, start);
+    const branchGrow = growthEnvelope(progress, start + 0.07);
+    const leafGrow = growthEnvelope(progress, start + 0.13);
+
+    const sway = leafGrow > 0.92 ? 1 : leafGrow * 0.35;
     tree.rotation.z =
-      Math.sin(t + phase) * 0.034 +
-      Math.sin(t * 2 + treeIndex) * 0.010;
-    tree.rotation.y = Math.sin(t * 0.55 + phase) * 0.050;
+      (Math.sin(t + phase) * 0.034 + Math.sin(t * 2 + treeIndex) * 0.010) * sway;
+    tree.rotation.y = Math.sin(t * 0.55 + phase) * 0.050 * sway;
+
+    trunkMeshes.forEach((mesh, i) => {
+      const s = segmentedReveal(trunkGrow, i, trunkMeshes.length);
+      mesh.visible = s > 0.001;
+      mesh.scale.set(
+        mesh.userData.baseScale.x,
+        Math.max(0.001, mesh.userData.baseScale.y * s),
+        mesh.userData.baseScale.z
+      );
+    });
+
+    branchMeshes.forEach((mesh, i) => {
+      const branchSegment = Math.floor(i / 2);
+      const branchTotal = Math.ceil(branchMeshes.length / 2);
+      const s = segmentedReveal(branchGrow, branchSegment, branchTotal);
+      mesh.visible = s > 0.001;
+      mesh.scale.set(
+        mesh.userData.baseScale.x,
+        Math.max(0.001, mesh.userData.baseScale.y * s),
+        mesh.userData.baseScale.z
+      );
+    });
 
     const visibleRatio = 0.72 + activityBoost * 0.18 + prBoost * 0.10;
     const visibleCount = Math.max(
@@ -519,16 +596,25 @@ function updateTrees(t) {
     );
 
     foliage.children.forEach((clump, i) => {
-      clump.visible = i < visibleCount;
       const base = clump.userData.basePosition;
+      const baseScale = clump.userData.baseScale;
       const p = clump.userData.phase;
+      const reveal = segmentedReveal(leafGrow, i * 0.65, foliage.children.length * 0.65);
+
+      clump.visible = i < visibleCount && reveal > 0.001;
       clump.position.set(
-        base.x + Math.sin(t * 1.25 + p) * 0.018 * scale,
-        base.y + Math.cos(t * 1.05 + p) * 0.014 * scale,
-        base.z + Math.sin(t * 0.85 + p) * 0.010 * scale
+        base.x + Math.sin(t * 1.25 + p) * 0.018 * scale * reveal,
+        base.y + Math.cos(t * 1.05 + p) * 0.014 * scale * reveal,
+        base.z + Math.sin(t * 0.85 + p) * 0.010 * scale * reveal
+      );
+      clump.scale.set(
+        Math.max(0.001, baseScale.x * reveal),
+        Math.max(0.001, baseScale.y * reveal),
+        Math.max(0.001, baseScale.z * reveal)
       );
       clump.rotation.y = t * 0.06 + p * 0.1;
-      clump.material.emissiveIntensity = 0.62 + activityBoost * 0.22;
+      clump.material.opacity = 0.90 * reveal;
+      clump.material.emissiveIntensity = (0.62 + activityBoost * 0.22) * reveal;
     });
   });
 }
@@ -541,7 +627,7 @@ function renderAt(progress) {
   updateStreams(t);
   updateParticles(t);
   updateMoss(t);
-  updateTrees(t);
+  updateTrees(t, progress);
 
   camera.position.set(
     0.48 * Math.sin(t),
