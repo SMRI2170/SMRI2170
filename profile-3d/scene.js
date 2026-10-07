@@ -19,7 +19,7 @@ document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x040806);
-scene.fog = new THREE.FogExp2(0x06100a, 0.047);
+scene.fog = new THREE.FogExp2(0x06100a, 0.039);
 
 const camera = new THREE.PerspectiveCamera(39, W / H, 0.1, 90);
 
@@ -217,25 +217,35 @@ const mist = [];
 });
 
 
-// sparse procedural trees: four quiet silhouettes on the valley banks
+// recognizable low-poly trees: larger silhouettes, clear trunks, clustered foliage
 const trees = [];
 
 const trunkMaterial = new THREE.MeshStandardMaterial({
-  color: 0x17241a,
-  roughness: 1.0,
+  color: 0x2a342b,
+  roughness: 0.96,
   metalness: 0.0
 });
 
 const branchMaterial = new THREE.MeshStandardMaterial({
-  color: 0x203225,
-  roughness: 1.0,
+  color: 0x344437,
+  roughness: 0.98,
   metalness: 0.0
+});
+
+const foliageMaterial = new THREE.MeshStandardMaterial({
+  color: 0x789a62,
+  emissive: 0x2a4124,
+  emissiveIntensity: 0.72,
+  roughness: 0.9,
+  flatShading: true,
+  transparent: true,
+  opacity: 0.9
 });
 
 function cylinderBetween(a, b, radiusA, radiusB, material) {
   const midpoint = a.clone().add(b).multiplyScalar(0.5);
   const length = a.distanceTo(b);
-  const geometry = new THREE.CylinderGeometry(radiusB, radiusA, length, 5, 1, false);
+  const geometry = new THREE.CylinderGeometry(radiusB, radiusA, length, 7, 1, false);
   const mesh = new THREE.Mesh(geometry, material);
   mesh.position.copy(midpoint);
   mesh.quaternion.setFromUnitVectors(
@@ -247,15 +257,15 @@ function cylinderBetween(a, b, radiusA, radiusB, material) {
 
 function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
   const group = new THREE.Group();
-  const trunkHeight = 1.25 * scale;
-  const trunkPoints = [];
+  const trunkHeight = 2.15 * scale;
   const trunkSegments = 6;
+  const trunkPoints = [];
 
   for (let i = 0; i <= trunkSegments; i++) {
     const p = i / trunkSegments;
     trunkPoints.push(
       new THREE.Vector3(
-        p * lean * 0.14 + Math.sin(p * 2.1 + phase) * 0.028 * scale,
+        p * lean * 0.22 + Math.sin(p * 2.0 + phase) * 0.035 * scale,
         p * trunkHeight,
         0
       )
@@ -263,32 +273,37 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
   }
 
   for (let i = 0; i < trunkSegments; i++) {
+    const taper = 1 - i / trunkSegments;
     group.add(
       cylinderBetween(
         trunkPoints[i],
         trunkPoints[i + 1],
-        (0.031 - i * 0.0027) * scale,
-        (0.028 - i * 0.0027) * scale,
+        (0.082 * taper + 0.022) * scale,
+        (0.066 * taper + 0.014) * scale,
         trunkMaterial
       )
     );
   }
 
   const branchTips = [];
-  const branchCount = 5;
+  const branchCount = 7;
 
   for (let i = 0; i < branchCount; i++) {
-    const anchorIndex = 2 + Math.floor(i * 0.75);
-    const anchor = trunkPoints[Math.min(anchorIndex, trunkPoints.length - 2)];
+    const anchorP = 0.38 + i * 0.075;
+    const anchorIndex = Math.min(
+      trunkSegments - 1,
+      Math.max(2, Math.round(anchorP * trunkSegments))
+    );
+    const anchor = trunkPoints[anchorIndex];
     const direction = i % 2 === 0 ? 1 : -1;
-    const length = (0.28 + random() * 0.22) * scale;
-    const rise = (0.16 + random() * 0.22) * scale;
-    const z = (random() - 0.5) * 0.22 * scale;
+    const length = (0.42 + random() * 0.28) * scale;
+    const rise = (0.28 + random() * 0.28) * scale;
+    const z = (random() - 0.5) * 0.34 * scale;
 
     const joint = new THREE.Vector3(
-      anchor.x + direction * length * 0.55,
-      anchor.y + rise * 0.55,
-      z * 0.55
+      anchor.x + direction * length * 0.48,
+      anchor.y + rise * 0.48,
+      z * 0.48
     );
     const tip = new THREE.Vector3(
       anchor.x + direction * length,
@@ -296,90 +311,59 @@ function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
       z
     );
 
-    group.add(
-      cylinderBetween(
-        anchor,
-        joint,
-        0.016 * scale,
-        0.011 * scale,
-        branchMaterial
-      )
-    );
-    group.add(
-      cylinderBetween(
-        joint,
-        tip,
-        0.011 * scale,
-        0.005 * scale,
-        branchMaterial
-      )
-    );
-
+    group.add(cylinderBetween(anchor, joint, 0.032 * scale, 0.020 * scale, branchMaterial));
+    group.add(cylinderBetween(joint, tip, 0.020 * scale, 0.009 * scale, branchMaterial));
     branchTips.push(tip);
   }
 
-  const maxLeaves = 72;
-  const leafPositions = new Float32Array(maxLeaves * 3);
-  const leafBase = new Float32Array(maxLeaves * 3);
+  const foliage = new THREE.Group();
+  const clumpCount = 11;
 
-  for (let i = 0; i < maxLeaves; i++) {
+  for (let i = 0; i < clumpCount; i++) {
     const tip = branchTips[i % branchTips.length];
-    const angle = random() * TAU;
-    const radius = (0.05 + random() * 0.30) * scale;
-    const px = tip.x + Math.cos(angle) * radius;
-    const py = tip.y + (random() - 0.3) * 0.32 * scale;
-    const pz = tip.z + Math.sin(angle) * radius * 0.65;
-
-    leafPositions[i * 3] = px;
-    leafPositions[i * 3 + 1] = py;
-    leafPositions[i * 3 + 2] = pz;
-    leafBase[i * 3] = px;
-    leafBase[i * 3 + 1] = py;
-    leafBase[i * 3 + 2] = pz;
+    const geometry = new THREE.IcosahedronGeometry(
+      (0.22 + random() * 0.18) * scale,
+      1
+    );
+    const clump = new THREE.Mesh(geometry, foliageMaterial.clone());
+    clump.position.set(
+      tip.x + (random() - 0.5) * 0.30 * scale,
+      tip.y + (random() - 0.25) * 0.34 * scale,
+      tip.z + (random() - 0.5) * 0.30 * scale
+    );
+    clump.scale.set(
+      1.0 + random() * 0.35,
+      0.78 + random() * 0.42,
+      0.9 + random() * 0.3
+    );
+    clump.rotation.set(random(), random(), random());
+    clump.userData.basePosition = clump.position.clone();
+    clump.userData.phase = random() * TAU;
+    foliage.add(clump);
   }
 
-  const leafGeometry = new THREE.BufferGeometry();
-  leafGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(leafPositions, 3)
-  );
-
-  const leaves = new THREE.Points(
-    leafGeometry,
-    new THREE.PointsMaterial({
-      color: 0xa3c77d,
-      size: 0.043 * scale,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.68,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    })
-  );
-
-  group.add(leaves);
+  group.add(foliage);
   group.userData = {
     baseX: x,
     baseDepth: depth,
     scale,
     phase,
-    leaves,
-    leafBase,
-    maxLeaves
+    foliage,
+    trunkHeight
   };
 
   scene.add(group);
   trees.push(group);
 }
 
-createTree({ x: -5.7, depth: 3.2, scale: 1.0, lean: -0.42, phase: 0.1 });
-createTree({ x: 5.4, depth: 5.1, scale: 0.93, lean: 0.35, phase: 1.2 });
-createTree({ x: -6.4, depth: 10.2, scale: 0.68, lean: -0.30, phase: 2.0 });
-createTree({ x: 6.3, depth: 11.4, scale: 0.72, lean: 0.28, phase: 2.8 });
+// one large foreground tree + two supporting trees
+createTree({ x: -5.35, depth: 1.4, scale: 1.18, lean: -0.28, phase: 0.2 });
+createTree({ x: 5.2, depth: 4.0, scale: 0.96, lean: 0.24, phase: 1.5 });
+createTree({ x: -6.25, depth: 8.8, scale: 0.72, lean: -0.18, phase: 2.6 });
 
 // lighting
 scene.add(new THREE.HemisphereLight(0xb6cda6, 0x010302, 0.75));
-const moon = new THREE.DirectionalLight(0xcfe5b2, 1.6);
+const moon = new THREE.DirectionalLight(0xcfe5b2, 1.95);
 moon.position.set(-3.5, 7, 2);
 scene.add(moon);
 
@@ -514,49 +498,38 @@ function updateTrees(t) {
   const prBoost = Math.min(profileData.pullRequests, 30) / 30;
 
   trees.forEach((tree, treeIndex) => {
-    const {
-      baseX,
-      baseDepth,
-      scale,
-      phase,
-      leaves,
-      leafBase,
-      maxLeaves
-    } = tree.userData;
+    const { baseX, baseDepth, scale, phase, foliage } = tree.userData;
 
     tree.position.set(
       baseX,
-      heightAt(baseX, baseDepth, t) + 0.018,
+      heightAt(baseX, baseDepth, t) + 0.015,
       -4.2 - baseDepth
     );
 
+    // slow whole-tree sway: visible, but still calm
     tree.rotation.z =
-      Math.sin(t + phase) * 0.026 +
-      Math.sin(t * 2 + treeIndex) * 0.008;
-    tree.rotation.y = Math.sin(t * 0.55 + phase) * 0.045;
+      Math.sin(t + phase) * 0.034 +
+      Math.sin(t * 2 + treeIndex) * 0.010;
+    tree.rotation.y = Math.sin(t * 0.55 + phase) * 0.050;
 
-    const visibleLeaves = Math.min(
-      maxLeaves,
-      Math.floor(maxLeaves * (0.56 + activityBoost * 0.28 + prBoost * 0.16))
+    const visibleRatio = 0.72 + activityBoost * 0.18 + prBoost * 0.10;
+    const visibleCount = Math.max(
+      5,
+      Math.min(foliage.children.length, Math.round(foliage.children.length * visibleRatio))
     );
-    leaves.geometry.setDrawRange(0, visibleLeaves);
 
-    const attr = leaves.geometry.attributes.position;
-    for (let i = 0; i < maxLeaves; i++) {
-      const bx = leafBase[i * 3];
-      const by = leafBase[i * 3 + 1];
-      const bz = leafBase[i * 3 + 2];
-      const flutter = Math.sin(t * 1.7 + i * 0.41 + phase) * 0.012 * scale;
-      attr.setXYZ(
-        i,
-        bx + flutter,
-        by + Math.cos(t * 1.25 + i * 0.27) * 0.007 * scale,
-        bz + Math.sin(t * 1.1 + i * 0.19) * 0.006 * scale
+    foliage.children.forEach((clump, i) => {
+      clump.visible = i < visibleCount;
+      const base = clump.userData.basePosition;
+      const p = clump.userData.phase;
+      clump.position.set(
+        base.x + Math.sin(t * 1.25 + p) * 0.018 * scale,
+        base.y + Math.cos(t * 1.05 + p) * 0.014 * scale,
+        base.z + Math.sin(t * 0.85 + p) * 0.010 * scale
       );
-    }
-    attr.needsUpdate = true;
-
-    leaves.material.opacity = 0.56 + activityBoost * 0.18;
+      clump.rotation.y = t * 0.06 + p * 0.1;
+      clump.material.emissiveIntensity = 0.62 + activityBoost * 0.22;
+    });
   });
 }
 
