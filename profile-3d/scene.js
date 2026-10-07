@@ -221,6 +221,7 @@ const mist = [];
 const trees = [];
 const foregroundRocks = [];
 const grassTufts = [];
+const shrubs = [];
 
 const trunkMaterial = new THREE.MeshStandardMaterial({
   color: 0x2a342b,
@@ -260,6 +261,16 @@ const grassMaterial = new THREE.MeshStandardMaterial({
   roughness: 1.0,
   metalness: 0.0,
   side: THREE.DoubleSide
+});
+
+const shrubMaterial = new THREE.MeshStandardMaterial({
+  color: 0x648653,
+  emissive: 0x22351f,
+  emissiveIntensity: 0.28,
+  roughness: 0.94,
+  flatShading: true,
+  transparent: true,
+  opacity: 0.86
 });
 
 function cylinderBetween(a, b, radiusA, radiusB, material) {
@@ -455,14 +466,52 @@ function createGrassTuft({ x, depth, scale = 1, phase = 0 }) {
   grassTufts.push(group);
 }
 
-// stronger foreground silhouette + two supporting trees
+function createShrub({ x, depth, scale = 1, phase = 0 }) {
+  const group = new THREE.Group();
+  const clumps = [];
+  const clumpCount = 5 + Math.floor(random() * 3);
+
+  for (let i = 0; i < clumpCount; i++) {
+    const geometry = new THREE.IcosahedronGeometry(
+      (0.16 + random() * 0.12) * scale,
+      1
+    );
+    const clump = new THREE.Mesh(geometry, shrubMaterial.clone());
+    clump.position.set(
+      (random() - 0.5) * 0.52 * scale,
+      (0.10 + random() * 0.22) * scale,
+      (random() - 0.5) * 0.30 * scale
+    );
+    clump.scale.set(
+      1.0 + random() * 0.35,
+      0.70 + random() * 0.35,
+      0.90 + random() * 0.25
+    );
+    clump.userData.basePosition = clump.position.clone();
+    clump.userData.phase = phase + random() * TAU;
+    clumps.push(clump);
+    group.add(clump);
+  }
+
+  group.scale.setScalar(0.001);
+  group.visible = false;
+  group.userData = { baseX: x, baseDepth: depth, scale, phase, clumps };
+  scene.add(group);
+  shrubs.push(group);
+}
+
+// stronger foreground silhouette + denser supporting trees
 createTree({ x: -4.35, depth: -0.6, scale: 1.42, lean: -0.34, phase: 0.1 });
 createTree({ x: 5.2, depth: 4.0, scale: 0.96, lean: 0.24, phase: 1.5 });
 createTree({ x: -6.25, depth: 8.8, scale: 0.72, lean: -0.18, phase: 2.6 });
+createTree({ x: 6.35, depth: 8.0, scale: 0.68, lean: 0.20, phase: 3.4 });
+createTree({ x: 7.05, depth: 12.0, scale: 0.48, lean: 0.12, phase: 4.1 });
 
 // low-poly rocks around the foreground tree
 createRock({ x: -3.95, depth: 0.35, scale: 0.78, rotY: 0.4 });
 createRock({ x: -4.95, depth: 0.05, scale: 0.58, rotY: -0.35 });
+createRock({ x: 4.15, depth: 0.70, scale: 0.55, rotY: 0.22 });
+createRock({ x: 5.05, depth: 1.35, scale: 0.44, rotY: -0.28 });
 
 // sparse grass clusters; enough to read as vegetation without becoming noisy
 createGrassTuft({ x: -4.15, depth: 0.80, scale: 1.00, phase: 0.4 });
@@ -472,6 +521,20 @@ createGrassTuft({ x: -5.25, depth: 0.55, scale: 0.82, phase: 2.8 });
 createGrassTuft({ x: -4.45, depth: -0.10, scale: 0.76, phase: 3.2 });
 createGrassTuft({ x: -3.55, depth: 1.10, scale: 0.72, phase: 4.0 });
 createGrassTuft({ x: -5.10, depth: 1.20, scale: 0.68, phase: 4.7 });
+createGrassTuft({ x: 3.75, depth: 0.65, scale: 0.92, phase: 5.1 });
+createGrassTuft({ x: 4.35, depth: 0.95, scale: 0.84, phase: 5.5 });
+createGrassTuft({ x: 4.95, depth: 1.45, scale: 0.78, phase: 5.9 });
+createGrassTuft({ x: 5.55, depth: 1.95, scale: 0.72, phase: 6.3 });
+createGrassTuft({ x: 6.00, depth: 3.10, scale: 0.64, phase: 6.7 });
+createGrassTuft({ x: -6.10, depth: 3.60, scale: 0.62, phase: 7.0 });
+createGrassTuft({ x: -5.65, depth: 5.20, scale: 0.56, phase: 7.4 });
+createGrassTuft({ x: 5.80, depth: 5.60, scale: 0.54, phase: 7.8 });
+
+// low shrubs fill the banks while leaving the luminous valley open
+createShrub({ x: -5.45, depth: 2.15, scale: 0.86, phase: 0.8 });
+createShrub({ x: 4.55, depth: 1.55, scale: 0.95, phase: 1.8 });
+createShrub({ x: 5.75, depth: 3.75, scale: 0.78, phase: 2.8 });
+createShrub({ x: -6.15, depth: 5.75, scale: 0.66, phase: 3.8 });
 
 // lighting
 scene.add(new THREE.HemisphereLight(0xb6cda6, 0x010302, 0.75));
@@ -608,7 +671,7 @@ function updateMoss(t) {
 function updateForegroundProps(t, progress) {
   foregroundRocks.forEach((rockGroup, index) => {
     const { baseX, baseDepth } = rockGroup.userData;
-    const reveal = growthEnvelope(progress, 0.02 + index * 0.035);
+    const reveal = growthEnvelope(progress, 0.02 + index * 0.025);
     const groundY = heightAt(baseX, baseDepth, t) + 0.03;
 
     rockGroup.visible = reveal > 0.001;
@@ -620,12 +683,12 @@ function updateForegroundProps(t, progress) {
 
     const s = 0.38 + reveal * 0.62;
     rockGroup.scale.set(s, Math.max(0.001, reveal), s);
-    rockGroup.rotation.y = (index === 0 ? 0.05 : -0.04) * (1 - reveal);
+    rockGroup.rotation.y = (index % 2 === 0 ? 0.05 : -0.04) * (1 - reveal);
   });
 
   grassTufts.forEach((tuft, index) => {
     const { baseX, baseDepth, scale, blades } = tuft.userData;
-    const reveal = growthEnvelope(progress, 0.08 + index * 0.015);
+    const reveal = growthEnvelope(progress, 0.07 + index * 0.009);
 
     tuft.visible = reveal > 0.001;
     tuft.position.set(
@@ -642,6 +705,34 @@ function updateForegroundProps(t, progress) {
         scale *
         reveal;
       blade.rotation.z = blade.userData.baseRotZ + sway;
+    });
+  });
+
+  shrubs.forEach((shrub, index) => {
+    const { baseX, baseDepth, scale, phase, clumps } = shrub.userData;
+    const reveal = growthEnvelope(progress, 0.10 + index * 0.035);
+
+    shrub.visible = reveal > 0.001;
+    shrub.position.set(
+      baseX,
+      heightAt(baseX, baseDepth, t) + 0.02,
+      -4.2 - baseDepth
+    );
+    shrub.scale.set(
+      Math.max(0.001, reveal),
+      Math.max(0.001, reveal),
+      Math.max(0.001, reveal)
+    );
+
+    clumps.forEach((clump, i) => {
+      const base = clump.userData.basePosition;
+      const p = clump.userData.phase;
+      clump.position.set(
+        base.x + Math.sin(t * 1.05 + p + i) * 0.012 * scale * reveal,
+        base.y + Math.cos(t * 0.85 + p) * 0.008 * scale * reveal,
+        base.z
+      );
+      clump.material.emissiveIntensity = 0.20 + reveal * 0.18;
     });
   });
 }
@@ -671,7 +762,7 @@ function segmentedReveal(value, index, total) {
 function updateTrees(t, progress) {
   const activityBoost = Math.min(profileData.activity, 100) / 100;
   const prBoost = Math.min(profileData.pullRequests, 30) / 30;
-  const starts = [0.04, 0.16, 0.30];
+  const starts = [0.04, 0.16, 0.30, 0.38, 0.46];
 
   trees.forEach((tree, treeIndex) => {
     const {
