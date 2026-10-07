@@ -516,6 +516,29 @@ createTree({ x: -6.45, depth: 10.3, scale: 0.50, lean: -0.12, phase: 6.6 });
 createTree({ x: 4.85, depth: 11.6, scale: 0.46, lean: 0.10, phase: 7.0 });
 createTree({ x: 6.10, depth: 13.0, scale: 0.40, lean: 0.08, phase: 7.4 });
 
+// true foreground layer: vegetation closest to the camera
+createTree({ x: -6.85, depth: -2.35, scale: 0.72, lean: -0.14, phase: 7.8 });
+createTree({ x: 6.65, depth: -2.10, scale: 0.68, lean: 0.12, phase: 8.2 });
+
+createShrub({ x: -6.10, depth: -2.70, scale: 0.92, phase: 6.0 });
+createShrub({ x: -4.55, depth: -1.55, scale: 0.82, phase: 6.4 });
+createShrub({ x: 4.75, depth: -1.65, scale: 0.84, phase: 6.8 });
+createShrub({ x: 6.25, depth: -2.55, scale: 0.90, phase: 7.2 });
+
+createGrassTuft({ x: -7.20, depth: -3.05, scale: 1.10, phase: 9.0 });
+createGrassTuft({ x: -6.45, depth: -2.45, scale: 1.02, phase: 9.3 });
+createGrassTuft({ x: -5.65, depth: -1.85, scale: 0.96, phase: 9.6 });
+createGrassTuft({ x: -4.75, depth: -0.95, scale: 0.88, phase: 9.9 });
+createGrassTuft({ x: -3.85, depth: -1.35, scale: 0.82, phase: 10.2 });
+createGrassTuft({ x: -3.15, depth: -2.10, scale: 0.76, phase: 10.5 });
+
+createGrassTuft({ x: 3.20, depth: -1.95, scale: 0.76, phase: 10.8 });
+createGrassTuft({ x: 3.95, depth: -1.25, scale: 0.84, phase: 11.1 });
+createGrassTuft({ x: 4.85, depth: -0.85, scale: 0.90, phase: 11.4 });
+createGrassTuft({ x: 5.70, depth: -1.75, scale: 0.98, phase: 11.7 });
+createGrassTuft({ x: 6.50, depth: -2.35, scale: 1.04, phase: 12.0 });
+createGrassTuft({ x: 7.20, depth: -2.95, scale: 1.10, phase: 12.3 });
+
 // rocks
 createRock({ x: -5.35, depth: 0.15, scale: 0.70, rotY: 0.35 });
 createRock({ x: -3.55, depth: 1.15, scale: 0.56, rotY: -0.25 });
@@ -796,7 +819,7 @@ function segmentedReveal(value, index, total) {
 function updateTrees(t, progress) {
   const activityBoost = Math.min(profileData.activity, 100) / 100;
   const prBoost = Math.min(profileData.pullRequests, 30) / 30;
-  const starts = [0.04, 0.12, 0.20, 0.28, 0.36, 0.44, 0.50, 0.56, 0.62, 0.68, 0.72, 0.76];
+  const starts = [0.04, 0.12, 0.20, 0.28, 0.36, 0.44, 0.50, 0.56, 0.62, 0.68, 0.72, 0.76, 0.18, 0.24];
 
   trees.forEach((tree, treeIndex) => {
     const {
