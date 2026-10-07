@@ -1,0 +1,59 @@
+name: Render 3D profile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 0 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "profile-3d/**"
+      - ".github/workflows/render-profile-3d.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-main-writes
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install renderer dependencies
+        working-directory: profile-3d
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        working-directory: profile-3d
+        run: npx playwright install --with-deps chromium
+
+      - name: Render animated profile
+        working-directory: profile-3d
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_OWNER: ${{ github.repository_owner }}
+        run: npm run render
+
+      - name: Commit generated animation
+        shell: bash
+        run: |
+          if git diff --quiet -- assets/profile/generated/profile-loop.gif; then
+            echo "Profile animation unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/profile/generated/profile-loop.gif
+          git commit -m "chore: render 3D profile"
+          git pull --rebase origin main
+          git push
