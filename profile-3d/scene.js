@@ -216,6 +216,167 @@ const mist = [];
   mist.push(s);
 });
 
+
+// sparse procedural trees: four quiet silhouettes on the valley banks
+const trees = [];
+
+const trunkMaterial = new THREE.MeshStandardMaterial({
+  color: 0x17241a,
+  roughness: 1.0,
+  metalness: 0.0
+});
+
+const branchMaterial = new THREE.MeshStandardMaterial({
+  color: 0x203225,
+  roughness: 1.0,
+  metalness: 0.0
+});
+
+function cylinderBetween(a, b, radiusA, radiusB, material) {
+  const midpoint = a.clone().add(b).multiplyScalar(0.5);
+  const length = a.distanceTo(b);
+  const geometry = new THREE.CylinderGeometry(radiusB, radiusA, length, 5, 1, false);
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.copy(midpoint);
+  mesh.quaternion.setFromUnitVectors(
+    new THREE.Vector3(0, 1, 0),
+    b.clone().sub(a).normalize()
+  );
+  return mesh;
+}
+
+function createTree({ x, depth, scale = 1, lean = 0, phase = 0 }) {
+  const group = new THREE.Group();
+  const trunkHeight = 1.25 * scale;
+  const trunkPoints = [];
+  const trunkSegments = 6;
+
+  for (let i = 0; i <= trunkSegments; i++) {
+    const p = i / trunkSegments;
+    trunkPoints.push(
+      new THREE.Vector3(
+        p * lean * 0.14 + Math.sin(p * 2.1 + phase) * 0.028 * scale,
+        p * trunkHeight,
+        0
+      )
+    );
+  }
+
+  for (let i = 0; i < trunkSegments; i++) {
+    group.add(
+      cylinderBetween(
+        trunkPoints[i],
+        trunkPoints[i + 1],
+        (0.031 - i * 0.0027) * scale,
+        (0.028 - i * 0.0027) * scale,
+        trunkMaterial
+      )
+    );
+  }
+
+  const branchTips = [];
+  const branchCount = 5;
+
+  for (let i = 0; i < branchCount; i++) {
+    const anchorIndex = 2 + Math.floor(i * 0.75);
+    const anchor = trunkPoints[Math.min(anchorIndex, trunkPoints.length - 2)];
+    const direction = i % 2 === 0 ? 1 : -1;
+    const length = (0.28 + random() * 0.22) * scale;
+    const rise = (0.16 + random() * 0.22) * scale;
+    const z = (random() - 0.5) * 0.22 * scale;
+
+    const joint = new THREE.Vector3(
+      anchor.x + direction * length * 0.55,
+      anchor.y + rise * 0.55,
+      z * 0.55
+    );
+    const tip = new THREE.Vector3(
+      anchor.x + direction * length,
+      anchor.y + rise,
+      z
+    );
+
+    group.add(
+      cylinderBetween(
+        anchor,
+        joint,
+        0.016 * scale,
+        0.011 * scale,
+        branchMaterial
+      )
+    );
+    group.add(
+      cylinderBetween(
+        joint,
+        tip,
+        0.011 * scale,
+        0.005 * scale,
+        branchMaterial
+      )
+    );
+
+    branchTips.push(tip);
+  }
+
+  const maxLeaves = 72;
+  const leafPositions = new Float32Array(maxLeaves * 3);
+  const leafBase = new Float32Array(maxLeaves * 3);
+
+  for (let i = 0; i < maxLeaves; i++) {
+    const tip = branchTips[i % branchTips.length];
+    const angle = random() * TAU;
+    const radius = (0.05 + random() * 0.30) * scale;
+    const px = tip.x + Math.cos(angle) * radius;
+    const py = tip.y + (random() - 0.3) * 0.32 * scale;
+    const pz = tip.z + Math.sin(angle) * radius * 0.65;
+
+    leafPositions[i * 3] = px;
+    leafPositions[i * 3 + 1] = py;
+    leafPositions[i * 3 + 2] = pz;
+    leafBase[i * 3] = px;
+    leafBase[i * 3 + 1] = py;
+    leafBase[i * 3 + 2] = pz;
+  }
+
+  const leafGeometry = new THREE.BufferGeometry();
+  leafGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(leafPositions, 3)
+  );
+
+  const leaves = new THREE.Points(
+    leafGeometry,
+    new THREE.PointsMaterial({
+      color: 0xa3c77d,
+      size: 0.043 * scale,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.68,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    })
+  );
+
+  group.add(leaves);
+  group.userData = {
+    baseX: x,
+    baseDepth: depth,
+    scale,
+    phase,
+    leaves,
+    leafBase,
+    maxLeaves
+  };
+
+  scene.add(group);
+  trees.push(group);
+}
+
+createTree({ x: -5.7, depth: 3.2, scale: 1.0, lean: -0.42, phase: 0.1 });
+createTree({ x: 5.4, depth: 5.1, scale: 0.93, lean: 0.35, phase: 1.2 });
+createTree({ x: -6.4, depth: 10.2, scale: 0.68, lean: -0.30, phase: 2.0 });
+createTree({ x: 6.3, depth: 11.4, scale: 0.72, lean: 0.28, phase: 2.8 });
+
 // lighting
 scene.add(new THREE.HemisphereLight(0xb6cda6, 0x010302, 0.75));
 const moon = new THREE.DirectionalLight(0xcfe5b2, 1.6);
@@ -347,6 +508,58 @@ function updateMoss(t) {
   p.needsUpdate = true;
 }
 
+
+function updateTrees(t) {
+  const activityBoost = Math.min(profileData.activity, 100) / 100;
+  const prBoost = Math.min(profileData.pullRequests, 30) / 30;
+
+  trees.forEach((tree, treeIndex) => {
+    const {
+      baseX,
+      baseDepth,
+      scale,
+      phase,
+      leaves,
+      leafBase,
+      maxLeaves
+    } = tree.userData;
+
+    tree.position.set(
+      baseX,
+      heightAt(baseX, baseDepth, t) + 0.018,
+      -4.2 - baseDepth
+    );
+
+    tree.rotation.z =
+      Math.sin(t + phase) * 0.026 +
+      Math.sin(t * 2 + treeIndex) * 0.008;
+    tree.rotation.y = Math.sin(t * 0.55 + phase) * 0.045;
+
+    const visibleLeaves = Math.min(
+      maxLeaves,
+      Math.floor(maxLeaves * (0.56 + activityBoost * 0.28 + prBoost * 0.16))
+    );
+    leaves.geometry.setDrawRange(0, visibleLeaves);
+
+    const attr = leaves.geometry.attributes.position;
+    for (let i = 0; i < maxLeaves; i++) {
+      const bx = leafBase[i * 3];
+      const by = leafBase[i * 3 + 1];
+      const bz = leafBase[i * 3 + 2];
+      const flutter = Math.sin(t * 1.7 + i * 0.41 + phase) * 0.012 * scale;
+      attr.setXYZ(
+        i,
+        bx + flutter,
+        by + Math.cos(t * 1.25 + i * 0.27) * 0.007 * scale,
+        bz + Math.sin(t * 1.1 + i * 0.19) * 0.006 * scale
+      );
+    }
+    attr.needsUpdate = true;
+
+    leaves.material.opacity = 0.56 + activityBoost * 0.18;
+  });
+}
+
 function renderAt(progress) {
   const t = progress * TAU;
 
@@ -355,6 +568,7 @@ function renderAt(progress) {
   updateStreams(t);
   updateParticles(t);
   updateMoss(t);
+  updateTrees(t);
 
   camera.position.set(
     0.48 * Math.sin(t),
