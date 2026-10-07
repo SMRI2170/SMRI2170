@@ -539,6 +539,32 @@ createGrassTuft({ x: 5.70, depth: -1.75, scale: 0.98, phase: 11.7 });
 createGrassTuft({ x: 6.50, depth: -2.35, scale: 1.04, phase: 12.0 });
 createGrassTuft({ x: 7.20, depth: -2.95, scale: 1.10, phase: 12.3 });
 
+// closest foreground edge: extend vegetation all the way toward the camera
+createTree({ x: -7.55, depth: -5.10, scale: 0.78, lean: -0.16, phase: 8.6 });
+createTree({ x: 7.45, depth: -4.85, scale: 0.74, lean: 0.14, phase: 9.0 });
+
+createShrub({ x: -7.05, depth: -5.75, scale: 1.08, phase: 7.6 });
+createShrub({ x: -5.35, depth: -4.35, scale: 0.96, phase: 8.0 });
+createShrub({ x: 5.45, depth: -4.25, scale: 0.98, phase: 8.4 });
+createShrub({ x: 7.00, depth: -5.65, scale: 1.06, phase: 8.8 });
+
+createGrassTuft({ x: -8.10, depth: -6.35, scale: 1.32, phase: 12.6 });
+createGrassTuft({ x: -7.20, depth: -5.85, scale: 1.26, phase: 12.9 });
+createGrassTuft({ x: -6.25, depth: -5.20, scale: 1.18, phase: 13.2 });
+createGrassTuft({ x: -5.30, depth: -4.55, scale: 1.10, phase: 13.5 });
+createGrassTuft({ x: -4.30, depth: -3.95, scale: 1.02, phase: 13.8 });
+createGrassTuft({ x: -3.35, depth: -4.75, scale: 0.96, phase: 14.1 });
+
+createGrassTuft({ x: 3.30, depth: -4.65, scale: 0.96, phase: 14.4 });
+createGrassTuft({ x: 4.25, depth: -3.90, scale: 1.02, phase: 14.7 });
+createGrassTuft({ x: 5.25, depth: -4.50, scale: 1.10, phase: 15.0 });
+createGrassTuft({ x: 6.20, depth: -5.15, scale: 1.18, phase: 15.3 });
+createGrassTuft({ x: 7.15, depth: -5.80, scale: 1.26, phase: 15.6 });
+createGrassTuft({ x: 8.05, depth: -6.30, scale: 1.32, phase: 15.9 });
+
+createRock({ x: -6.35, depth: -4.80, scale: 0.62, rotY: 0.28 });
+createRock({ x: 6.45, depth: -4.70, scale: 0.58, rotY: -0.22 });
+
 // rocks
 createRock({ x: -5.35, depth: 0.15, scale: 0.70, rotY: 0.35 });
 createRock({ x: -3.55, depth: 1.15, scale: 0.56, rotY: -0.25 });
@@ -819,7 +845,7 @@ function segmentedReveal(value, index, total) {
 function updateTrees(t, progress) {
   const activityBoost = Math.min(profileData.activity, 100) / 100;
   const prBoost = Math.min(profileData.pullRequests, 30) / 30;
-  const starts = [0.04, 0.12, 0.20, 0.28, 0.36, 0.44, 0.50, 0.56, 0.62, 0.68, 0.72, 0.76, 0.18, 0.24];
+  const starts = [0.04, 0.12, 0.20, 0.28, 0.36, 0.44, 0.50, 0.56, 0.62, 0.68, 0.72, 0.76, 0.18, 0.24, 0.14, 0.20];
 
   trees.forEach((tree, treeIndex) => {
     const {
