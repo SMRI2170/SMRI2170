@@ -511,31 +511,31 @@ createTree({ x: 4.45, depth: 6.1, scale: 0.50, lean: 0.08, phase: 5.2 });
 createTree({ x: 6.85, depth: 5.1, scale: 0.46, lean: 0.10, phase: 5.8 });
 createTree({ x: -5.75, depth: 11.4, scale: 0.42, lean: -0.08, phase: 6.2 });
 
-// extra foreground small trees / saplings
-createTree({ x: -6.05, depth: 1.45, scale: 0.58, lean: -0.12, phase: 6.6 });
-createTree({ x: 3.95, depth: 1.65, scale: 0.56, lean: 0.10, phase: 7.0 });
-createTree({ x: 5.95, depth: 2.35, scale: 0.50, lean: 0.08, phase: 7.4 });
+// extra background small trees / saplings
+createTree({ x: -6.45, depth: 10.3, scale: 0.50, lean: -0.12, phase: 6.6 });
+createTree({ x: 4.85, depth: 11.6, scale: 0.46, lean: 0.10, phase: 7.0 });
+createTree({ x: 6.10, depth: 13.0, scale: 0.40, lean: 0.08, phase: 7.4 });
 
 // rocks
 createRock({ x: -5.35, depth: 0.15, scale: 0.70, rotY: 0.35 });
 createRock({ x: -3.55, depth: 1.15, scale: 0.56, rotY: -0.25 });
 createRock({ x: 4.55, depth: 1.05, scale: 0.48, rotY: 0.18 });
-createRock({ x: 6.05, depth: 1.95, scale: 0.42, rotY: -0.12 });
+createRock({ x: 6.05, depth: 8.25, scale: 0.36, rotY: -0.12 });
 
-// grass: foreground-heavy + layered into midground
-createGrassTuft({ x: -6.35, depth: 0.45, scale: 0.92, phase: 0.4 });
-createGrassTuft({ x: -5.95, depth: 0.95, scale: 0.88, phase: 0.8 });
-createGrassTuft({ x: -5.35, depth: 1.35, scale: 0.84, phase: 1.1 });
-createGrassTuft({ x: -4.65, depth: 1.85, scale: 0.82, phase: 1.5 });
-createGrassTuft({ x: -3.95, depth: 0.55, scale: 0.78, phase: 1.9 });
-createGrassTuft({ x: -3.35, depth: 1.35, scale: 0.72, phase: 2.2 });
+// grass: keep the foreground lighter and build density toward the back
+createGrassTuft({ x: -5.95, depth: 0.95, scale: 0.78, phase: 0.4 });
+createGrassTuft({ x: -4.95, depth: 1.65, scale: 0.82, phase: 0.8 });
+createGrassTuft({ x: -3.65, depth: 0.35, scale: 0.74, phase: 1.1 });
+createGrassTuft({ x: 3.85, depth: 0.85, scale: 0.78, phase: 1.5 });
+createGrassTuft({ x: 4.85, depth: 1.75, scale: 0.72, phase: 1.9 });
+createGrassTuft({ x: 5.95, depth: 3.35, scale: 0.64, phase: 2.2 });
 
-createGrassTuft({ x: 3.35, depth: 0.75, scale: 0.78, phase: 2.6 });
-createGrassTuft({ x: 3.95, depth: 1.15, scale: 0.82, phase: 3.0 });
-createGrassTuft({ x: 4.55, depth: 1.55, scale: 0.80, phase: 3.4 });
-createGrassTuft({ x: 5.15, depth: 1.95, scale: 0.76, phase: 3.8 });
-createGrassTuft({ x: 5.75, depth: 2.35, scale: 0.72, phase: 4.2 });
-createGrassTuft({ x: 6.35, depth: 1.15, scale: 0.68, phase: 4.5 });
+createGrassTuft({ x: -6.55, depth: 8.10, scale: 0.50, phase: 2.6 });
+createGrassTuft({ x: -5.35, depth: 9.20, scale: 0.46, phase: 3.0 });
+createGrassTuft({ x: -4.25, depth: 10.35, scale: 0.43, phase: 3.4 });
+createGrassTuft({ x: 4.15, depth: 8.55, scale: 0.48, phase: 3.8 });
+createGrassTuft({ x: 5.35, depth: 9.85, scale: 0.44, phase: 4.2 });
+createGrassTuft({ x: 6.45, depth: 11.15, scale: 0.40, phase: 4.5 });
 
 createGrassTuft({ x: -6.15, depth: 3.85, scale: 0.60, phase: 4.9 });
 createGrassTuft({ x: -5.35, depth: 5.05, scale: 0.56, phase: 5.2 });
@@ -553,14 +553,14 @@ createGrassTuft({ x: 6.15, depth: 6.85, scale: 0.48, phase: 8.2 });
 createGrassTuft({ x: 5.65, depth: 5.45, scale: 0.56, phase: 8.5 });
 createGrassTuft({ x: 5.25, depth: 8.95, scale: 0.42, phase: 8.8 });
 
-// shrubs: add more in the foreground too
+// shrubs: keep the near bank readable and make the rear bank denser
 createShrub({ x: -5.85, depth: 2.35, scale: 0.76, phase: 0.8 });
-createShrub({ x: -4.95, depth: 2.85, scale: 0.72, phase: 1.2 });
-createShrub({ x: -6.45, depth: 1.95, scale: 0.68, phase: 1.6 });
+createShrub({ x: 4.75, depth: 1.95, scale: 0.86, phase: 1.2 });
 
-createShrub({ x: 3.95, depth: 2.15, scale: 0.78, phase: 2.0 });
-createShrub({ x: 4.75, depth: 1.95, scale: 0.86, phase: 2.4 });
-createShrub({ x: 5.55, depth: 2.75, scale: 0.74, phase: 2.8 });
+createShrub({ x: -6.45, depth: 8.35, scale: 0.54, phase: 1.6 });
+createShrub({ x: -4.95, depth: 10.10, scale: 0.50, phase: 2.0 });
+createShrub({ x: 4.65, depth: 9.10, scale: 0.54, phase: 2.4 });
+createShrub({ x: 6.05, depth: 10.85, scale: 0.48, phase: 2.8 });
 
 createShrub({ x: -4.65, depth: 4.25, scale: 0.66, phase: 3.2 });
 createShrub({ x: 5.95, depth: 4.15, scale: 0.70, phase: 3.6 });
