@@ -562,6 +562,39 @@ createGrassTuft({ x: 6.20, depth: -5.15, scale: 1.18, phase: 15.3 });
 createGrassTuft({ x: 7.15, depth: -5.80, scale: 1.26, phase: 15.6 });
 createGrassTuft({ x: 8.05, depth: -6.30, scale: 1.32, phase: 15.9 });
 
+// extreme foreground belt: dense grass right at the lower edge
+createShrub({ x: -7.45, depth: -6.10, scale: 1.10, phase: 9.2 });
+createShrub({ x: -5.95, depth: -5.05, scale: 1.00, phase: 9.6 });
+createShrub({ x: 5.95, depth: -5.00, scale: 1.02, phase: 10.0 });
+createShrub({ x: 7.40, depth: -6.05, scale: 1.10, phase: 10.4 });
+
+createGrassTuft({ x: -8.60, depth: -8.10, scale: 1.46, phase: 16.0 });
+createGrassTuft({ x: -8.05, depth: -7.55, scale: 1.40, phase: 16.3 });
+createGrassTuft({ x: -7.45, depth: -7.00, scale: 1.34, phase: 16.6 });
+createGrassTuft({ x: -6.85, depth: -6.55, scale: 1.28, phase: 16.9 });
+createGrassTuft({ x: -6.20, depth: -6.00, scale: 1.22, phase: 17.2 });
+createGrassTuft({ x: -5.55, depth: -5.55, scale: 1.16, phase: 17.5 });
+createGrassTuft({ x: -4.95, depth: -5.20, scale: 1.08, phase: 17.8 });
+createGrassTuft({ x: -4.25, depth: -5.85, scale: 1.04, phase: 18.1 });
+createGrassTuft({ x: -3.55, depth: -6.45, scale: 0.98, phase: 18.4 });
+
+createGrassTuft({ x: 3.55, depth: -6.35, scale: 0.98, phase: 18.7 });
+createGrassTuft({ x: 4.25, depth: -5.75, scale: 1.04, phase: 19.0 });
+createGrassTuft({ x: 4.95, depth: -5.15, scale: 1.10, phase: 19.3 });
+createGrassTuft({ x: 5.60, depth: -5.50, scale: 1.16, phase: 19.6 });
+createGrassTuft({ x: 6.25, depth: -5.95, scale: 1.22, phase: 19.9 });
+createGrassTuft({ x: 6.90, depth: -6.50, scale: 1.28, phase: 20.2 });
+createGrassTuft({ x: 7.50, depth: -7.00, scale: 1.34, phase: 20.5 });
+createGrassTuft({ x: 8.10, depth: -7.55, scale: 1.40, phase: 20.8 });
+createGrassTuft({ x: 8.65, depth: -8.05, scale: 1.46, phase: 21.1 });
+
+createGrassTuft({ x: -6.95, depth: -4.95, scale: 1.12, phase: 21.4 });
+createGrassTuft({ x: -5.85, depth: -4.55, scale: 1.06, phase: 21.7 });
+createGrassTuft({ x: -4.65, depth: -4.25, scale: 1.00, phase: 22.0 });
+createGrassTuft({ x: 4.55, depth: -4.20, scale: 1.00, phase: 22.3 });
+createGrassTuft({ x: 5.75, depth: -4.50, scale: 1.06, phase: 22.6 });
+createGrassTuft({ x: 6.90, depth: -4.95, scale: 1.12, phase: 22.9 });
+
 createRock({ x: -6.35, depth: -4.80, scale: 0.62, rotY: 0.28 });
 createRock({ x: 6.45, depth: -4.70, scale: 0.58, rotY: -0.22 });
 
@@ -771,7 +804,7 @@ function updateForegroundProps(t, progress) {
 
   grassTufts.forEach((tuft, index) => {
     const { baseX, baseDepth, scale, blades } = tuft.userData;
-    const reveal = growthEnvelope(progress, 0.07 + index * 0.009);
+    const reveal = growthEnvelope(progress, 0.05 + index * 0.006);
 
     tuft.visible = reveal > 0.001;
     tuft.position.set(
