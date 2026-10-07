@@ -412,8 +412,11 @@ function createRock({ x, depth, scale = 1, rotY = 0 }) {
     (random() - 0.5) * 0.18
   );
 
+  rock.userData.baseScale = rock.scale.clone();
+  group.scale.setScalar(0.001);
+  group.visible = false;
   group.add(rock);
-  group.userData = { baseX: x, baseDepth: depth, scale };
+  group.userData = { baseX: x, baseDepth: depth, scale, rock };
   scene.add(group);
   foregroundRocks.push(group);
 }
@@ -438,6 +441,7 @@ function createGrassTuft({ x, depth, scale = 1, phase = 0 }) {
     blade.rotation.y = random() * Math.PI;
     blade.rotation.z = (random() - 0.5) * 0.20;
     blade.userData.baseRotZ = blade.rotation.z;
+    blade.userData.baseScale = blade.scale.clone();
     blade.userData.phase = phase + i * 0.43;
 
     group.add(blade);
@@ -445,6 +449,8 @@ function createGrassTuft({ x, depth, scale = 1, phase = 0 }) {
   }
 
   group.userData = { baseX: x, baseDepth: depth, scale, phase, blades };
+  group.scale.set(1, 0.001, 1);
+  group.visible = false;
   scene.add(group);
   grassTufts.push(group);
 }
@@ -599,29 +605,42 @@ function updateMoss(t) {
 }
 
 
-function updateForegroundProps(t) {
-  foregroundRocks.forEach((rockGroup) => {
+function updateForegroundProps(t, progress) {
+  foregroundRocks.forEach((rockGroup, index) => {
     const { baseX, baseDepth } = rockGroup.userData;
+    const reveal = growthEnvelope(progress, 0.02 + index * 0.035);
+    const groundY = heightAt(baseX, baseDepth, t) + 0.03;
+
+    rockGroup.visible = reveal > 0.001;
     rockGroup.position.set(
       baseX,
-      heightAt(baseX, baseDepth, t) + 0.03,
+      groundY - (1 - reveal) * 0.20,
       -4.2 - baseDepth
     );
+
+    const s = 0.38 + reveal * 0.62;
+    rockGroup.scale.set(s, Math.max(0.001, reveal), s);
+    rockGroup.rotation.y = (index === 0 ? 0.05 : -0.04) * (1 - reveal);
   });
 
-  grassTufts.forEach((tuft) => {
+  grassTufts.forEach((tuft, index) => {
     const { baseX, baseDepth, scale, blades } = tuft.userData;
+    const reveal = growthEnvelope(progress, 0.08 + index * 0.015);
+
+    tuft.visible = reveal > 0.001;
     tuft.position.set(
       baseX,
       heightAt(baseX, baseDepth, t) + 0.015,
       -4.2 - baseDepth
     );
+    tuft.scale.set(1, Math.max(0.001, reveal), 1);
 
     blades.forEach((blade, i) => {
       const sway =
         Math.sin(t * 1.35 + blade.userData.phase + i * 0.18) *
         0.085 *
-        scale;
+        scale *
+        reveal;
       blade.rotation.z = blade.userData.baseRotZ + sway;
     });
   });
@@ -741,7 +760,7 @@ function renderAt(progress) {
   updateStreams(t);
   updateParticles(t);
   updateMoss(t);
-  updateForegroundProps(t);
+  updateForegroundProps(t, progress);
   updateTrees(t, progress);
 
   camera.position.set(
