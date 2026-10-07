@@ -507,34 +507,27 @@ createTree({ x: -6.25, depth: 8.8, scale: 0.72, lean: -0.18, phase: 2.6 });
 createTree({ x: 6.35, depth: 8.0, scale: 0.68, lean: 0.20, phase: 3.4 });
 createTree({ x: 7.05, depth: 12.0, scale: 0.48, lean: 0.12, phase: 4.1 });
 
-// low-poly rocks around the foreground tree
-createRock({ x: -3.95, depth: 0.35, scale: 0.78, rotY: 0.4 });
-createRock({ x: -4.95, depth: 0.05, scale: 0.58, rotY: -0.35 });
-createRock({ x: 4.15, depth: 0.70, scale: 0.55, rotY: 0.22 });
-createRock({ x: 5.05, depth: 1.35, scale: 0.44, rotY: -0.28 });
+// rocks: fewer, separated, and spread across both banks
+createRock({ x: -5.35, depth: 0.15, scale: 0.70, rotY: 0.35 });
+createRock({ x: -3.55, depth: 1.15, scale: 0.56, rotY: -0.25 });
+createRock({ x: 4.55, depth: 1.05, scale: 0.48, rotY: 0.18 });
 
-// sparse grass clusters; enough to read as vegetation without becoming noisy
-createGrassTuft({ x: -4.15, depth: 0.80, scale: 1.00, phase: 0.4 });
-createGrassTuft({ x: -4.80, depth: 0.90, scale: 0.92, phase: 1.1 });
-createGrassTuft({ x: -3.70, depth: 0.25, scale: 0.85, phase: 2.0 });
-createGrassTuft({ x: -5.25, depth: 0.55, scale: 0.82, phase: 2.8 });
-createGrassTuft({ x: -4.45, depth: -0.10, scale: 0.76, phase: 3.2 });
-createGrassTuft({ x: -3.55, depth: 1.10, scale: 0.72, phase: 4.0 });
-createGrassTuft({ x: -5.10, depth: 1.20, scale: 0.68, phase: 4.7 });
-createGrassTuft({ x: 3.75, depth: 0.65, scale: 0.92, phase: 5.1 });
-createGrassTuft({ x: 4.35, depth: 0.95, scale: 0.84, phase: 5.5 });
-createGrassTuft({ x: 4.95, depth: 1.45, scale: 0.78, phase: 5.9 });
-createGrassTuft({ x: 5.55, depth: 1.95, scale: 0.72, phase: 6.3 });
-createGrassTuft({ x: 6.00, depth: 3.10, scale: 0.64, phase: 6.7 });
-createGrassTuft({ x: -6.10, depth: 3.60, scale: 0.62, phase: 7.0 });
-createGrassTuft({ x: -5.65, depth: 5.20, scale: 0.56, phase: 7.4 });
-createGrassTuft({ x: 5.80, depth: 5.60, scale: 0.54, phase: 7.8 });
+// grass: distributed across foreground and midground instead of clustered at one root
+createGrassTuft({ x: -5.95, depth: 0.95, scale: 0.78, phase: 0.4 });
+createGrassTuft({ x: -4.95, depth: 1.65, scale: 0.82, phase: 1.1 });
+createGrassTuft({ x: -3.65, depth: 0.35, scale: 0.74, phase: 2.0 });
+createGrassTuft({ x: -6.15, depth: 3.85, scale: 0.60, phase: 2.8 });
+createGrassTuft({ x: -5.35, depth: 5.05, scale: 0.56, phase: 3.2 });
+createGrassTuft({ x: 3.85, depth: 0.85, scale: 0.78, phase: 4.0 });
+createGrassTuft({ x: 4.85, depth: 1.75, scale: 0.72, phase: 4.7 });
+createGrassTuft({ x: 5.95, depth: 3.35, scale: 0.64, phase: 5.1 });
+createGrassTuft({ x: 5.65, depth: 5.45, scale: 0.56, phase: 5.8 });
 
-// low shrubs fill the banks while leaving the luminous valley open
-createShrub({ x: -5.45, depth: 2.15, scale: 0.86, phase: 0.8 });
-createShrub({ x: 4.55, depth: 1.55, scale: 0.95, phase: 1.8 });
-createShrub({ x: 5.75, depth: 3.75, scale: 0.78, phase: 2.8 });
-createShrub({ x: -6.15, depth: 5.75, scale: 0.66, phase: 3.8 });
+// shrubs: separated from the foreground tree base and staggered in depth
+createShrub({ x: -5.85, depth: 2.35, scale: 0.76, phase: 0.8 });
+createShrub({ x: 4.75, depth: 1.95, scale: 0.86, phase: 1.8 });
+createShrub({ x: 5.95, depth: 4.15, scale: 0.70, phase: 2.8 });
+createShrub({ x: -6.25, depth: 5.95, scale: 0.62, phase: 3.8 });
 
 // lighting
 scene.add(new THREE.HemisphereLight(0xb6cda6, 0x010302, 0.75));
