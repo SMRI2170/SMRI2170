@@ -47,7 +47,7 @@ jobs:
       - name: Commit generated animation
         shell: bash
         run: |
-          if git diff --quiet -- assets/profile/generated/profile-loop.gif; then
+          if [ -z "$(git status --porcelain -- assets/profile/generated/profile-loop.gif)" ]; then
             echo "Profile animation unchanged."
             exit 0
           fi
