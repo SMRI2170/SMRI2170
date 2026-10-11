@@ -13,12 +13,14 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  actions: read
 jobs:
   integration:
     uses: ./.github/workflows/reusable-quality.yml
     permissions:
       contents: read
       pull-requests: read
+      actions: read
     with:
       run_security: false # Existing scans are already tested; avoid redundant scans in CI-infra self-test
       run_workflow_audit: true
