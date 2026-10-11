@@ -37,7 +37,10 @@ jobs:
           cache: false
       - name: Validate workflow syntax and shell scripts
         if: steps.discover.outputs.present == 'true'
-        run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12 -color .github/workflows/
+        run: |
+          shopt -s nullglob
+          workflows=(.github/workflows/*.yml .github/workflows/*.yaml)
+          go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12 -color "${workflows[@]}"
       - name: Audit workflow security without Advanced Security
         if: steps.discover.outputs.present == 'true'
         uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
