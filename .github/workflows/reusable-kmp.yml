@@ -80,4 +80,6 @@ jobs:
         env:
           GRADLE_CMD: ${{ inputs.gradle_command }}
           IOS_TASK: ${{ inputs.ios_task }}
-        run: "$GRADLE_CMD --no-daemon --stacktrace $IOS_TASK"
+        run: |
+          read -r -a tasks <<< "$IOS_TASK"
+          "$GRADLE_CMD" --no-daemon --stacktrace "${tasks[@]}"
