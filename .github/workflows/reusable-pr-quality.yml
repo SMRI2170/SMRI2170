@@ -1,0 +1,90 @@
+name: Shared - Pull request quality gate
+on:
+  workflow_call:
+    inputs:
+      max_changed_files:
+        type: number
+        default: 100
+      max_changed_lines:
+        type: number
+        default: 3000
+      require_conventional_title:
+        type: boolean
+        default: true
+      require_test_plan:
+        type: boolean
+        default: true
+      require_risk_assessment:
+        type: boolean
+        default: true
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  review-metadata:
+    name: PR scope, tests and high-risk changes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Enforce consistent PR quality policy
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          MAX_FILES: ${{ inputs.max_changed_files }}
+          MAX_LINES: ${{ inputs.max_changed_lines }}
+          REQUIRE_TITLE: ${{ inputs.require_conventional_title }}
+          REQUIRE_TEST_PLAN: ${{ inputs.require_test_plan }}
+          REQUIRE_RISK: ${{ inputs.require_risk_assessment }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              await core.summary.addRaw('Not applicable: the triggering event has no pull request.').write();
+              return;
+            }
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner, repo: context.repo.repo,
+              pull_number: pr.number, per_page: 100
+            });
+            const lines = files.reduce((count, f) => count + f.additions + f.deletions, 0);
+            const titlePattern = /^(feat|fix|docs|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))?(!)?: .+/;
+            const body = pr.body || '';
+            const failures = [];
+            if (process.env.REQUIRE_TITLE === 'true' && !titlePattern.test(pr.title)) {
+              failures.push('Title must follow Conventional Commits (e.g., feat(ui): improve navigation).');
+            }
+            if (process.env.REQUIRE_TEST_PLAN === 'true' &&
+                !/(^|\n)\s*(?:#{1,5}\s*)?(?:test plan|testing|tests|検証|テスト)(?:\s*[:：]|\s*\n)/im.test(body)) {
+              failures.push('PR description needs a Testing / テスト / 検証 section.');
+            }
+            if (files.length > Number(process.env.MAX_FILES)) {
+              failures.push('Changed files (' + files.length + ') exceed the limit (' + process.env.MAX_FILES + ').');
+            }
+            if (lines > Number(process.env.MAX_LINES)) {
+              failures.push('Changed lines (' + lines + ') exceed the limit (' + process.env.MAX_LINES + ').');
+            }
+            if (files.length >= 3000) {
+              failures.push('GitHub returned the maximum file list; cannot establish complete change scope.');
+            }
+            const highRisk = files.filter(f =>
+              /^\.github\/(?:workflows|actions)\//i.test(f.filename) ||
+              /(?:^|\/)(?:migrations|auth|security|circuits|contracts)(?:\/|$)/i.test(f.filename) ||
+              /(?:^|\/)(?:key\.properties|.*\.jks|.*\.p12|.*\.pem|\.env(?:\..*)?)$/i.test(f.filename)
+            );
+            if (process.env.REQUIRE_RISK === 'true' && highRisk.length &&
+                !/(^|\n)\s*(?:#{1,5}\s*)?(?:risk(?:\s+assessment)?|security review|リスク)(?:\s*[:：]|\s*\n)/im.test(body)) {
+              failures.push('Security-sensitive changes require a Risk / リスク section.');
+            }
+            await core.summary.addHeading('Shared PR quality gate', 2)
+              .addTable([
+                [{data: 'Metric', header: true}, {data: 'Value', header: true}],
+                ['Changed files', String(files.length)],
+                ['Changed lines', String(lines)],
+                ['Sensitive paths', String(highRisk.length)]
+              ])
+              .addRaw(highRisk.length ? '\nSensitive paths: ' + highRisk.map(f => '`' + f.filename + '`').join(', ') : '\nNo sensitive paths identified.')
+              .write();
+            if (failures.length) {
+              for (const error of failures) core.error(error);
+              core.setFailed('PR policy failed: ' + failures.join(' '));
+            }

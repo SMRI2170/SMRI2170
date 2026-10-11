@@ -1,0 +1,52 @@
+name: Shared - GitHub Actions security audit
+on:
+  workflow_call:
+    inputs:
+      min_severity:
+        type: string
+        default: high
+      min_confidence:
+        type: string
+        default: high
+permissions:
+  contents: read
+jobs:
+  audit:
+    name: actionlint and zizmor
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Discover GitHub workflow files
+        id: discover
+        shell: bash
+        run: |
+          if test -d .github/workflows && find .github/workflows -maxdepth 1 -type f \( -name '*.yml' -o -name '*.yaml' \) -print -quit | grep -q .; then
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+            echo 'GitHub Actions workflows detected.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+            echo 'Not applicable: this repository contains no GitHub Actions workflow files.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        if: steps.discover.outputs.present == 'true'
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - name: Validate workflow syntax and shell scripts
+        if: steps.discover.outputs.present == 'true'
+        run: go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12 -color .github/workflows/
+      - name: Audit workflow security without Advanced Security
+        if: steps.discover.outputs.present == 'true'
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          advanced-security: false
+          annotations: true
+          inputs: .github/workflows/
+          version: v1.24.0
+          online-audits: false
+          min-severity: ${{ inputs.min_severity }}
+          min-confidence: ${{ inputs.min_confidence }}
+          fail-on-no-inputs: true
