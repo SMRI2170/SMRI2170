@@ -1,0 +1,29 @@
+name: Self-test universal shared quality CI
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/reusable-*.yml'
+      - '.github/workflows/self-test-universal-quality.yml'
+      - 'docs/shared-ci.md'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/reusable-*.yml'
+      - '.github/workflows/self-test-universal-quality.yml'
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  integration:
+    uses: ./.github/workflows/reusable-quality.yml
+    permissions:
+      contents: read
+      pull-requests: read
+    with:
+      run_security: false # Existing scans are already tested; avoid redundant scans in CI-infra self-test
+      run_workflow_audit: true
+      run_sbom: true
+      run_pr_quality: true
+      require_pr_test_plan: true
+      require_pr_risk_assessment: true
+      workflow_audit_min_severity: high

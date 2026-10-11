@@ -1,0 +1,83 @@
+name: Shared - Universal repository quality gates
+on:
+  workflow_call:
+    inputs:
+      run_security:
+        type: boolean
+        default: true
+      run_workflow_audit:
+        type: boolean
+        default: true
+      run_sbom:
+        type: boolean
+        default: true
+      run_pr_quality:
+        type: boolean
+        default: true
+      artifact_name:
+        type: string
+        default: ''
+      expected_sha256:
+        type: string
+        default: ''
+      workflow_audit_min_severity:
+        type: string
+        default: high
+      denied_licenses:
+        type: string
+        default: 'AGPL-3.0-only,AGPL-3.0-or-later,SSPL-1.0,GPL-3.0-only,GPL-3.0-or-later'
+      fail_on_unknown_license:
+        type: boolean
+        default: false
+      require_pr_test_plan:
+        type: boolean
+        default: true
+      require_pr_risk_assessment:
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  security:
+    name: Existing security baseline
+    if: inputs.run_security
+    uses: ./.github/workflows/reusable-security.yml
+    permissions:
+      contents: read
+  workflow-audit:
+    name: GitHub Actions audit
+    if: inputs.run_workflow_audit
+    uses: ./.github/workflows/reusable-workflow-audit.yml
+    permissions:
+      contents: read
+    with:
+      min_severity: ${{ inputs.workflow_audit_min_severity }}
+  sbom:
+    name: SBOM and license review
+    if: inputs.run_sbom
+    uses: ./.github/workflows/reusable-sbom.yml
+    permissions:
+      contents: read
+    with:
+      deny_licenses: ${{ inputs.denied_licenses }}
+      fail_on_unknown: ${{ inputs.fail_on_unknown_license }}
+  pr-quality:
+    name: PR quality policy
+    if: inputs.run_pr_quality
+    uses: ./.github/workflows/reusable-pr-quality.yml
+    permissions:
+      contents: read
+      pull-requests: read
+    with:
+      require_test_plan: ${{ inputs.require_pr_test_plan }}
+      require_risk_assessment: ${{ inputs.require_pr_risk_assessment }}
+  release:
+    name: Artifact verification - only if explicitly configured
+    if: inputs.artifact_name != ''
+    uses: ./.github/workflows/reusable-release.yml
+    permissions:
+      contents: read
+      actions: read
+    with:
+      artifact_name: ${{ inputs.artifact_name }}
+      expected_sha256: ${{ inputs.expected_sha256 }}
