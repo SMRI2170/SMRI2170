@@ -1,0 +1,85 @@
+name: Shared - Kotlin Multiplatform quality
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        type: string
+        default: .
+      gradle_command:
+        type: string
+        default: ./gradlew
+      gradle_version:
+        type: string
+        default: '9.5.0'
+      android_tasks:
+        type: string
+        default: ':composeApp:testAndroidHostTest :androidApp:assembleDebug :androidApp:lintDebug'
+      ios_enabled:
+        type: boolean
+        default: false
+      ios_task:
+        type: string
+        default: ':composeApp:compileKotlinIosSimulatorArm64'
+permissions:
+  contents: read
+jobs:
+  android:
+    name: Android tests, compile and lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v5
+        with:
+          gradle-version: ${{ inputs.gradle_version }}
+      - name: Unit tests, debug build and Android lint
+        env:
+          GRADLE_CMD: ${{ inputs.gradle_command }}
+          GRADLE_TASKS: ${{ inputs.android_tasks }}
+        run: |
+          read -r -a tasks <<< "$GRADLE_TASKS"
+          "$GRADLE_CMD" --no-daemon --stacktrace "${tasks[@]}"
+      - name: Upload lint and test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kmp-android-reports
+          path: |
+            ${{ inputs.working_directory }}/**/build/reports/lint-results*.html
+            ${{ inputs.working_directory }}/**/build/test-results/**/*.xml
+          if-no-files-found: ignore
+  ios:
+    name: iOS simulator compile
+    if: inputs.ios_enabled
+    runs-on: macos-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v5
+        with:
+          gradle-version: ${{ inputs.gradle_version }}
+      - name: Verify iOS Kotlin compilation
+        env:
+          GRADLE_CMD: ${{ inputs.gradle_command }}
+          IOS_TASK: ${{ inputs.ios_task }}
+        run: |
+          read -r -a tasks <<< "$IOS_TASK"
+          "$GRADLE_CMD" --no-daemon --stacktrace "${tasks[@]}"
