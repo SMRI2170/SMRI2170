@@ -126,12 +126,14 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  actions: read
 jobs:
   quality:
     uses: SMRI2170/SMRI2170/.github/workflows/reusable-quality.yml@<FULL-40-CHAR-PIN>
     permissions:
       contents: read
       pull-requests: read
+      actions: read
 ```
 
 Replace the placeholder with the full tested commit SHA of the shared CI repository. Do not use `@main` in production.
