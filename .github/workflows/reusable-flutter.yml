@@ -1,0 +1,93 @@
+name: Shared - Flutter quality
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        type: string
+        default: .
+      check_format:
+        type: boolean
+        default: true
+      build_android:
+        type: boolean
+        default: true
+      min_coverage:
+        type: number
+        default: 0
+permissions:
+  contents: read
+jobs:
+  analyze-and-test:
+    name: Flutter analyze, tests and coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Enforce Dart formatting
+        if: inputs.check_format
+        run: dart format --output=none --set-exit-if-changed lib test
+      - name: Static analysis (fatal warnings)
+        run: flutter analyze --fatal-infos
+      - name: Unit and widget tests
+        run: flutter test --coverage
+      - name: Enforce line coverage threshold
+        env:
+          MIN_COVERAGE: ${{ inputs.min_coverage }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          threshold = float(os.environ["MIN_COVERAGE"])
+          path = Path("coverage/lcov.info")
+          if not path.exists():
+              raise SystemExit("coverage/lcov.info was not generated")
+          found, hit = 0, 0
+          for line in path.read_text().splitlines():
+              if line.startswith("LF:"):
+                  found += int(line[3:])
+              elif line.startswith("LH:"):
+                  hit += int(line[3:])
+          coverage = 100 * hit / found if found else 0.0
+          print(f"Line coverage: {coverage:.2f}% (minimum {threshold:.2f}%)")
+          if found == 0 or coverage < threshold:
+              raise SystemExit(1)
+          PY
+      - name: Upload coverage for inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-coverage
+          path: ${{ inputs.working_directory }}/coverage/lcov.info
+          if-no-files-found: warn
+  android-debug:
+    name: Android debug build
+    if: inputs.build_android
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build apk --debug

@@ -1,0 +1,62 @@
+name: Shared - security gate
+on:
+  workflow_call:
+    inputs:
+      run_sast:
+        type: boolean
+        default: true
+      run_history_secrets:
+        type: boolean
+        default: true
+      run_trivy:
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  secret-history:
+    name: Gitleaks - full history
+    if: inputs.run_history_secrets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Scan git history for exposed secrets
+        uses: gitleaks/gitleaks-action@v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  sast:
+    name: Semgrep - SAST
+    if: inputs.run_sast
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    container:
+      image: semgrep/semgrep:1.179.0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Scan source code
+        run: semgrep scan --config auto --error --exclude node_modules --exclude .gradle --exclude build --exclude .dart_tool .
+  dependencies:
+    name: Trivy - critical/high findings
+    if: inputs.run_trivy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Scan vulnerabilities, misconfigurations and secrets
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,misconfig,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          format: table

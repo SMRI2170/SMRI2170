@@ -1,0 +1,51 @@
+name: Shared - Node/TypeScript quality
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        type: string
+        default: .
+      node_version:
+        type: string
+        default: '22'
+      run_typecheck:
+        type: boolean
+        default: true
+      run_build:
+        type: boolean
+        default: true
+      run_audit:
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  checks:
+    name: Lint, typecheck, tests, build, dependency audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: npm
+          cache-dependency-path: ${{ inputs.working_directory }}/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - name: TypeScript typecheck
+        if: inputs.run_typecheck
+        run: npm run typecheck
+      - name: Run automated tests
+        run: npm test -- --run
+      - name: Production build
+        if: inputs.run_build
+        run: npm run build
+      - name: Reject high or critical dependency vulnerabilities
+        if: inputs.run_audit
+        run: npm audit --audit-level=high

@@ -1,0 +1,56 @@
+name: Shared - ZKP / smart-contract quality
+on:
+  workflow_call:
+    inputs:
+      go_directory:
+        type: string
+        default: aggregator
+      contracts_directory:
+        type: string
+        default: contracts
+      run_race_detector:
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  aggregator:
+    name: Go verifier - vet and tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: ${{ inputs.go_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: ${{ inputs.go_directory }}/go.mod
+          cache-dependency-path: ${{ inputs.go_directory }}/go.sum
+      - run: go vet ./...
+      - run: go test -count=1 ./...
+      - name: Concurrency/race regression
+        if: inputs.run_race_detector
+        run: go test -race -count=1 ./...
+  smart-contracts:
+    name: Solidity - compile, tests and audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: ${{ inputs.contracts_directory }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ${{ inputs.contracts_directory }}/package-lock.json
+      - run: npm ci
+      - run: npm run compile
+      - run: npm test
+      - run: npm audit --audit-level=high
