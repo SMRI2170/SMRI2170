@@ -29,3 +29,28 @@ jobs:
       require_pr_test_plan: true
       require_pr_risk_assessment: true
       workflow_audit_min_severity: high
+
+  build-release-fixture:
+    name: Prepare harmless checksum test artifact
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Generate deterministic release fixture
+        shell: bash
+        run: |
+          mkdir -p dist
+          printf 'universal-quality-release-test\n' > dist/fixture.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: universal-quality-fixture
+          path: dist/fixture.txt
+          if-no-files-found: error
+  verify-release-fixture:
+    name: Test release checksums against trusted expected digest
+    needs: build-release-fixture
+    uses: ./.github/workflows/reusable-release.yml
+    permissions:
+      contents: read
+      actions: read
+    with:
+      artifact_name: universal-quality-fixture
+      expected_sha256: c461aa01412ceee08f996b75184b2a88190a054dc19213dca3c13bc8def3acf1
