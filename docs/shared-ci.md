@@ -111,3 +111,65 @@ jobs:
 - Release/mobile-device checks passed before distribution
 
 Note: default npm audit and Gitleaks can expose legacy debt. Track findings as blocking remediation rather than silently bypassing the gate.
+
+## Universal entrypoint (2026-10)
+
+The recommended **single caller** for any programming-language stack is:
+
+```yaml
+name: Universal quality
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+jobs:
+  quality:
+    uses: SMRI2170/SMRI2170/.github/workflows/reusable-quality.yml@<FULL-40-CHAR-PIN>
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+```
+
+Replace the placeholder with the full tested commit SHA of the shared CI repository. Do not use `@main` in production.
+
+The universal entrypoint composes **existing SAST/secret/vulnerability checks**, **zizmor + actionlint**, **Syft SPDX SBOM and license reporting**, **PR policy checks**, and **optional release artifact integrity**. Consumers need not know their language to invoke the common entrypoint. Stack-specific compilers/tests remain in the owning project or as separately called language-focused reusable workflows.
+
+### Applicability and failure semantics
+
+- A repository with no `.github/workflows/*.yml|yaml` gets a visible **Not applicable** message for workflow security audits. If workflow files are detected, a failed audit fails CI; errors are **not silently skipped**.
+- Syft performs filesystem/package-manifest analysis independent of language. An empty inventory produces a prominent warning, not a false claim of being dependency-free. For application repositories with reliable package manifests, enable `fail_if_no_packages` when invoking `reusable-sbom.yml` directly.
+- Licenses: explicit denied identifiers fail; missing SPDX license declarations are counted and reported. Dual-license expressions with a non-denied OR alternative are flagged for manual review rather than automatically rejected. This is a **triage aid, not a legal compliance guarantee**. Use `fail_on_unknown_license: true` for projects that have completed license metadata cleanup.
+- PR policy applies on pull requests; other events print **Not applicable**. Titles must follow Conventional Commits; descriptions must include a Testing/テスト/検証 section; workflow/security/auth/cryptography/DB migration changes also require a Risk/リスク section. Large changes above 100 files or 3000 changed lines are blocked. Keep PR scope small.
+- Release verification is **opt-in** through `artifact_name`. If omitted, the optional job is skipped by design. If supplied, the artifact must exist in the same workflow run; missing files/checksum mismatches fail. The gate never executes artifact contents or deploys.
+- All third-party actions are pinned to complete Git commit SHAs; external CLI tooling versions are intentionally specified. Jobs run with read-only token permissions, except PR metadata access for the PR gate and read-only Actions artifact access for release validation.
+- **Known platform limit**: GitHub Actions billing and access policy in private repositories can prevent any job from starting, independently of code quality. Do not treat such runs as passing quality checks.
+
+### Independent release integrity verification
+
+```yaml
+jobs:
+  verify:
+    uses: SMRI2170/SMRI2170/.github/workflows/reusable-release.yml@<FULL-40-CHAR-PIN>
+    permissions:
+      contents: read
+      actions: read
+    with:
+      artifact_name: release-package
+      # expected_sha256: <TRUSTED_DIGEST>  # Optional; for exactly one artifact file
+```
+
+Publishers can verify a release artifact in the **same workflow run** that produced it. Verification emits SHA256SUMS and artifact-manifest.json as an Actions artifact. A checksum calculated after download without a separately trusted expected digest provides an inventory, **not cryptographic proof of origin**. Signing, Google Play/TestFlight upload, GitHub Release publication, and production deployments are purposefully kept in project-specific release pipelines.
+
+### Recommended rollout
+
+1. Run the universal entrypoint in a trial PR without replacing currently green jobs.
+2. Correct real findings (especially workflow permissions, mutable Action tags, exposed secrets).
+3. Establish thresholds for unknown licenses/manifest availability based on measured inventory and selected ecosystems.
+4. Enable required status checks on the stable reusable workflow job names where repository plan permits.
+5. Pin consumers to the validated central commit SHA and update intentionally via reviewed PRs.

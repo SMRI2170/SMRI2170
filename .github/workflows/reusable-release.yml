@@ -1,0 +1,79 @@
+name: Shared - Release artifact integrity
+on:
+  workflow_call:
+    inputs:
+      artifact_name:
+        type: string
+        required: true
+      expected_sha256:
+        type: string
+        default: ''
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    name: Validate immutable CI artifact and generate SHA-256 manifest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Download existing artifact from this workflow run
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: verified-input
+      - name: Inspect paths and compute checksums without executing files
+        env:
+          EXPECTED_SHA256: ${{ inputs.expected_sha256 }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          root = Path('verified-input')
+          files = sorted((p for p in root.rglob('*') if p.is_file()), key=lambda x: x.as_posix())
+          if not files:
+              raise SystemExit('Release artifact contains no files')
+          if any(p.is_symlink() for p in root.rglob('*')):
+              raise SystemExit('Release artifact must not contain symbolic links')
+          expected = os.environ['EXPECTED_SHA256'].strip().lower()
+          if expected and not re.fullmatch('[a-f0-9]{64}', expected):
+              raise SystemExit('Expected SHA256 must be a 64-character hexadecimal digest')
+          if expected and len(files) != 1:
+              raise SystemExit('A single expected SHA256 can only validate an artifact with exactly one file')
+          manifest = []
+          lines = []
+          for path in files:
+              relative = path.relative_to(root).as_posix()
+              if '\n' in relative or '\r' in relative:
+                  raise SystemExit('Newline in artifact filename is unsupported')
+              digest = hashlib.file_digest(path.open('rb'), 'sha256').hexdigest()
+              if expected and expected != digest:
+                  raise SystemExit('SHA256 mismatch for ' + relative)
+              manifest.append({'path': relative, 'size': path.stat().st_size, 'sha256': digest})
+              lines.append(digest + '  ' + relative)
+          Path('SHA256SUMS').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          Path('artifact-manifest.json').write_text(json.dumps({
+              'repository': os.environ['GITHUB_REPOSITORY'],
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'sha': os.environ['GITHUB_SHA'],
+              'files': manifest
+          }, indent=2) + '\n', encoding='utf-8')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+              f.write('## Release artifact integrity\n')
+              f.write('Verified ' + str(len(files)) + ' file(s), SHA-256 manifest generated.\n')
+              f.write('A computed digest alone is not independent provenance; provide expected_sha256 to check against a separately trusted value.\n')
+          PY
+      - name: Upload verification manifest
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: verified-release-manifest
+          path: |
+            SHA256SUMS
+            artifact-manifest.json
+          retention-days: 90
+          if-no-files-found: error

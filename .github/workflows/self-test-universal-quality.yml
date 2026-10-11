@@ -1,0 +1,61 @@
+name: Self-test universal shared quality CI
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/reusable-*.yml'
+      - '.github/workflows/self-test-universal-quality.yml'
+      - 'docs/shared-ci.md'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/reusable-*.yml'
+      - '.github/workflows/self-test-universal-quality.yml'
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+jobs:
+  integration:
+    uses: ./.github/workflows/reusable-quality.yml
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+    with:
+      run_security: false # Existing scans are already tested; avoid redundant scans in CI-infra self-test
+      run_workflow_audit: true
+      run_sbom: true
+      run_pr_quality: true
+      require_pr_test_plan: true
+      require_pr_risk_assessment: true
+      workflow_audit_min_severity: high
+
+  build-release-fixture:
+    name: Prepare harmless checksum test artifact
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Generate deterministic release fixture
+        shell: bash
+        run: |
+          mkdir -p dist
+          printf 'universal-quality-release-test\n' > dist/fixture.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: universal-quality-fixture
+          path: dist/fixture.txt
+          if-no-files-found: error
+  verify-release-fixture:
+    name: Test release checksums against trusted expected digest
+    needs: build-release-fixture
+    uses: ./.github/workflows/reusable-quality.yml
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+    with:
+      run_security: false
+      run_workflow_audit: false
+      run_sbom: false
+      run_pr_quality: false
+      artifact_name: universal-quality-fixture
+      expected_sha256: c461aa01412ceee08f996b75184b2a88190a054dc19213dca3c13bc8def3acf1

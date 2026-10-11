@@ -1,0 +1,115 @@
+name: Shared - SBOM and license policy
+on:
+  workflow_call:
+    inputs:
+      deny_licenses:
+        type: string
+        default: 'AGPL-3.0-only,AGPL-3.0-or-later,SSPL-1.0,GPL-3.0-only,GPL-3.0-or-later'
+      fail_on_unknown:
+        type: boolean
+        default: false
+      fail_if_no_packages:
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  inventory:
+    name: Generate SBOM and audit license metadata
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Generate SPDX JSON inventory with Syft
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Audit detected package licenses
+        env:
+          DENY_LICENSES: ${{ inputs.deny_licenses }}
+          FAIL_ON_UNKNOWN: ${{ inputs.fail_on_unknown }}
+          FAIL_IF_NO_PACKAGES: ${{ inputs.fail_if_no_packages }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          source = Path('sbom.spdx.json')
+          data = json.loads(source.read_text(encoding='utf-8'))
+          packages = data.get('packages', [])
+          if not isinstance(packages, list):
+              raise SystemExit('Invalid SPDX document: packages must be a list')
+          denied = {s.strip().upper() for s in os.environ['DENY_LICENSES'].split(',') if s.strip()}
+          unknown, flagged, alternatives = [], [], []
+          rows = []
+          for package in packages:
+              name = str(package.get('name', '<unnamed>'))
+              version = str(package.get('versionInfo', ''))
+              declared = str(package.get('licenseDeclared', 'NOASSERTION')).strip()
+              concluded = str(package.get('licenseConcluded', 'NOASSERTION')).strip()
+              license_id = declared if declared not in ('NOASSERTION', 'NONE', '') else concluded
+              license_id = license_id if license_id not in ('NOASSERTION', 'NONE', '') else 'UNKNOWN'
+              item = dict(name=name, version=version, license=license_id)
+              rows.append(item)
+              if license_id == 'UNKNOWN':
+                  unknown.append(item)
+                  continue
+              def contains_denied(term):
+                  identifiers = set(re.findall(r'[A-Za-z0-9][A-Za-z0-9.+-]*', term.upper()))
+                  return bool(identifiers.intersection(denied))
+              # A dual license with a non-denied OR alternative is not
+              # automatically forbidden; emit a manual-review warning.
+              choices = re.split(r'\s+OR\s+', license_id.upper())
+              if any(contains_denied(part) for part in choices):
+                  if len(choices) > 1 and any(not contains_denied(part) for part in choices):
+                      alternatives.append(item)
+                  else:
+                      flagged.append(item)
+          report = {
+              'format': 'SPDX-2.3',
+              'discovered_packages': len(packages),
+              'unknown_license_count': len(unknown),
+              'denied_license_count': len(flagged),
+              'dual_license_review_count': len(alternatives),
+              'denied': flagged,
+              'unknown': unknown,
+              'dual_license_review': alternatives,
+              'packages': rows,
+              'limitations': 'Inventory depends on package manifests and scanners; unlisted dependencies are not guaranteed absent.'
+          }
+          Path('license-report.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+              f.write('## Repository SBOM and license review\n')
+              f.write(f"Discovered: {len(packages)} packages; denied: {len(flagged)}; unknown: {len(unknown)}; dual-license review: {len(alternatives)}.\n\n")
+              if len(packages) == 0:
+                  f.write('**No supported packages discovered.** This is not proof of no dependencies.\n\n')
+              for item in flagged[:25]:
+                  f.write(f"- Denied: `{item['name']}` ({item['license']})\n")
+              for item in alternatives[:10]:
+                  f.write(f"- Review alternative: `{item['name']}` ({item['license']})\n")
+          print(json.dumps({k: report[k] for k in ('discovered_packages', 'denied_license_count', 'unknown_license_count', 'dual_license_review_count')}))
+          fail = bool(flagged)
+          fail |= os.environ['FAIL_ON_UNKNOWN'] == 'true' and bool(unknown)
+          fail |= os.environ['FAIL_IF_NO_PACKAGES'] == 'true' and not packages
+          if fail:
+              raise SystemExit('License policy failed; inspect license-report.json')
+          PY
+      - name: Upload SPDX SBOM and complete license report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: quality-sbom-licenses
+          path: |
+            sbom.spdx.json
+            license-report.json
+          if-no-files-found: warn
+          retention-days: 30
