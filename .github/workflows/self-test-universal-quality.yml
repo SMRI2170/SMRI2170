@@ -47,10 +47,14 @@ jobs:
   verify-release-fixture:
     name: Test release checksums against trusted expected digest
     needs: build-release-fixture
-    uses: ./.github/workflows/reusable-release.yml
+    uses: ./.github/workflows/reusable-quality.yml
     permissions:
       contents: read
       actions: read
     with:
+      run_security: false
+      run_workflow_audit: false
+      run_sbom: false
+      run_pr_quality: false
       artifact_name: universal-quality-fixture
       expected_sha256: c461aa01412ceee08f996b75184b2a88190a054dc19213dca3c13bc8def3acf1
